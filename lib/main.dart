@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:project_tracker/ui/auth_widgets.dart';
+import 'package:project_tracker/ui/auth/auth_widget.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,12 +33,13 @@ class _LoginState extends State<LoginWidget> {
 
   @override
   Widget build(BuildContext context) {
+    AppBar appBar = AppBar(
+      title: Text(widget.title),
+    );
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
+        appBar: appBar,
         // todo Go to Auth widget if not logged in.
-        body: AuthWidget()
+        body: AuthWidget(appBar)
     );
   }
 }
