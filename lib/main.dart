@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:project_tracker/AuthWidgets.dart';
+import 'package:project_tracker/ui/auth_widgets.dart';
 
 void main() {
   runApp(MyApp());
@@ -30,19 +30,6 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginState extends State<LoginWidget> {
-  bool isUsrPage;
-
-  @override
-  void initState() {
-    super.initState();
-    isUsrPage = true;
-  }
-
-  void enterPassword() {
-    setState(() {
-      isUsrPage = false;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,18 +37,8 @@ class _LoginState extends State<LoginWidget> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: <Widget>[
-                AuthWidgets.buildDescriptionWidget(context),
-                isUsrPage
-                    ? AuthWidgets.buildUsernameInputWidget(
-                        context, enterPassword)
-                    : AuthWidgets.buildPasswordInputWidget(context)
-              ],
-            ),
-          ),
-        ));
+        // todo Go to Auth widget if not logged in.
+        body: AuthWidget()
+    );
   }
 }
