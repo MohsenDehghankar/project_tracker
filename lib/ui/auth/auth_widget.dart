@@ -1,250 +1,76 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:project_tracker/style/strings.dart';
-import 'package:project_tracker/ui/auth/page_transition_anim.dart';
+import 'package:project_tracker/ui/auth/landscape_auth_state.dart';
+import 'package:project_tracker/ui/auth/portrait_auth_state.dart';
 
 ///
 /// Authentication Widget:
 ///   1. Input Fields
-///   2. App Description
+///   2. Description
 ///
-class AuthWidget extends StatefulWidget {
-  final AppBar appbar;
+class AuthStatefulWidget extends StatefulWidget {
 
-  AuthWidget(this.appbar);
 
   @override
-  AuthState createState() => AuthState(appbar);
+  AuthState createState() => AuthState();
 }
 
-class AuthState extends State<AuthWidget> {
-  // If it is Username page.
+///
+/// An abstract class building Auth State.
+/// (Portrait & Landscape extend this class)
+///
+class AuthState extends State<AuthStatefulWidget> {
+  String username;
+  String password;
   bool isUsrPage;
 
-  // If user/pass sent
-  bool sent;
 
-  final AppBar appBar;
-
-  AuthState(this.appBar);
-
-  @override
-  void initState() {
-    super.initState();
-    isUsrPage = true;
-    sent = false;
-  }
-
-  ///
-  /// Go to Password page
-  ///
-  void _enterPassword() {
+  // on Next button pressed
+  void onNextPressed() {
     setState(() {
       isUsrPage = false;
     });
   }
 
-  ///
-  /// Create Widgets related to username input.
-  ///
-  static Widget _buildUsernameInputWidget(
-      BuildContext context, void Function() nxtBtnCallBack, bool isPortrait) {
-    Widget field = TextField(
-      key: UniqueKey(),
-      onSubmitted: (input) => nxtBtnCallBack(),
-      textInputAction: TextInputAction.next,
-      decoration: InputDecoration(
-        labelText: Strings.username,
-      ),
-    );
-    if (isPortrait) {
-      return Column(
-          key: UniqueKey(),
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(padding: EdgeInsets.all(30.0), child: field),
-            _buildLoginButton(context, nxtBtnCallBack, Strings.next, isPortrait)
-          ]);
-    } else {
-      return Column(
-        children: <Widget>[
-          Center(
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width / 3,
-              child: field,
-            ),
-          ),
-          _buildLoginButton(context, () {}, Strings.next, isPortrait)
-        ],
-      );
-    }
+  // on Login btn pressed
+  void onLoginPressed() {
+    // todo implement (API)
   }
 
-  ///
-  /// Create Login (Next) button.
-  ///
-  static Widget _buildLoginButton(
-      BuildContext context, void Function() f, String text, bool portrait) {
-    return RaisedButton(
-        // color: Theme.of(context).backgroundColor,
-        elevation: 6.0,
-        // splashColor: Theme.of(context).,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
-        ),
-        textTheme: ButtonTextTheme.normal,
-        onPressed: f,
-        child: Container(
-            width: portrait
-                ? MediaQuery.of(context).size.width / 2
-                : MediaQuery.of(context).size.width / 3,
-            child: Center(
-                child: Text(
-              text,
-            ))));
-  }
-
-  ///
-  /// Widget for App Desc.
-  ///
-  Widget _buildDescWidget(BuildContext context, String desc, bool isPortrait) {
-    Size size = MediaQuery.of(context).size;
-    var height = isPortrait
-        ? size.height / 3
-        : size.height - appBar.preferredSize.height;
-    var width = isPortrait ? size.width : size.width / 2;
-    return Container(
-        key: UniqueKey(),
-        height: height,
-        width: width,
-        child: Scrollbar(
-            thickness: 20.0,
-            radius: Radius.circular(20.0),
-            child: SingleChildScrollView(
-                child: Padding(
-                    padding: EdgeInsets.all(30.0),
-                    child: Text(
-                      desc,
-                      style: TextStyle(fontSize: 20),
-                      textAlign: TextAlign.justify,
-                    )))));
-  }
-
-  ///
-  /// Create Widgets for Password input.
-  ///
-  static Widget _buildPasswordInputWidget(
-      BuildContext context, void Function() loginBtnCallBack, bool isPortrait) {
-    Widget field = TextField(
-      key: UniqueKey(),
-      onSubmitted: (input) => loginBtnCallBack(),
-      textInputAction: TextInputAction.send,
-      obscureText: true,
-      decoration: InputDecoration(labelText: Strings.password),
-    );
-    if (isPortrait) {
-      return Column(
-          key: UniqueKey(),
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(padding: EdgeInsets.all(30.0), child: field),
-            _buildLoginButton(
-                context, loginBtnCallBack, Strings.login, isPortrait)
-          ]);
-    } else {
-      return Expanded(
-          child: Column(
-        children: <Widget>[
-          Center(
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width / 3,
-              child: field,
-            ),
-          ),
-          _buildLoginButton(context, () {}, Strings.login, isPortrait)
-        ],
-      ));
-    }
-  }
-
-  ///
-  /// Login Button Callback
-  ///
-  void _loginCallBack() {
-    setState(() {
-      // todo work with API request
-      sent = true;
-    });
-  }
-
-  ///
-  /// Get Main Auth Widget based on Orientation
-  ///
-  Widget getAuthWidgetByOrient(BuildContext context, Orientation orientation) {
-    AnimatedSwitcher switcher = AnimationBuilder.getAnimation(
-      isUsrPage
-          ? _buildUsernameInputWidget(
-              context, _enterPassword, orientation == Orientation.portrait)
-          : sent
-              ? CircularProgressIndicator()
-              : _buildPasswordInputWidget(
-                  context, _loginCallBack, orientation == Orientation.portrait),
-    );
-    List<Widget> subWidgets = <Widget>[
-      AnimationBuilder.getAnimation(isUsrPage
-          ? _buildDescWidget(context, Strings.userPageDescription,
-              orientation == Orientation.portrait)
-          : _buildDescWidget(context, Strings.passPageDescription,
-              orientation == Orientation.portrait)),
-      orientation == Orientation.portrait ? switcher : Expanded(child: switcher)
-    ];
-    return orientation == Orientation.portrait
-        ? Column(
-            children: subWidgets,
-          )
-        : Row(
-            /*crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                  key: UniqueKey(),
-                  height: MediaQuery.of(context).size.height -
-                      appBar.preferredSize.height,
-                  width: MediaQuery.of(context).size.width / 2,
-                  child: Scrollbar(
-                      thickness: 20.0,
-                      radius: Radius.circular(20.0),
-                      child: SingleChildScrollView(
-                          child: Padding(
-                              padding: EdgeInsets.all(30.0),
-                              child: Text(
-                                Strings.userPageDescription,
-                                style: TextStyle(fontSize: 20),
-                                textAlign: TextAlign.justify,
-                              ))))),
-              Expanded(
-                  child: Column(children: <Widget>[
-                Center(
-                    child: SizedBox(
-                        width: MediaQuery.of(context).size.width / 3,
-                        child: TextField(
-                          key: UniqueKey(),
-                          onSubmitted: (input) => {},
-                          textInputAction: TextInputAction.next,
-                          decoration: InputDecoration(
-                            labelText: Strings.username,
-                          ),
-                        ))),
-                _buildLoginButton(context, () => {}, Strings.next, false)
-              ])),
-            ],*/
-            children: subWidgets,
-          );
+  @override
+  void initState() {
+    super.initState();
+    isUsrPage = true;
   }
 
   @override
   Widget build(BuildContext context) {
-    Orientation orientation = MediaQuery.of(context).orientation;
-    return SingleChildScrollView(
-        child: Center(child: getAuthWidgetByOrient(context, orientation)));
+    var orientation = MediaQuery.of(context).orientation;
+    return orientation == Orientation.portrait
+        ? PortraitAuthBuilder(this).build(onNextPressed, onLoginPressed)
+        : LandscapeAuthBuilder(this)
+            .build(onNextPressed, onLoginPressed);
   }
+}
+
+///
+/// Create widget for AuthState.
+///
+abstract class AuthWidgetBuilder {
+  AuthState authState;
+
+
+  AuthWidgetBuilder(this.authState);
+
+  // Description part
+  Widget descriptionWidget;
+
+  // Input field & button
+  Widget loginWidget;
+
+  Widget buildLoginWidget(
+      void Function() onNextPressed, void Function() onLoginPressed);
+
+  // build description widget
+  Widget buildDecsWidget();
 }

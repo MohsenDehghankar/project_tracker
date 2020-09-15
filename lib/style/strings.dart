@@ -10,4 +10,5 @@ Password It is a long established fact that a reader will be distracted by the r
   static const String password = "Password";
   static const String next = "NEXT";
   static const String login = "Login";
+  static const String appTitle = "Project Tracker";
 }

@@ -1,0 +1,87 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:project_tracker/style/strings.dart';
+
+///
+/// Builder for description part in Login
+///
+class DescWidgetBuilder {
+  Orientation orientation;
+  String desc;
+  Size size;
+
+  // get height of container containing this widget
+  double _getHeight() => (orientation == Orientation.portrait)
+      ? size.height / 2
+      : size.height - AppBar().preferredSize.height;
+
+  // get width of container containing this widget
+  double _getWidth() => (orientation == Orientation.portrait)
+      ? size.width
+      : size.width / 2;
+
+  // get sub widgets for this widget
+  Widget _getChild() {
+    return Scrollbar(
+      thickness: 10.0,
+      radius: Radius.circular(20.0),
+      child: SingleChildScrollView(
+        child: Text(
+          desc,
+          style: TextStyle(
+            fontSize: 20.0,
+          ),
+          textAlign: TextAlign.justify,
+        ),
+      ),
+    );
+  }
+
+  Widget build() {
+    return Container(
+        height: _getHeight(),
+        width: _getWidth(),
+        margin: EdgeInsets.all(20.0),
+        key: UniqueKey(),
+        child: _getChild());
+  }
+}
+
+///
+/// Builder for Input parts in Login Page
+///
+class LoginWidgetBuilder {
+  Orientation orientation;
+  bool isUsrLogin;
+
+  // build button in login page
+  Widget _buildLoginButton(void Function() onPress) {
+    return RaisedButton(
+      key: UniqueKey(),
+      elevation: 6.0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+      textTheme: ButtonTextTheme.normal,
+      onPressed: onPress,
+      child: Container(
+        child: Center(child: Text(isUsrLogin ? Strings.next : Strings.login)),
+      ),
+    );
+  }
+
+  // build input text field
+  Widget _buildInputField() {
+    return TextField(
+      key: UniqueKey(),
+      // todo implement onSubmitted
+      textInputAction: TextInputAction.next,
+      decoration: InputDecoration(
+          labelText: isUsrLogin ? Strings.username : Strings.password),
+    );
+  }
+
+  Widget build(void Function() buttonPressed) {
+    return Column(
+      children: <Widget>[_buildInputField(), _buildLoginButton(buttonPressed)],
+    );
+  }
+}
