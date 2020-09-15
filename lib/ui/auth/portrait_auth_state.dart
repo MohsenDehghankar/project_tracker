@@ -26,6 +26,7 @@ class PortraitAuthBuilder extends AuthWidgetBuilder {
   Widget buildLoginWidget(
       void Function() onNextPressed, void Function() onLoginPressed) {
     var builder = LoginWidgetBuilder()
+      ..size = MediaQuery.of(authState.context).size
       ..orientation = Orientation.portrait
       ..isUsrLogin = authState.isUsrPage;
 
@@ -33,12 +34,26 @@ class PortraitAuthBuilder extends AuthWidgetBuilder {
         .build(this.authState.isUsrPage ? onNextPressed : onLoginPressed);
   }
 
+  BoxConstraints _getConstraints() {
+    return BoxConstraints(
+        maxWidth: MediaQuery.of(authState.context).size.width,
+        minHeight: MediaQuery.of(authState.context).size.height -
+            AppBar().preferredSize.height * 2);
+  }
+
   Widget build(void Function() onNextPressed, void Function() onLoginPressed) {
-    return Column(
-      children: <Widget>[
-        buildDecsWidget(),
-        buildLoginWidget(onNextPressed, onLoginPressed)
-      ],
+    return SingleChildScrollView(
+      child: ConstrainedBox(
+        constraints: _getConstraints(),
+        child: IntrinsicHeight(
+          child: Column(
+            children: <Widget>[
+              buildDecsWidget(),
+              buildLoginWidget(onNextPressed, onLoginPressed)
+            ],
+          ),
+        ),
+      ),
     );
   }
 

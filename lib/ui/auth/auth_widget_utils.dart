@@ -12,13 +12,12 @@ class DescWidgetBuilder {
 
   // get height of container containing this widget
   double _getHeight() => (orientation == Orientation.portrait)
-      ? size.height / 2
+      ? size.height / 3
       : size.height - AppBar().preferredSize.height;
 
   // get width of container containing this widget
-  double _getWidth() => (orientation == Orientation.portrait)
-      ? size.width
-      : size.width / 2;
+  double _getWidth() =>
+      (orientation == Orientation.portrait) ? size.width : size.width / 2;
 
   // get sub widgets for this widget
   Widget _getChild() {
@@ -39,8 +38,8 @@ class DescWidgetBuilder {
 
   Widget build() {
     return Container(
-        height: _getHeight(),
-        width: _getWidth(),
+        constraints:
+            BoxConstraints(maxHeight: _getHeight(), maxWidth: _getWidth()),
         margin: EdgeInsets.all(20.0),
         key: UniqueKey(),
         child: _getChild());
@@ -53,35 +52,50 @@ class DescWidgetBuilder {
 class LoginWidgetBuilder {
   Orientation orientation;
   bool isUsrLogin;
+  Size size;
 
   // build button in login page
   Widget _buildLoginButton(void Function() onPress) {
-    return RaisedButton(
-      key: UniqueKey(),
-      elevation: 6.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-      textTheme: ButtonTextTheme.normal,
-      onPressed: onPress,
-      child: Container(
-        child: Center(child: Text(isUsrLogin ? Strings.next : Strings.login)),
-      ),
-    );
+    return Center(
+        child: Container(
+            margin: EdgeInsets.all(15.0),
+            width: _getTextFieldWidth(),
+            child: RaisedButton(
+              key: UniqueKey(),
+              elevation: 6.0,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0)),
+              textTheme: ButtonTextTheme.normal,
+              onPressed: onPress,
+              child: Container(
+                child: Center(
+                    child: Text(isUsrLogin ? Strings.next : Strings.login)),
+              ),
+            )));
   }
+
+  double _getTextFieldWidth() =>
+      orientation == Orientation.landscape ? size.width / 3 : size.width;
 
   // build input text field
   Widget _buildInputField() {
-    return TextField(
-      key: UniqueKey(),
-      // todo implement onSubmitted
-      textInputAction: TextInputAction.next,
-      decoration: InputDecoration(
-          labelText: isUsrLogin ? Strings.username : Strings.password),
-    );
+    return Container(
+        margin: EdgeInsets.all(20.0),
+        width: _getTextFieldWidth(),
+        child: TextField(
+          key: UniqueKey(),
+          // todo implement onSubmitted
+          textInputAction: TextInputAction.next,
+          decoration: InputDecoration(
+              labelText: isUsrLogin ? Strings.username : Strings.password),
+        ));
   }
 
   Widget build(void Function() buttonPressed) {
-    return Column(
+    return Expanded(
+        child: SingleChildScrollView(
+            child: Column(
       children: <Widget>[_buildInputField(), _buildLoginButton(buttonPressed)],
-    );
+    )));
   }
 }

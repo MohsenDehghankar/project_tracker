@@ -13,7 +13,13 @@ class LandscapeAuthBuilder extends AuthWidgetBuilder {
   @override
   Widget buildLoginWidget(
       void Function() onNextPressed, void Function() onLoginPressed) {
-    return Text("Login widget");
+    var builder = LoginWidgetBuilder()
+      ..size = MediaQuery.of(authState.context).size
+      ..orientation = Orientation.landscape
+      ..isUsrLogin = authState.isUsrPage;
+
+    return builder
+        .build(this.authState.isUsrPage ? onNextPressed : onLoginPressed);
   }
 
   @override
