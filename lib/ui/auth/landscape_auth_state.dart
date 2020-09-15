@@ -11,15 +11,16 @@ import 'package:project_tracker/ui/auth/auth_widget_utils.dart';
 ///
 class LandscapeAuthBuilder extends AuthWidgetBuilder {
   @override
-  Widget buildLoginWidget(
-      void Function() onNextPressed, void Function() onLoginPressed) {
+  Widget buildLoginWidget(void Function() onNextPressed,
+      void Function() onLoginPressed, void Function() returnToUsername) {
     var builder = LoginWidgetBuilder()
       ..size = MediaQuery.of(authState.context).size
       ..orientation = Orientation.landscape
       ..isUsrLogin = authState.isUsrPage;
 
-    return builder
-        .build(this.authState.isUsrPage ? onNextPressed : onLoginPressed);
+    return builder.build(
+        this.authState.isUsrPage ? onNextPressed : onLoginPressed,
+        returnToUsername);
   }
 
   @override
@@ -34,11 +35,15 @@ class LandscapeAuthBuilder extends AuthWidgetBuilder {
     return builder.build();
   }
 
-  Widget build(void Function() onNextPressed, void Function() onLoginPressed) {
+  Widget build(void Function() onNextPressed, void Function() onLoginPressed,
+      void Function() returnToUsername) {
     return Row(
+      key: UniqueKey(),
       children: <Widget>[
         buildDecsWidget(),
-        buildLoginWidget(onNextPressed, onLoginPressed)
+        authState.requestSent
+            ? CircularProgressIndicator()
+            : buildLoginWidget(onNextPressed, onLoginPressed, returnToUsername),
       ],
     );
   }

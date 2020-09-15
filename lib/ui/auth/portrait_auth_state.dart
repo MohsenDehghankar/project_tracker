@@ -23,15 +23,16 @@ class PortraitAuthBuilder extends AuthWidgetBuilder {
 
   // build login widget
   @override
-  Widget buildLoginWidget(
-      void Function() onNextPressed, void Function() onLoginPressed) {
+  Widget buildLoginWidget(void Function() onNextPressed,
+      void Function() onLoginPressed, void Function() returnToUsername) {
     var builder = LoginWidgetBuilder()
       ..size = MediaQuery.of(authState.context).size
       ..orientation = Orientation.portrait
       ..isUsrLogin = authState.isUsrPage;
 
-    return builder
-        .build(this.authState.isUsrPage ? onNextPressed : onLoginPressed);
+    return builder.build(
+        this.authState.isUsrPage ? onNextPressed : onLoginPressed,
+        returnToUsername);
   }
 
   BoxConstraints _getConstraints() {
@@ -41,15 +42,20 @@ class PortraitAuthBuilder extends AuthWidgetBuilder {
             AppBar().preferredSize.height * 2);
   }
 
-  Widget build(void Function() onNextPressed, void Function() onLoginPressed) {
+  Widget build(void Function() onNextPressed, void Function() onLoginPressed,
+      void Function() returnToUsername) {
     return SingleChildScrollView(
+      key: UniqueKey(),
       child: ConstrainedBox(
         constraints: _getConstraints(),
         child: IntrinsicHeight(
           child: Column(
             children: <Widget>[
               buildDecsWidget(),
-              buildLoginWidget(onNextPressed, onLoginPressed)
+              authState.requestSent
+                  ? CircularProgressIndicator()
+                  : buildLoginWidget(
+                      onNextPressed, onLoginPressed, returnToUsername),
             ],
           ),
         ),

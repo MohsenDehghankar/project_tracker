@@ -9,8 +9,6 @@ import 'package:project_tracker/ui/auth/portrait_auth_state.dart';
 ///   2. Description
 ///
 class AuthStatefulWidget extends StatefulWidget {
-
-
   @override
   AuthState createState() => AuthState();
 }
@@ -23,7 +21,7 @@ class AuthState extends State<AuthStatefulWidget> {
   String username;
   String password;
   bool isUsrPage;
-
+  bool requestSent;
 
   // on Next button pressed
   void onNextPressed() {
@@ -35,21 +33,35 @@ class AuthState extends State<AuthStatefulWidget> {
   // on Login btn pressed
   void onLoginPressed() {
     // todo implement (API)
+    setState(() {
+      requestSent = true;
+    });
+  }
+
+  // return to username field
+  void returnToUsername() {
+    setState(() {
+      isUsrPage = true;
+    });
   }
 
   @override
   void initState() {
     super.initState();
     isUsrPage = true;
+    requestSent = false;
   }
 
   @override
   Widget build(BuildContext context) {
     var orientation = MediaQuery.of(context).orientation;
-    return orientation == Orientation.portrait
-        ? PortraitAuthBuilder(this).build(onNextPressed, onLoginPressed)
-        : LandscapeAuthBuilder(this)
-            .build(onNextPressed, onLoginPressed);
+    return AnimatedSwitcher(
+        duration: Duration(milliseconds: 500),
+        child: orientation == Orientation.portrait
+            ? PortraitAuthBuilder(this)
+                .build(onNextPressed, onLoginPressed, returnToUsername)
+            : LandscapeAuthBuilder(this)
+                .build(onNextPressed, onLoginPressed, returnToUsername));
   }
 }
 
@@ -59,7 +71,6 @@ class AuthState extends State<AuthStatefulWidget> {
 abstract class AuthWidgetBuilder {
   AuthState authState;
 
-
   AuthWidgetBuilder(this.authState);
 
   // Description part
@@ -68,8 +79,8 @@ abstract class AuthWidgetBuilder {
   // Input field & button
   Widget loginWidget;
 
-  Widget buildLoginWidget(
-      void Function() onNextPressed, void Function() onLoginPressed);
+  Widget buildLoginWidget(void Function() onNextPressed,
+      void Function() onLoginPressed, void Function() returnToUsername);
 
   // build description widget
   Widget buildDecsWidget();

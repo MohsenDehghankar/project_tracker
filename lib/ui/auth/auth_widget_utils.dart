@@ -78,24 +78,37 @@ class LoginWidgetBuilder {
       orientation == Orientation.landscape ? size.width / 3 : size.width;
 
   // build input text field
-  Widget _buildInputField() {
+  Widget _buildInputField(void Function() btnPressed) {
     return Container(
         margin: EdgeInsets.all(20.0),
         width: _getTextFieldWidth(),
         child: TextField(
           key: UniqueKey(),
-          // todo implement onSubmitted
+          onSubmitted: (input) => btnPressed(),
           textInputAction: TextInputAction.next,
           decoration: InputDecoration(
               labelText: isUsrLogin ? Strings.username : Strings.password),
         ));
   }
 
-  Widget build(void Function() buttonPressed) {
+  // button to return to username
+  Widget _getReturnWidget(void Function() returnToUsername) {
+    return Center(
+      child: FlatButton(
+          onPressed: returnToUsername, child: Text(Strings.returnToUsername)),
+    );
+  }
+
+  Widget build(
+      void Function() buttonPressed, void Function() returnToUsername) {
     return Expanded(
         child: SingleChildScrollView(
             child: Column(
-      children: <Widget>[_buildInputField(), _buildLoginButton(buttonPressed)],
+      children: <Widget>[
+        _buildInputField(buttonPressed),
+        _buildLoginButton(buttonPressed),
+        isUsrLogin ? Center() : _getReturnWidget(returnToUsername)
+      ],
     )));
   }
 }
