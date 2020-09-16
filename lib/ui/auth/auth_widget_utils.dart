@@ -86,6 +86,7 @@ class LoginWidgetBuilder {
           key: UniqueKey(),
           onSubmitted: (input) => btnPressed(),
           textInputAction: TextInputAction.next,
+          obscureText: !isUsrLogin,
           decoration: InputDecoration(
               labelText: isUsrLogin ? Strings.username : Strings.password),
         ));

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:project_tracker/ui/auth/landscape_auth_state.dart';
-import 'package:project_tracker/ui/auth/portrait_auth_state.dart';
+import 'package:project_tracker/ui/auth/landscape_auth_widget.dart';
+import 'package:project_tracker/ui/auth/portrait_auth_widget.dart';
 
 ///
 /// Authentication Widget:
