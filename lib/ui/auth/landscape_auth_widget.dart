@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project_tracker/blocs/auth_bloc.dart';
 import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/auth/auth_page.dart';
 import 'package:project_tracker/ui/auth/auth_widget_utils.dart';
@@ -10,46 +12,37 @@ import 'package:project_tracker/ui/auth/auth_widget_utils.dart';
 ///
 class LandscapeAuthBuilder extends AuthWidgetBuilder {
   @override
-  Widget buildLoginWidget(
-      void Function(String input) onNextPressed,
-      void Function(String input) onLoginPressed,
-      void Function() returnToUsername) {
+  Widget buildLoginWidget() {
     var builder = LoginWidgetBuilder()
       ..size = MediaQuery.of(authState.context).size
-      ..orientation = Orientation.landscape
-      ..isUsrLogin = authState.isUsrPage;
-
-    return builder.build(
-        this.authState.isUsrPage ? onNextPressed : onLoginPressed,
-        returnToUsername);
+      ..orientation = Orientation.landscape;
+    return builder.build();
   }
 
   @override
   Widget buildDecsWidget() {
     var builder = DescWidgetBuilder()
       ..orientation = Orientation.landscape
-      ..size = MediaQuery.of(authState.context).size
-      ..desc = authState.isUsrPage
-          ? Strings.userPageDescription
-          : Strings.passPageDescription;
+      ..size = MediaQuery.of(authState.context).size;
 
     return builder.build();
   }
 
-  Widget build(
-      void Function(String input) onNextPressed,
-      void Function(String input) onLoginPressed,
-      void Function() returnToUsername) {
+  Widget build() {
     return Row(
       key: UniqueKey(),
       children: <Widget>[
         buildDecsWidget(),
-        authState.requestSent
-            ? CircularProgressIndicator()
-            : buildLoginWidget(onNextPressed, onLoginPressed, returnToUsername),
+        BlocBuilder<AuthBLoC, AuthState>(builder: (context, state) {
+          if (state is AuthStatePasswordEntered) {
+            return CircularProgressIndicator();
+          } else {
+            return buildLoginWidget();
+          }
+        })
       ],
     );
   }
 
-  LandscapeAuthBuilder(AuthState state) : super(state);
+  LandscapeAuthBuilder(AuthWidgetState state) : super(state);
 }

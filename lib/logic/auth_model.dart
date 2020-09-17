@@ -1,5 +1,5 @@
 ///
-/// A class for keeping authentication state.
+/// A class for keeping authentication parameters.
 ///
 class AuthModel {
   String _username;

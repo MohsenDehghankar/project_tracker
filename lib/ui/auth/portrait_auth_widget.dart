@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project_tracker/blocs/auth_bloc.dart';
 import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/auth/auth_page.dart';
 import 'package:project_tracker/ui/auth/auth_widget_utils.dart';
@@ -13,26 +15,19 @@ class PortraitAuthBuilder extends AuthWidgetBuilder {
   Widget buildDecsWidget() {
     var builder = DescWidgetBuilder()
       ..orientation = Orientation.portrait
-      ..size = MediaQuery.of(authState.context).size
-      ..desc = authState.isUsrPage
-          ? Strings.userPageDescription
-          : Strings.passPageDescription;
+      ..size = MediaQuery.of(authState.context).size;
 
     return builder.build();
   }
 
   // build login widget
   @override
-  Widget buildLoginWidget(void Function(String input) onNextPressed,
-      void Function(String input) onLoginPressed, void Function() returnToUsername) {
+  Widget buildLoginWidget() {
     var builder = LoginWidgetBuilder()
       ..size = MediaQuery.of(authState.context).size
-      ..orientation = Orientation.portrait
-      ..isUsrLogin = authState.isUsrPage;
+      ..orientation = Orientation.portrait;
 
-    return builder.build(
-        this.authState.isUsrPage ? onNextPressed : onLoginPressed,
-        returnToUsername);
+    return builder.build();
   }
 
   BoxConstraints _getConstraints() {
@@ -42,8 +37,7 @@ class PortraitAuthBuilder extends AuthWidgetBuilder {
             AppBar().preferredSize.height * 2);
   }
 
-  Widget build(void Function(String input) onNextPressed, void Function(String password) onLoginPressed,
-      void Function() returnToUsername) {
+  Widget build() {
     return SingleChildScrollView(
       key: UniqueKey(),
       child: ConstrainedBox(
@@ -52,10 +46,13 @@ class PortraitAuthBuilder extends AuthWidgetBuilder {
           child: Column(
             children: <Widget>[
               buildDecsWidget(),
-              authState.requestSent
-                  ? CircularProgressIndicator()
-                  : buildLoginWidget(
-                      onNextPressed, onLoginPressed, returnToUsername),
+              BlocBuilder<AuthBLoC, AuthState>(builder: (context, state) {
+                if (state is AuthStatePasswordEntered) {
+                  return CircularProgressIndicator();
+                } else {
+                  return buildLoginWidget();
+                }
+              }),
             ],
           ),
         ),
@@ -63,5 +60,5 @@ class PortraitAuthBuilder extends AuthWidgetBuilder {
     );
   }
 
-  PortraitAuthBuilder(AuthState state) : super(state);
+  PortraitAuthBuilder(AuthWidgetState state) : super(state);
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project_tracker/blocs/auth_bloc.dart';
 import 'package:project_tracker/logic/auth_model.dart';
 import 'package:project_tracker/ui/appbar.dart';
 import 'package:project_tracker/ui/auth/landscape_auth_widget.dart';
@@ -12,29 +14,27 @@ import 'package:project_tracker/ui/auth/portrait_auth_widget.dart';
 ///
 class AuthPage extends StatefulWidget {
   @override
-  AuthState createState() => AuthState();
+  AuthWidgetState createState() => AuthWidgetState();
 }
 
 ///
 /// An abstract class building Auth State.
 /// (Portrait & Landscape extend this class)
 ///
-class AuthState extends State<AuthPage> {
-  // keeping auth state
-  AuthModel authModel;
+class AuthWidgetState extends State<AuthPage> {
   bool isUsrPage;
   bool requestSent;
 
   // on Next button pressed
-  void onNextPressed(String username) {
+  /*void onNextPressed(String username) {
     setState(() {
       isUsrPage = false;
       authModel.setUser(username);
     });
-  }
+  }*/
 
   // on Login btn pressed
-  void onLoginPressed(String password) {
+  /*void onLoginPressed(String password) {
     // todo implement (API)
     setState(() {
       authModel.setPass(password);
@@ -43,21 +43,21 @@ class AuthState extends State<AuthPage> {
 
     // todo to be removed
     debugPrint("Auth: ${authModel.getUser()}: ${authModel.getPass()}");
-  }
+  }*/
 
   // return to username field
-  void returnToUsername() {
+  /*void returnToUsername() {
     setState(() {
       isUsrPage = true;
     });
-  }
+  }*/
 
   @override
   void initState() {
     super.initState();
     isUsrPage = true;
     requestSent = false;
-    authModel = AuthModel();
+    //authModel = AuthModel();
   }
 
   @override
@@ -67,12 +67,15 @@ class AuthState extends State<AuthPage> {
         duration: Duration(milliseconds: 500),
         child: orientation == Orientation.portrait
             ? PortraitAuthBuilder(this)
-                .build(onNextPressed, onLoginPressed, returnToUsername)
+                .build()
             : LandscapeAuthBuilder(this)
-                .build(onNextPressed, onLoginPressed, returnToUsername));
-    return Scaffold(
-      appBar: AppBarBuilder.build(),
-      body: body,
+                .build());
+    return BlocProvider(
+      create: (context) => AuthBLoC(),
+      child: Scaffold(
+        appBar: AppBarBuilder.build(),
+        body: body,
+      ),
     );
   }
 }
@@ -81,7 +84,7 @@ class AuthState extends State<AuthPage> {
 /// Create widget for AuthState.
 ///
 abstract class AuthWidgetBuilder {
-  AuthState authState;
+  AuthWidgetState authState;
 
   AuthWidgetBuilder(this.authState);
 
@@ -91,8 +94,7 @@ abstract class AuthWidgetBuilder {
   // Input field & button
   Widget loginWidget;
 
-  Widget buildLoginWidget(void Function(String input) onNextPressed,
-      void Function(String input) onLoginPressed, void Function() returnToUsername);
+  Widget buildLoginWidget();
 
   // build description widget
   Widget buildDecsWidget();
