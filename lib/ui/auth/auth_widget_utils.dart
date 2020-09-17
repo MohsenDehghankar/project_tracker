@@ -40,7 +40,8 @@ class DescWidgetBuilder {
 
   // get child based on BLoC state
   Widget _getChild(BuildContext context, AuthState state) {
-    return AnimationBuilder.build((state is AuthStateStart)
+    return AnimationBuilder.build((state is AuthStateStart ||
+            (state is AuthStateEmptyInput && state.inUserPage))
         ? _getChildByStr(Strings.userPageDescription)
         : _getChildByStr(Strings.passPageDescription));
   }
@@ -66,7 +67,7 @@ class LoginWidgetBuilder {
 
   // build button in login page
   Widget _buildLoginButton(void Function(String input) onPress,
-      BuildContext context, AuthState state) {
+      BuildContext context, AuthState state, bool error) {
     return Center(
         key: UniqueKey(),
         child: Container(
@@ -78,9 +79,11 @@ class LoginWidgetBuilder {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0)),
               textTheme: ButtonTextTheme.normal,
-              onPressed: () {
-                onPress(textController.text);
-              },
+              onPressed: error
+                  ? () {}
+                  : () {
+                      onPress(textController.text);
+                    },
               child: Container(
                 child: Center(child: _getBtnText(context, state)),
               ),
@@ -102,11 +105,17 @@ class LoginWidgetBuilder {
       return _buildLoginButton((input) {
         BlocProvider.of<AuthBLoC>(context).add(AuthEventAddUsername(input));
         textController.clear();
-      }, context, state);
+      }, context, state, state is AuthStateEmptyInput);
     } else if (state is AuthStateUsernameEntered) {
       return _buildLoginButton((input) {
         BlocProvider.of<AuthBLoC>(context).add(AuthEventAddPassword(input));
-      }, context, state);
+      }, context, state, state is AuthStateEmptyInput);
+    } else if (state is AuthStateEmptyInput) {
+      if (state.inUserPage) {
+        return _buildLoginButtonByState(AuthStateStart(), context);
+      } else {
+        return _buildLoginButtonByState(AuthStateUsernameEntered(), context);
+      }
     } else {
       // todo other states
       return Center(
@@ -120,7 +129,8 @@ class LoginWidgetBuilder {
       orientation == Orientation.landscape ? size.width / 3 : size.width;
 
   // build input text field
-  Widget _buildInputField(void Function(String input) btnPressed, isUsrLogin) {
+  Widget _buildInputField(
+      void Function(String input) btnPressed, isUsrLogin, bool error) {
     return Container(
         margin: EdgeInsets.all(20.0),
         width: _getTextFieldWidth(),
@@ -131,21 +141,30 @@ class LoginWidgetBuilder {
           textInputAction: TextInputAction.next,
           obscureText: !isUsrLogin,
           decoration: InputDecoration(
+              errorText: error ? Strings.empty : null,
               labelText: isUsrLogin ? Strings.username : Strings.password),
         ));
   }
 
   // build text field based on AuthState
-  Widget _buildInputTextFieldByState(AuthState state, BuildContext context) {
+  Widget _buildInputTextFieldByState(
+      AuthState state, BuildContext context, bool error) {
     if (state is AuthStateStart) {
       return _buildInputField((input) {
         BlocProvider.of<AuthBLoC>(context).add(AuthEventAddUsername(input));
         textController.clear();
-      }, true);
+      }, true, error);
     } else if (state is AuthStateUsernameEntered) {
       return _buildInputField((input) {
         BlocProvider.of<AuthBLoC>(context).add(AuthEventAddPassword(input));
-      }, false);
+      }, false, error);
+    } else if (state is AuthStateEmptyInput) {
+      if (state.inUserPage) {
+        return _buildInputTextFieldByState(AuthStateStart(), context, true);
+      } else {
+        return _buildInputTextFieldByState(
+            AuthStateUsernameEntered(), context, true);
+      }
     } else {
       // todo other states
       return Center(
@@ -168,7 +187,8 @@ class LoginWidgetBuilder {
 
   // build the return button based on state
   Widget _buildReturnWidgetByState(AuthState state, BuildContext context) {
-    if (state is AuthStateUsernameEntered) {
+    if (state is AuthStateUsernameEntered ||
+        (state is AuthStateEmptyInput && !state.inUserPage)) {
       return _getReturnWidget(() {
         BlocProvider.of<AuthBLoC>(context).add(AuthEventReturnToUsername());
         textController.clear();
@@ -194,7 +214,7 @@ class LoginWidgetBuilder {
   // build widgets based on BLoC state
   Widget getWidgetsByState(AuthState state, BuildContext context) {
     return (Column(children: <Widget>[
-      _buildInputTextFieldByState(state, context),
+      _buildInputTextFieldByState(state, context, state is AuthStateEmptyInput),
       AnimationBuilder.build(_buildLoginButtonByState(state, context)),
       AnimationBuilder.build(_buildReturnWidgetByState(state, context))
     ]));

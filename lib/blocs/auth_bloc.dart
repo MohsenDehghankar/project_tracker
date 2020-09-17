@@ -32,6 +32,12 @@ class AuthStateUsernameEntered extends AuthState {}
 
 class AuthStatePasswordEntered extends AuthState {}
 
+class AuthStateEmptyInput extends AuthState {
+  bool inUserPage;
+
+  AuthStateEmptyInput(this.inUserPage);
+}
+
 ///
 /// Auth BLoC as Controller between UI & Logic
 ///
@@ -44,13 +50,21 @@ class AuthBLoC extends Bloc<AuthEvent, AuthState> {
   @override
   Stream<AuthState> mapEventToState(AuthEvent event) async* {
     if (event is AuthEventAddPassword) {
-      authModel.setPass(event.password);
-      debugPrint("user: ${authModel.getUser()} : ${authModel.getPass()}");
-      yield AuthStatePasswordEntered();
-      // todo API call
+      if (event.password.isEmpty){
+        yield AuthStateEmptyInput(false);
+      }else {
+        authModel.setPass(event.password);
+        debugPrint("user: ${authModel.getUser()} : ${authModel.getPass()}");
+        yield AuthStatePasswordEntered();
+        // todo API call
+      }
     } else if (event is AuthEventAddUsername) {
-      authModel.setUser(event.username);
-      yield AuthStateUsernameEntered();
+      if (event.username.isEmpty){
+        yield AuthStateEmptyInput(true);
+      }else {
+        authModel.setUser(event.username);
+        yield AuthStateUsernameEntered();
+      }
     } else if (event is AuthEventReturnToUsername) {
       authModel.setUser("");
       yield AuthStateStart();
