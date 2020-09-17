@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:project_tracker/style/strings.dart';
-import 'package:project_tracker/ui/auth/auth_widget.dart';
+import 'package:project_tracker/ui/auth/auth_page.dart';
 import 'package:project_tracker/ui/auth/auth_widget_utils.dart';
 
 ///

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:project_tracker/logic/auth_model.dart';
+import 'package:project_tracker/ui/appbar.dart';
 import 'package:project_tracker/ui/auth/landscape_auth_widget.dart';
 import 'package:project_tracker/ui/auth/portrait_auth_widget.dart';
 
@@ -9,7 +10,7 @@ import 'package:project_tracker/ui/auth/portrait_auth_widget.dart';
 ///   1. Input Fields
 ///   2. Description
 ///
-class AuthStatefulWidget extends StatefulWidget {
+class AuthPage extends StatefulWidget {
   @override
   AuthState createState() => AuthState();
 }
@@ -18,7 +19,7 @@ class AuthStatefulWidget extends StatefulWidget {
 /// An abstract class building Auth State.
 /// (Portrait & Landscape extend this class)
 ///
-class AuthState extends State<AuthStatefulWidget> {
+class AuthState extends State<AuthPage> {
   // keeping auth state
   AuthModel authModel;
   bool isUsrPage;
@@ -62,13 +63,17 @@ class AuthState extends State<AuthStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     var orientation = MediaQuery.of(context).orientation;
-    return AnimatedSwitcher(
+    Widget body = AnimatedSwitcher(
         duration: Duration(milliseconds: 500),
         child: orientation == Orientation.portrait
             ? PortraitAuthBuilder(this)
                 .build(onNextPressed, onLoginPressed, returnToUsername)
             : LandscapeAuthBuilder(this)
                 .build(onNextPressed, onLoginPressed, returnToUsername));
+    return Scaffold(
+      appBar: AppBarBuilder.build(),
+      body: body,
+    );
   }
 }
 

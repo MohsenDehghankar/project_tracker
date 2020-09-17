@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/appbar.dart';
-import 'package:project_tracker/ui/auth/auth_widget.dart';
+import 'package:project_tracker/ui/auth/auth_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,11 +34,7 @@ class MainApp extends StatefulWidget {
 class _LoginState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
-    AppBar appBar = AppBarBuilder.build();
-
-    return Scaffold(
-        appBar: appBar,
-        // todo Go to Auth widget if not logged in.
-        body: AuthStatefulWidget());
+    // todo check existence of token
+    return AuthPage();
   }
 }
