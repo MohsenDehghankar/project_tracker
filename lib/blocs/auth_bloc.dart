@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/logic/auth_model.dart';
 
@@ -44,7 +45,9 @@ class AuthBLoC extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> mapEventToState(AuthEvent event) async* {
     if (event is AuthEventAddPassword) {
       authModel.setPass(event.password);
+      debugPrint("user: ${authModel.getUser()} : ${authModel.getPass()}");
       yield AuthStatePasswordEntered();
+      // todo API call
     } else if (event is AuthEventAddUsername) {
       authModel.setUser(event.username);
       yield AuthStateUsernameEntered();

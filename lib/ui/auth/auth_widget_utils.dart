@@ -23,6 +23,7 @@ class DescWidgetBuilder {
   // get sub widgets for this widget
   Widget _getChildByStr(String desc) {
     return Scrollbar(
+      key: UniqueKey(),
       thickness: 10.0,
       radius: Radius.circular(20.0),
       child: SingleChildScrollView(
@@ -37,24 +38,19 @@ class DescWidgetBuilder {
     );
   }
 
-  Widget _getChild() {
-    return BlocBuilder<AuthBLoC, AuthState>(builder: (context, state) {
-      if (state is AuthStateStart) {
-        return _getChildByStr(Strings.userPageDescription);
-      } else {
-        // todo other states
-        return _getChildByStr(Strings.passPageDescription);
-      }
-    });
+  // get child based on BLoC state
+  Widget _getChild(BuildContext context, AuthState state) {
+    return AnimationBuilder.build((state is AuthStateStart)
+        ? _getChildByStr(Strings.userPageDescription)
+        : _getChildByStr(Strings.passPageDescription));
   }
 
-  Widget build() {
+  Widget build(BuildContext context, AuthState state) {
     return Container(
         constraints:
             BoxConstraints(maxHeight: _getHeight(), maxWidth: _getWidth()),
         margin: EdgeInsets.all(20.0),
-        key: UniqueKey(),
-        child: _getChild());
+        child: _getChild(context, state));
   }
 }
 
@@ -62,17 +58,17 @@ class DescWidgetBuilder {
 /// Builder for Input parts in Login Page
 ///
 class LoginWidgetBuilder {
+  static final _textKey = GlobalKey();
+
   Orientation orientation;
   Size size;
-  TextEditingController textController;
-
-  LoginWidgetBuilder() {
-    textController = TextEditingController();
-  }
+  static TextEditingController textController = TextEditingController();
 
   // build button in login page
-  Widget _buildLoginButton(void Function(String input) onPress) {
+  Widget _buildLoginButton(void Function(String input) onPress,
+      BuildContext context, AuthState state) {
     return Center(
+        key: UniqueKey(),
         child: Container(
             margin: EdgeInsets.all(15.0),
             width: _getTextFieldWidth(),
@@ -86,40 +82,40 @@ class LoginWidgetBuilder {
                 onPress(textController.text);
               },
               child: Container(
-                child: Center(child: _getBtnText()),
+                child: Center(child: _getBtnText(context, state)),
               ),
             )));
   }
 
-  Widget _getBtnText() {
-    return BlocBuilder<AuthBLoC, AuthState>(
-      builder: (context, state) {
-        if (state is AuthStateStart) {
-          return Text(Strings.next);
-        } else {
-          return Text(Strings.login);
-        }
-      },
-    );
+  // get button Child
+  Widget _getBtnText(BuildContext context, AuthState state) {
+    if (state is AuthStateStart) {
+      return Text(Strings.next);
+    } else {
+      return Text(Strings.login);
+    }
   }
 
-  Widget _buildLoginButtonByState() {
-    return BlocBuilder<AuthBLoC, AuthState>(builder: (context, state) {
-      if (state is AuthStateStart) {
-        return _buildLoginButton((input) {
-          BlocProvider.of<AuthBLoC>(context).add(AuthEventAddUsername(input));
-        });
-      } else if (state is AuthStateUsernameEntered) {
-        return _buildLoginButton((input) {
-          BlocProvider.of<AuthBLoC>(context).add(AuthEventAddPassword(input));
-        });
-      } else {
-        // todo other states
-        return Center();
-      }
-    });
+  // build button based on AuthState
+  Widget _buildLoginButtonByState(AuthState state, BuildContext context) {
+    if (state is AuthStateStart) {
+      return _buildLoginButton((input) {
+        BlocProvider.of<AuthBLoC>(context).add(AuthEventAddUsername(input));
+        textController.clear();
+      }, context, state);
+    } else if (state is AuthStateUsernameEntered) {
+      return _buildLoginButton((input) {
+        BlocProvider.of<AuthBLoC>(context).add(AuthEventAddPassword(input));
+      }, context, state);
+    } else {
+      // todo other states
+      return Center(
+        key: UniqueKey(),
+      );
+    }
   }
 
+  // get width of text field based on orientation
   double _getTextFieldWidth() =>
       orientation == Orientation.landscape ? size.width / 3 : size.width;
 
@@ -129,7 +125,7 @@ class LoginWidgetBuilder {
         margin: EdgeInsets.all(20.0),
         width: _getTextFieldWidth(),
         child: TextField(
-          key: UniqueKey(),
+          key: _textKey,
           controller: textController,
           onSubmitted: btnPressed,
           textInputAction: TextInputAction.next,
@@ -139,55 +135,78 @@ class LoginWidgetBuilder {
         ));
   }
 
-  Widget _buildInputTextFieldByState() {
-    return BlocBuilder<AuthBLoC, AuthState>(builder: (context, state) {
-      if (state is AuthStateStart) {
-        return _buildInputField((input) {
-          BlocProvider.of<AuthBLoC>(context).add(AuthEventAddUsername(input));
-        }, true);
-      } else if (state is AuthStateUsernameEntered) {
-        return _buildInputField((input) {
-          BlocProvider.of<AuthBLoC>(context).add(AuthEventAddPassword(input));
-        }, false);
-      } else {
-        // todo other states
-        return Center();
-      }
-    });
+  // build text field based on AuthState
+  Widget _buildInputTextFieldByState(AuthState state, BuildContext context) {
+    if (state is AuthStateStart) {
+      return _buildInputField((input) {
+        BlocProvider.of<AuthBLoC>(context).add(AuthEventAddUsername(input));
+        textController.clear();
+      }, true);
+    } else if (state is AuthStateUsernameEntered) {
+      return _buildInputField((input) {
+        BlocProvider.of<AuthBLoC>(context).add(AuthEventAddPassword(input));
+      }, false);
+    } else {
+      // todo other states
+      return Center(
+        key: UniqueKey(),
+      );
+    }
   }
 
   // button to return to username
   Widget _getReturnWidget(void Function() onPresssed) {
     return Center(
+      key: UniqueKey(),
       child: FlatButton(
-          onPressed: onPresssed, child: Text(Strings.returnToUsername)),
+          onPressed: onPresssed,
+          child: Text(
+            Strings.returnToUsername,
+          )),
     );
   }
 
-  Widget _buildReturnWidgetByState() {
-    return BlocBuilder<AuthBLoC, AuthState>(
-      builder: (context, state) {
-        if (state is AuthStateUsernameEntered) {
-          return _getReturnWidget(() {
-            BlocProvider.of<AuthBLoC>(context).add(AuthEventReturnToUsername());
-          });
-        } else {
-          // todo other states
-          return Center();
-        }
-      },
-    );
+  // build the return button based on state
+  Widget _buildReturnWidgetByState(AuthState state, BuildContext context) {
+    if (state is AuthStateUsernameEntered) {
+      return _getReturnWidget(() {
+        BlocProvider.of<AuthBLoC>(context).add(AuthEventReturnToUsername());
+        textController.clear();
+      });
+    } else {
+      // todo other states
+      return Center(
+        key: UniqueKey(),
+      );
+    }
   }
 
-  Widget build() {
-    return Expanded(
-        child: SingleChildScrollView(
-            child: Column(
-      children: <Widget>[
-        _buildInputTextFieldByState(),
-        _buildLoginButtonByState(),
-        _buildReturnWidgetByState(),
-      ],
-    )));
+  Widget build(BuildContext context, AuthState state) {
+    if (state is AuthStatePasswordEntered) {
+      return CircularProgressIndicator();
+    } else {
+      return Expanded(
+          child:
+              SingleChildScrollView(child: getWidgetsByState(state, context)));
+    }
+  }
+
+  // build widgets based on BLoC state
+  Widget getWidgetsByState(AuthState state, BuildContext context) {
+    return (Column(children: <Widget>[
+      _buildInputTextFieldByState(state, context),
+      AnimationBuilder.build(_buildLoginButtonByState(state, context)),
+      AnimationBuilder.build(_buildReturnWidgetByState(state, context))
+    ]));
+  }
+}
+
+///
+/// Create Animation for State change.
+///
+class AnimationBuilder {
+  static Widget build(Widget child) {
+    return AnimatedSwitcher(
+        duration: Duration(milliseconds: 500), child: child);
   }
 }
