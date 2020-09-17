@@ -53,9 +53,14 @@ class LoginWidgetBuilder {
   Orientation orientation;
   bool isUsrLogin;
   Size size;
+  TextEditingController textController;
+
+  LoginWidgetBuilder() {
+    textController = TextEditingController();
+  }
 
   // build button in login page
-  Widget _buildLoginButton(void Function() onPress) {
+  Widget _buildLoginButton(void Function(String input) onPress) {
     return Center(
         child: Container(
             margin: EdgeInsets.all(15.0),
@@ -66,7 +71,9 @@ class LoginWidgetBuilder {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0)),
               textTheme: ButtonTextTheme.normal,
-              onPressed: onPress,
+              onPressed: () {
+                onPress(textController.text);
+              },
               child: Container(
                 child: Center(
                     child: Text(isUsrLogin ? Strings.next : Strings.login)),
@@ -78,13 +85,14 @@ class LoginWidgetBuilder {
       orientation == Orientation.landscape ? size.width / 3 : size.width;
 
   // build input text field
-  Widget _buildInputField(void Function() btnPressed) {
+  Widget _buildInputField(void Function(String input) btnPressed) {
     return Container(
         margin: EdgeInsets.all(20.0),
         width: _getTextFieldWidth(),
         child: TextField(
           key: UniqueKey(),
-          onSubmitted: (input) => btnPressed(),
+          controller: textController,
+          onSubmitted: btnPressed,
           textInputAction: TextInputAction.next,
           obscureText: !isUsrLogin,
           decoration: InputDecoration(
@@ -100,8 +108,8 @@ class LoginWidgetBuilder {
     );
   }
 
-  Widget build(
-      void Function() buttonPressed, void Function() returnToUsername) {
+  Widget build(void Function(String input) buttonPressed,
+      void Function() returnToUsername) {
     return Expanded(
         child: SingleChildScrollView(
             child: Column(

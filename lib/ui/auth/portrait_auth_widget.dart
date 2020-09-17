@@ -23,8 +23,8 @@ class PortraitAuthBuilder extends AuthWidgetBuilder {
 
   // build login widget
   @override
-  Widget buildLoginWidget(void Function() onNextPressed,
-      void Function() onLoginPressed, void Function() returnToUsername) {
+  Widget buildLoginWidget(void Function(String input) onNextPressed,
+      void Function(String input) onLoginPressed, void Function() returnToUsername) {
     var builder = LoginWidgetBuilder()
       ..size = MediaQuery.of(authState.context).size
       ..orientation = Orientation.portrait
@@ -42,7 +42,7 @@ class PortraitAuthBuilder extends AuthWidgetBuilder {
             AppBar().preferredSize.height * 2);
   }
 
-  Widget build(void Function() onNextPressed, void Function() onLoginPressed,
+  Widget build(void Function(String input) onNextPressed, void Function(String password) onLoginPressed,
       void Function() returnToUsername) {
     return SingleChildScrollView(
       key: UniqueKey(),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:project_tracker/style/strings.dart';
-import 'package:project_tracker/ui/appbar.dart';
 import 'package:project_tracker/ui/auth/auth_widget.dart';
 import 'package:project_tracker/ui/auth/auth_widget_utils.dart';
 
@@ -11,8 +10,10 @@ import 'package:project_tracker/ui/auth/auth_widget_utils.dart';
 ///
 class LandscapeAuthBuilder extends AuthWidgetBuilder {
   @override
-  Widget buildLoginWidget(void Function() onNextPressed,
-      void Function() onLoginPressed, void Function() returnToUsername) {
+  Widget buildLoginWidget(
+      void Function(String input) onNextPressed,
+      void Function(String input) onLoginPressed,
+      void Function() returnToUsername) {
     var builder = LoginWidgetBuilder()
       ..size = MediaQuery.of(authState.context).size
       ..orientation = Orientation.landscape
@@ -35,7 +36,9 @@ class LandscapeAuthBuilder extends AuthWidgetBuilder {
     return builder.build();
   }
 
-  Widget build(void Function() onNextPressed, void Function() onLoginPressed,
+  Widget build(
+      void Function(String input) onNextPressed,
+      void Function(String input) onLoginPressed,
       void Function() returnToUsername) {
     return Row(
       key: UniqueKey(),

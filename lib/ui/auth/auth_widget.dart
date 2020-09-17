@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:project_tracker/logic/auth_model.dart';
 import 'package:project_tracker/ui/auth/landscape_auth_widget.dart';
 import 'package:project_tracker/ui/auth/portrait_auth_widget.dart';
 
@@ -18,24 +19,29 @@ class AuthStatefulWidget extends StatefulWidget {
 /// (Portrait & Landscape extend this class)
 ///
 class AuthState extends State<AuthStatefulWidget> {
-  String username;
-  String password;
+  // keeping auth state
+  AuthModel authModel;
   bool isUsrPage;
   bool requestSent;
 
   // on Next button pressed
-  void onNextPressed() {
+  void onNextPressed(String username) {
     setState(() {
       isUsrPage = false;
+      authModel.setUser(username);
     });
   }
 
   // on Login btn pressed
-  void onLoginPressed() {
+  void onLoginPressed(String password) {
     // todo implement (API)
     setState(() {
+      authModel.setPass(password);
       requestSent = true;
     });
+
+    // todo to be removed
+    debugPrint("Auth: ${authModel.getUser()}: ${authModel.getPass()}");
   }
 
   // return to username field
@@ -50,6 +56,7 @@ class AuthState extends State<AuthStatefulWidget> {
     super.initState();
     isUsrPage = true;
     requestSent = false;
+    authModel = AuthModel();
   }
 
   @override
@@ -79,8 +86,8 @@ abstract class AuthWidgetBuilder {
   // Input field & button
   Widget loginWidget;
 
-  Widget buildLoginWidget(void Function() onNextPressed,
-      void Function() onLoginPressed, void Function() returnToUsername);
+  Widget buildLoginWidget(void Function(String input) onNextPressed,
+      void Function(String input) onLoginPressed, void Function() returnToUsername);
 
   // build description widget
   Widget buildDecsWidget();
