@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/blocs/auth_bloc.dart';
 import 'package:project_tracker/style/strings.dart';
+import 'package:project_tracker/ui/auth/button.dart';
+import 'package:project_tracker/ui/auth/textInput.dart';
 
 ///
 /// Builder for description part in Login
@@ -22,7 +24,32 @@ class DescWidgetBuilder {
 
   // get sub widgets for this widget
   Widget _getChildByStr(String desc) {
-    return Scrollbar(
+    return Padding(
+      key: UniqueKey(),
+      padding: const EdgeInsets.only(top: 30.0, left: 10.0),
+      child: Container(
+        //color: Colors.green,
+        height: 200,
+        width: 200,
+        child: Column(
+          children: <Widget>[
+            Container(
+              height: 60,
+            ),
+            Center(
+              child: Text(
+                desc,
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+    /*return Scrollbar(
       key: UniqueKey(),
       thickness: 10.0,
       radius: Radius.circular(20.0),
@@ -35,7 +62,7 @@ class DescWidgetBuilder {
           textAlign: TextAlign.justify,
         ),
       ),
-    );
+    );*/
   }
 
   // get child based on BLoC state
@@ -47,11 +74,12 @@ class DescWidgetBuilder {
   }
 
   Widget build(BuildContext context, AuthState state) {
-    return Container(
-        constraints:
-            BoxConstraints(maxHeight: _getHeight(), maxWidth: _getWidth()),
-        margin: EdgeInsets.all(20.0),
-        child: _getChild(context, state));
+    return orientation == Orientation.landscape
+        ? Container(
+            width: _getWidth(),
+            child: _getChild(context, state),
+          )
+        : _getChild(context, state);
   }
 }
 
@@ -64,11 +92,16 @@ class LoginWidgetBuilder {
   Orientation orientation;
   Size size;
   static TextEditingController textController = TextEditingController();
+  FocusNode focusNode;
 
   // build button in login page
   Widget _buildLoginButton(void Function(String input) onPress,
       BuildContext context, AuthState state, bool error) {
-    return Center(
+    Button button = Button(size, error, textController, focusNode);
+    return button.build(onPress,
+        state is AuthStateStart ? Strings.next : Strings.login, orientation);
+
+    /*return Center(
         key: UniqueKey(),
         child: Container(
             margin: EdgeInsets.all(15.0),
@@ -87,7 +120,7 @@ class LoginWidgetBuilder {
               child: Container(
                 child: Center(child: _getBtnText(context, state)),
               ),
-            )));
+            )));*/
   }
 
   // get button Child
@@ -108,7 +141,8 @@ class LoginWidgetBuilder {
       }, context, state, state is AuthStateEmptyInput);
     } else if (state is AuthStateUsernameEntered) {
       return _buildLoginButton((input) {
-        BlocProvider.of<AuthBLoC>(context).add(AuthEventAddPassword(input));
+        BlocProvider.of<AuthBLoC>(context)
+            .add(AuthEventAddPassword(input, context));
       }, context, state, state is AuthStateEmptyInput);
     } else if (state is AuthStateEmptyInput) {
       if (state.inUserPage) {
@@ -131,19 +165,9 @@ class LoginWidgetBuilder {
   // build input text field
   Widget _buildInputField(
       void Function(String input) btnPressed, isUsrLogin, bool error) {
-    return Container(
-        margin: EdgeInsets.all(20.0),
-        width: _getTextFieldWidth(),
-        child: TextField(
-          key: _textKey,
-          controller: textController,
-          onSubmitted: btnPressed,
-          textInputAction: TextInputAction.next,
-          obscureText: !isUsrLogin,
-          decoration: InputDecoration(
-              errorText: error ? Strings.empty : null,
-              labelText: isUsrLogin ? Strings.username : Strings.password),
-        ));
+    TextInput textInput =
+        TextInput(size, _textKey, textController, isUsrLogin, error);
+    return textInput.build(btnPressed);
   }
 
   // build text field based on AuthState
@@ -156,7 +180,8 @@ class LoginWidgetBuilder {
       }, true, error);
     } else if (state is AuthStateUsernameEntered) {
       return _buildInputField((input) {
-        BlocProvider.of<AuthBLoC>(context).add(AuthEventAddPassword(input));
+        BlocProvider.of<AuthBLoC>(context)
+            .add(AuthEventAddPassword(input, context));
       }, false, error);
     } else if (state is AuthStateEmptyInput) {
       if (state.inUserPage) {
@@ -202,13 +227,14 @@ class LoginWidgetBuilder {
   }
 
   Widget build(BuildContext context, AuthState state) {
-    if (state is AuthStatePasswordEntered) {
-      return CircularProgressIndicator();
-    } else {
+    if (state is AuthStatePasswordEntered)
       return Expanded(
-          child:
-              SingleChildScrollView(child: getWidgetsByState(state, context)));
-    }
+          child: Center(
+              child: CircularProgressIndicator(
+        backgroundColor: Theme.of(context).buttonColor,
+      )));
+    else
+      return Expanded(child: getWidgetsByState(state, context));
   }
 
   // build widgets based on BLoC state
@@ -216,7 +242,7 @@ class LoginWidgetBuilder {
     return (Column(children: <Widget>[
       _buildInputTextFieldByState(state, context, state is AuthStateEmptyInput),
       AnimationBuilder.build(_buildLoginButtonByState(state, context)),
-      AnimationBuilder.build(_buildReturnWidgetByState(state, context))
+      AnimationBuilder.build(_buildReturnWidgetByState(state, context)),
     ]));
   }
 }
@@ -227,6 +253,6 @@ class LoginWidgetBuilder {
 class AnimationBuilder {
   static Widget build(Widget child) {
     return AnimatedSwitcher(
-        duration: Duration(milliseconds: 500), child: child);
+        duration: Duration(milliseconds: 700), child: child);
   }
 }

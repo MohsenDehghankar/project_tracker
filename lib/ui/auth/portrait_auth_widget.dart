@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/blocs/auth_bloc.dart';
 import 'package:project_tracker/ui/auth/auth_page.dart';
 import 'package:project_tracker/ui/auth/auth_widget_utils.dart';
+import 'package:project_tracker/ui/project/project_page.dart';
 
 ///
 /// Auth Widget Builder for Portrait displays
@@ -24,6 +25,7 @@ class PortraitAuthBuilder extends AuthWidgetBuilder {
   Widget buildLoginWidget(BuildContext context, AuthState state) {
     var builder = LoginWidgetBuilder()
       ..size = MediaQuery.of(authState.context).size
+      ..focusNode = authState.focusNode
       ..orientation = Orientation.portrait;
 
     return builder.build(context, state);
@@ -37,20 +39,16 @@ class PortraitAuthBuilder extends AuthWidgetBuilder {
   }
 
   Widget build() {
-    return SingleChildScrollView(
-      child: ConstrainedBox(
-        constraints: _getConstraints(),
-        child: IntrinsicHeight(child: BlocBuilder<AuthBLoC, AuthState>(
-          builder: (context, state) {
-            return Column(
-              children: <Widget>[
-                buildDecsWidget(context, state),
-                buildLoginWidget(context, state)
-              ],
-            );
-          },
-        )),
-      ),
+    return BlocBuilder<AuthBLoC, AuthState>(
+      builder: (context, state) {
+        return Column(
+          children: <Widget>[
+            buildDecsWidget(context, state),
+            // test,
+            buildLoginWidget(context, state)
+          ],
+        );
+      },
     );
   }
 

@@ -1,6 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:project_tracker/logic/auth_model.dart';
+import 'package:project_tracker/model/auth_model.dart';
+import 'package:project_tracker/ui/project/main_page.dart';
+import 'package:project_tracker/ui/project/project_page.dart';
 
 ///
 /// Auth Event as input for Auth BLoC
@@ -15,8 +18,9 @@ class AuthEventAddUsername extends AuthEvent {
 
 class AuthEventAddPassword extends AuthEvent {
   String password;
+  BuildContext context;
 
-  AuthEventAddPassword(this.password);
+  AuthEventAddPassword(this.password, this.context);
 }
 
 class AuthEventReturnToUsername extends AuthEvent {}
@@ -55,8 +59,11 @@ class AuthBLoC extends Bloc<AuthEvent, AuthState> {
       }else {
         authModel.setPass(event.password);
         debugPrint("user: ${authModel.getUser()} : ${authModel.getPass()}");
-        yield AuthStatePasswordEntered();
+        // yield AuthStatePasswordEntered();
         // todo API call
+        Navigator.pushReplacement(event.context, MaterialPageRoute(builder: (_) {
+          return MainPage();
+        }));
       }
     } else if (event is AuthEventAddUsername) {
       if (event.username.isEmpty){

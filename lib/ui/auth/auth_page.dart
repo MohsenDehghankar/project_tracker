@@ -5,6 +5,7 @@ import 'package:project_tracker/blocs/auth_bloc.dart';
 import 'package:project_tracker/ui/appbar.dart';
 import 'package:project_tracker/ui/auth/landscape_auth_widget.dart';
 import 'package:project_tracker/ui/auth/portrait_auth_widget.dart';
+import 'package:project_tracker/ui/project/project_page.dart';
 
 ///
 /// Authentication Widget:
@@ -21,21 +22,44 @@ class AuthPage extends StatefulWidget {
 /// (Portrait & Landscape extend this class)
 ///
 class AuthWidgetState extends State<AuthPage> {
+  ScrollController scrollController;
+  FocusNode focusNode;
+
   @override
   void initState() {
     super.initState();
+    scrollController = ScrollController();
+    focusNode = FocusNode();
+    focusNode.addListener(() {
+      if (focusNode.hasFocus) {
+        scrollController.animateTo(scrollController.position.maxScrollExtent,
+            duration: Duration(milliseconds: 500), curve: Curves.ease);
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     var orientation = MediaQuery.of(context).orientation;
     Widget body = orientation == Orientation.portrait
-            ? PortraitAuthBuilder(this).build()
-            : LandscapeAuthBuilder(this).build();
+        ? PortraitAuthBuilder(this).build()
+        : LandscapeAuthBuilder(this).build();
+
+    body = Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [Colors.blueGrey, Colors.lightBlueAccent]),
+        ),
+        child: body);
+
     return BlocProvider(
       create: (context) => AuthBLoC(),
       child: Scaffold(
-        appBar: AppBarBuilder.build(),
+        resizeToAvoidBottomInset: false,
+        // appBar: AppBarBuilder.build(),
         body: body,
       ),
     );

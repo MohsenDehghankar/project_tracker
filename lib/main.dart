@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/appbar.dart';
 import 'package:project_tracker/ui/auth/auth_page.dart';
+import 'package:project_tracker/ui/project/main_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,11 +15,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: Strings.appTitle,
-      theme: ThemeData(
+      /*theme: ThemeData(
         primarySwatch: Colors.grey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),*/
+      theme: ThemeData(
+        primaryColor: Colors.blue,
       ),
       home: MainApp(title: Strings.appTitle),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -35,6 +40,7 @@ class _LoginState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     // todo check existence of token
-    return AuthPage();
+    // return AuthPage();
+    return MainPage();
   }
 }
