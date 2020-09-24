@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/model/auth_model.dart';
+import 'package:project_tracker/model/auth_result.dart';
+import 'package:project_tracker/repository/auth_repository.dart';
 import 'package:project_tracker/ui/project/main_page.dart';
 import 'package:project_tracker/ui/project/project_page.dart';
 
@@ -30,7 +34,12 @@ class AuthEventReturnToUsername extends AuthEvent {}
 ///
 abstract class AuthState {}
 
-class AuthStateStart extends AuthState {}
+class AuthStateStart extends AuthState {
+  bool loginFailed;
+  String error;
+
+  AuthStateStart(this.loginFailed, this.error);
+}
 
 class AuthStateUsernameEntered extends AuthState {}
 
@@ -42,39 +51,56 @@ class AuthStateEmptyInput extends AuthState {
   AuthStateEmptyInput(this.inUserPage);
 }
 
+class AuthStateLoggedIn extends AuthState {}
+
 ///
 /// Auth BLoC as Controller between UI & Logic
 ///
 class AuthBLoC extends Bloc<AuthEvent, AuthState> {
   final AuthModel authModel = AuthModel();
+  final AuthRepository authRepository = AuthRepository();
+
+  final GlobalKey<NavigatorState> navigatorKey;
+
+  AuthBLoC(this.navigatorKey);
 
   @override
-  AuthState get initialState => AuthStateStart();
+  AuthState get initialState => AuthStateStart(false, "");
 
   @override
   Stream<AuthState> mapEventToState(AuthEvent event) async* {
     if (event is AuthEventAddPassword) {
-      if (event.password.isEmpty){
+      if (event.password.isEmpty) {
         yield AuthStateEmptyInput(false);
-      }else {
+      } else {
         authModel.setPass(event.password);
-        debugPrint("user: ${authModel.getUser()} : ${authModel.getPass()}");
-        // yield AuthStatePasswordEntered();
-        // todo API call
-        Navigator.pushReplacement(event.context, MaterialPageRoute(builder: (_) {
-          return MainPage();
-        }));
+
+        // debug
+        debugPrint(
+            "authenticate: ${authModel.getUser()} : ${authModel.getPass()}");
+        yield AuthStatePasswordEntered();
+
+        // call API
+        AuthResult result = await authRepository.authenticate(authModel);
+        if (result.status == AuthResultStatus.success) {
+          yield AuthStateLoggedIn();
+
+          navigatorKey.currentState
+              .pushReplacement(MaterialPageRoute(builder: (_) => MainPage()));
+        } else {
+          yield AuthStateStart(true, result.error);
+        }
       }
     } else if (event is AuthEventAddUsername) {
-      if (event.username.isEmpty){
+      if (event.username.isEmpty) {
         yield AuthStateEmptyInput(true);
-      }else {
+      } else {
         authModel.setUser(event.username);
         yield AuthStateUsernameEntered();
       }
     } else if (event is AuthEventReturnToUsername) {
       authModel.setUser("");
-      yield AuthStateStart();
+      yield AuthStateStart(false, "");
     }
   }
 }

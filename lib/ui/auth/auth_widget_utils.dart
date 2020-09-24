@@ -49,28 +49,18 @@ class DescWidgetBuilder {
         ),
       ),
     );
-    /*return Scrollbar(
-      key: UniqueKey(),
-      thickness: 10.0,
-      radius: Radius.circular(20.0),
-      child: SingleChildScrollView(
-        child: Text(
-          desc,
-          style: TextStyle(
-            fontSize: 20.0,
-          ),
-          textAlign: TextAlign.justify,
-        ),
-      ),
-    );*/
   }
 
   // get child based on BLoC state
   Widget _getChild(BuildContext context, AuthState state) {
-    return AnimationBuilder.build((state is AuthStateStart ||
-            (state is AuthStateEmptyInput && state.inUserPage))
-        ? _getChildByStr(Strings.userPageDescription)
-        : _getChildByStr(Strings.passPageDescription));
+    if (state is AuthStatePasswordEntered) {
+      return AnimationBuilder.build(_getChildByStr(Strings.authing));
+    } else {
+      return AnimationBuilder.build((state is AuthStateStart ||
+              (state is AuthStateEmptyInput && state.inUserPage))
+          ? _getChildByStr(Strings.userPageDescription)
+          : _getChildByStr(Strings.passPageDescription));
+    }
   }
 
   Widget build(BuildContext context, AuthState state) {
@@ -92,35 +82,13 @@ class LoginWidgetBuilder {
   Orientation orientation;
   Size size;
   static TextEditingController textController = TextEditingController();
-  FocusNode focusNode;
 
   // build button in login page
   Widget _buildLoginButton(void Function(String input) onPress,
       BuildContext context, AuthState state, bool error) {
-    Button button = Button(size, error, textController, focusNode);
+    Button button = Button(size, error, textController);
     return button.build(onPress,
         state is AuthStateStart ? Strings.next : Strings.login, orientation);
-
-    /*return Center(
-        key: UniqueKey(),
-        child: Container(
-            margin: EdgeInsets.all(15.0),
-            width: _getTextFieldWidth(),
-            child: RaisedButton(
-              key: UniqueKey(),
-              elevation: 6.0,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0)),
-              textTheme: ButtonTextTheme.normal,
-              onPressed: error
-                  ? () {}
-                  : () {
-                      onPress(textController.text);
-                    },
-              child: Container(
-                child: Center(child: _getBtnText(context, state)),
-              ),
-            )));*/
   }
 
   // get button Child
@@ -146,7 +114,7 @@ class LoginWidgetBuilder {
       }, context, state, state is AuthStateEmptyInput);
     } else if (state is AuthStateEmptyInput) {
       if (state.inUserPage) {
-        return _buildLoginButtonByState(AuthStateStart(), context);
+        return _buildLoginButtonByState(AuthStateStart(false, ""), context);
       } else {
         return _buildLoginButtonByState(AuthStateUsernameEntered(), context);
       }
@@ -185,7 +153,7 @@ class LoginWidgetBuilder {
       }, false, error);
     } else if (state is AuthStateEmptyInput) {
       if (state.inUserPage) {
-        return _buildInputTextFieldByState(AuthStateStart(), context, true);
+        return _buildInputTextFieldByState(AuthStateStart(false, ""), context, true);
       } else {
         return _buildInputTextFieldByState(
             AuthStateUsernameEntered(), context, true);
@@ -254,5 +222,17 @@ class AnimationBuilder {
   static Widget build(Widget child) {
     return AnimatedSwitcher(
         duration: Duration(milliseconds: 700), child: child);
+  }
+}
+
+///
+/// build login failed snackbar
+///
+class SnackBarFailedBuilder {
+  static Widget build(String text) {
+    return SnackBar(
+        content: Text(
+      text,
+    ));
   }
 }

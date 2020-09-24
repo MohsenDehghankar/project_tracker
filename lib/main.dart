@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:project_tracker/blocs/auth_bloc.dart';
 import 'package:project_tracker/style/strings.dart';
-import 'package:project_tracker/ui/appbar.dart';
 import 'package:project_tracker/ui/auth/auth_page.dart';
+import 'package:project_tracker/ui/loading/loadingPage.dart';
 import 'package:project_tracker/ui/project/main_page.dart';
 
 void main() {
@@ -10,15 +13,14 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       title: Strings.appTitle,
-      /*theme: ThemeData(
-        primarySwatch: Colors.grey,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),*/
       theme: ThemeData(
         primaryColor: Colors.blue,
       ),
@@ -37,10 +39,23 @@ class MainApp extends StatefulWidget {
 }
 
 class _LoginState extends State<MainApp> {
+  bool loadAuth;
+  bool load;
+
+
+  @override
+  void initState() {
+    super.initState();
+    loadAuth = true;
+    load = true;
+  }
+
   @override
   Widget build(BuildContext context) {
     // todo check existence of token
-    // return AuthPage();
-    return MainPage();
+    // return loadAuth ? AuthPage() : MainPage();
+    // return MainPage();
+    return LoadingPage();
+    // return load ? LoadingPage() : loadAuth ? AuthPage() : MainPage();
   }
 }

@@ -14,7 +14,6 @@ class LandscapeAuthBuilder extends AuthWidgetBuilder {
   Widget buildLoginWidget(BuildContext context, AuthState state) {
     var builder = LoginWidgetBuilder()
       ..size = MediaQuery.of(authState.context).size
-      ..focusNode = authState.focusNode
       ..orientation = Orientation.landscape;
     return builder.build(context, state);
   }
@@ -31,6 +30,10 @@ class LandscapeAuthBuilder extends AuthWidgetBuilder {
   Widget build() {
     return BlocBuilder<AuthBLoC, AuthState>(
       builder: (context, state) {
+        if (state is AuthStateStart && state.loginFailed) {
+          Scaffold.of(context)
+              .showSnackBar(SnackBarFailedBuilder.build(state.error));
+        }
         return Row(
           children: <Widget>[
             buildDecsWidget(context, state),

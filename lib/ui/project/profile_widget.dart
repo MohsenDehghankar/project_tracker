@@ -56,7 +56,7 @@ class ProfileWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text("Mohsen Dehghankar",
+                  Text("Mammd Mammadi",
                     style: TextStyle(
                       fontWeight: FontWeight.bold
                     ),

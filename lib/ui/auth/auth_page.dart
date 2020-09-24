@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/blocs/auth_bloc.dart';
-import 'package:project_tracker/ui/appbar.dart';
+import 'package:project_tracker/main.dart';
 import 'package:project_tracker/ui/auth/landscape_auth_widget.dart';
 import 'package:project_tracker/ui/auth/portrait_auth_widget.dart';
-import 'package:project_tracker/ui/project/project_page.dart';
+import 'package:project_tracker/ui/project/main_page.dart';
 
 ///
 /// Authentication Widget:
@@ -23,19 +23,11 @@ class AuthPage extends StatefulWidget {
 ///
 class AuthWidgetState extends State<AuthPage> {
   ScrollController scrollController;
-  FocusNode focusNode;
 
   @override
   void initState() {
     super.initState();
     scrollController = ScrollController();
-    focusNode = FocusNode();
-    focusNode.addListener(() {
-      if (focusNode.hasFocus) {
-        scrollController.animateTo(scrollController.position.maxScrollExtent,
-            duration: Duration(milliseconds: 500), curve: Curves.ease);
-      }
-    });
   }
 
   @override
@@ -56,7 +48,7 @@ class AuthWidgetState extends State<AuthPage> {
         child: body);
 
     return BlocProvider(
-      create: (context) => AuthBLoC(),
+      create: (context) => AuthBLoC(MyApp.navigatorKey),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         // appBar: AppBarBuilder.build(),

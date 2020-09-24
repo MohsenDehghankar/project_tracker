@@ -11,4 +11,7 @@ class Strings {
   static const String empty = "Enter something!";
   static const String progress = "Progress";
   static const String timeRemained = "Remaining Time";
+  static const String authing = "Logging In...";
+  static const String failedLoggin = "Username or Password is Invalid";
+  static const String loadData = "Loading...";
 }

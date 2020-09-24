@@ -5,9 +5,8 @@ class Button {
   Size size;
   bool error;
   TextEditingController textController;
-  FocusNode focusNode;
 
-  Button(this.size, this.error, this.textController, this.focusNode);
+  Button(this.size, this.error, this.textController);
 
   Widget build(void Function(String input) onPress, String text,
       Orientation orientation) {
