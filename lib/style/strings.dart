@@ -14,4 +14,5 @@ class Strings {
   static const String authing = "Logging In...";
   static const String failedLoggin = "Username or Password is Invalid";
   static const String loadData = "Loading...";
+  static const String networkFail = "Problem in network connectivity";
 }

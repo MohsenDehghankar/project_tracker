@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/model/auth_model.dart';
 import 'package:project_tracker/model/auth_result.dart';
 import 'package:project_tracker/repository/auth_repository.dart';
+import 'package:project_tracker/ui/auth/auth_page.dart';
 import 'package:project_tracker/ui/project/main_page.dart';
 import 'package:project_tracker/ui/project/project_page.dart';
 
@@ -28,6 +29,10 @@ class AuthEventAddPassword extends AuthEvent {
 }
 
 class AuthEventReturnToUsername extends AuthEvent {}
+
+class AuthEventError extends AuthEvent {}
+
+class AuthEventSendLogin extends AuthEvent {}
 
 ///
 /// Auth State as output of Auth BLoC
@@ -80,11 +85,8 @@ class AuthBLoC extends Bloc<AuthEvent, AuthState> {
             "authenticate: ${authModel.getUser()} : ${authModel.getPass()}");
         yield AuthStatePasswordEntered();
 
-        // call API
         AuthResult result = await authRepository.authenticate(authModel);
         if (result.status == AuthResultStatus.success) {
-          yield AuthStateLoggedIn();
-
           navigatorKey.currentState
               .pushReplacement(MaterialPageRoute(builder: (_) => MainPage()));
         } else {

@@ -40,10 +40,6 @@ class PortraitAuthBuilder extends AuthWidgetBuilder {
   Widget build() {
     return BlocBuilder<AuthBLoC, AuthState>(
       builder: (context, state) {
-        if (state is AuthStateStart && state.loginFailed) {
-          Scaffold.of(context)
-              .showSnackBar(SnackBarFailedBuilder.build(state.error));
-        }
         return Column(
           children: <Widget>[
             buildDecsWidget(context, state),

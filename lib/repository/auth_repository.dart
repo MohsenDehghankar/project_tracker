@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -6,6 +7,7 @@ import 'package:http/http.dart';
 import 'package:project_tracker/model/auth_model.dart';
 import 'package:project_tracker/model/auth_result.dart';
 import 'package:project_tracker/resource/http_client.dart';
+import 'package:project_tracker/style/strings.dart';
 
 ///
 /// A Class for Fetching Auth related data
@@ -20,8 +22,8 @@ class AuthRepository {
       debugPrint("response ==> ${response.body}");
       result = jsonDecode(response.body);
       token = result['token'];
-    } on Exception catch (e) {
-      message = e.toString();
+    } on SocketException catch (e) {
+      message = Strings.networkFail;
       return AuthResult(token, AuthResultStatus.failed)..error = message;
     }
 

@@ -153,7 +153,8 @@ class LoginWidgetBuilder {
       }, false, error);
     } else if (state is AuthStateEmptyInput) {
       if (state.inUserPage) {
-        return _buildInputTextFieldByState(AuthStateStart(false, ""), context, true);
+        return _buildInputTextFieldByState(
+            AuthStateStart(false, ""), context, true);
       } else {
         return _buildInputTextFieldByState(
             AuthStateUsernameEntered(), context, true);
@@ -178,6 +179,16 @@ class LoginWidgetBuilder {
     );
   }
 
+  Widget _getErrorWidget(String error) {
+    return Center(
+      key: UniqueKey(),
+      child: Text(
+        error,
+        style: TextStyle(color: Colors.red),
+      ),
+    );
+  }
+
   // build the return button based on state
   Widget _buildReturnWidgetByState(AuthState state, BuildContext context) {
     if (state is AuthStateUsernameEntered ||
@@ -186,6 +197,8 @@ class LoginWidgetBuilder {
         BlocProvider.of<AuthBLoC>(context).add(AuthEventReturnToUsername());
         textController.clear();
       });
+    } else if (state is AuthStateStart && state.loginFailed) {
+      return _getErrorWidget(state.error);
     } else {
       // todo other states
       return Center(
@@ -195,13 +208,13 @@ class LoginWidgetBuilder {
   }
 
   Widget build(BuildContext context, AuthState state) {
-    if (state is AuthStatePasswordEntered)
+    if (state is AuthStatePasswordEntered) {
       return Expanded(
           child: Center(
               child: CircularProgressIndicator(
         backgroundColor: Theme.of(context).buttonColor,
       )));
-    else
+    } else
       return Expanded(child: getWidgetsByState(state, context));
   }
 
