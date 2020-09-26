@@ -7,6 +7,7 @@ import 'package:http/http.dart';
 import 'package:project_tracker/model/auth/auth_model.dart';
 import 'package:project_tracker/model/auth/auth_result.dart';
 import 'package:project_tracker/resource/http_client.dart';
+import 'package:project_tracker/resource/local_storage.dart';
 import 'package:project_tracker/style/strings.dart';
 
 ///
@@ -40,10 +41,7 @@ class AuthRepository {
   }
 
   void _saveToken(String token) async {
-    try {
-      final storage = new FlutterSecureStorage();
-      await storage.write(key: 'token', value: token);
-    } catch (e) {}
+    await LocalStorage.saveToken(token);
   }
 }
 

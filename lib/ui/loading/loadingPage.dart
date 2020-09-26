@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:project_tracker/resource/local_storage.dart';
 import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/auth/auth_page.dart';
 import 'package:project_tracker/ui/project/main_page.dart';
@@ -12,11 +13,10 @@ class LoadingPage extends StatefulWidget {
 
 class LoadingPageState extends State<LoadingPage> {
   void _fetchData() async {
-    final storage = FlutterSecureStorage();
     bool loadauthtmp = true;
     try {
-      String token = await storage.read(key: "token");
-      loadauthtmp = token == null;
+      String token = await LocalStorage.getToken();
+      loadauthtmp = token == null || token.isEmpty;
     } catch (e) {}
     if (loadauthtmp) {
       Navigator.pushReplacement(
