@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_tracker/model/user.dart';
+import 'package:project_tracker/model/user/user.dart';
 
 class ProfileWidget {
   Widget build(Color color, User user) {

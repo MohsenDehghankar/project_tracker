@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:project_tracker/model/project.dart';
+import 'package:project_tracker/model/project/project.dart';
 import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/project/project_progress_indicator.dart';
@@ -29,7 +29,7 @@ class ProjectCard {
             Row(
               children: <Widget>[
                 Icon(Icons.timeline, color: Colors.yellowAccent, size: 15.0,),
-                Text(" Until ${project.getDate()}", style: TextStyle(color: Colors.white, fontSize: 12.0)),
+                Text(" Nearest Phase: ${project.getNearestDate()}", style: TextStyle(color: Colors.white, fontSize: 12.0)),
                 Text(" [${project.getRemainingDays()} day(s)]", style: TextStyle(color: Colors.white)),
               ],
             ),

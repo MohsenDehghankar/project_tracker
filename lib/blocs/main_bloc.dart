@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:project_tracker/model/project.dart';
-import 'package:project_tracker/model/project_list_result.dart';
-import 'package:project_tracker/model/user.dart';
-import 'package:project_tracker/model/user_result.dart';
+import 'package:project_tracker/model/project/project.dart';
+import 'package:project_tracker/model/project/project_list_result.dart';
+import 'package:project_tracker/model/user/user.dart';
+import 'package:project_tracker/model/user/user_result.dart';
 import 'package:project_tracker/repository/project_repository.dart';
 import 'package:project_tracker/ui/auth/auth_page.dart';
 
@@ -62,11 +62,13 @@ class MainBloc extends Bloc<MainEvent, MainState> {
       ProjectListResult projectListResult =
           await projectRepository.fetchProjects();
 
+      // todo set project's phases (prj.setPhases())
+
       if (result.success && projectListResult.success) {
         this.user = result.user;
         this.projects = projectListResult.projects;
 
-        projects[0].getDate();
+        projects[0].getNearestDate();
 
         yield MainStateLoaded();
       } else {

@@ -5,6 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:project_tracker/blocs/auth_bloc.dart';
 import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/auth/auth_page.dart';
+import 'package:project_tracker/ui/detail/project_details_page.dart';
 import 'package:project_tracker/ui/loading/loadingPage.dart';
 import 'package:project_tracker/ui/project/main_page.dart';
 
@@ -52,10 +53,10 @@ class _LoginState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    // todo check existence of token
     // return loadAuth ? AuthPage() : MainPage();
     // return MainPage();
     return LoadingPage();
+    // return DetailPage();
     // return load ? LoadingPage() : loadAuth ? AuthPage() : MainPage();
   }
 }

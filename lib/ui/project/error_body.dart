@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ErrorBody {
-  static Widget build(BuildContext context, String error) {
+  static Widget build(BuildContext context) {
     return Container(
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
@@ -11,6 +11,6 @@ class ErrorBody {
               end: Alignment.bottomLeft,
               colors: [Colors.blueGrey, Colors.lightBlueAccent]),
         ),
-        child: Center(child: Text(error)));
+        child: Center());
   }
 }

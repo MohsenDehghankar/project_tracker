@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:project_tracker/model/auth_model.dart';
-import 'package:project_tracker/model/auth_result.dart';
+import 'package:project_tracker/model/auth/auth_model.dart';
+import 'package:project_tracker/model/auth/auth_result.dart';
 import 'package:project_tracker/repository/auth_repository.dart';
 import 'package:project_tracker/ui/auth/auth_page.dart';
 import 'package:project_tracker/ui/project/main_page.dart';
@@ -80,9 +80,6 @@ class AuthBLoC extends Bloc<AuthEvent, AuthState> {
       } else {
         authModel.setPass(event.password);
 
-        // debug
-        debugPrint(
-            "authenticate: ${authModel.getUser()} : ${authModel.getPass()}");
         yield AuthStatePasswordEntered();
 
         AuthResult result = await authRepository.authenticate(authModel);

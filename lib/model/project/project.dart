@@ -1,5 +1,5 @@
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:project_tracker/model/project/project_phase.dart';
 
 ///
 /// Indicating a Project
@@ -10,6 +10,7 @@ class Project {
   String clientId;
   String projectManager;
   String deadline;
+  List<Phase> phases;
 
   Project(this.name, this.detail, this.clientId, this.projectManager,
       this.deadline);
@@ -21,12 +22,18 @@ class Project {
         projectManager = json['projectManager'],
         deadline = json['deadline'];
 
-  String getDate(){
+  set setPhases(List<Phase> phases) {
+    this.phases = phases;
+  }
+
+  String getNearestDate() {
+    // todo (API)
     var time = DateTime.parse(deadline);
     return DateFormat("yyyy-MM-dd").format(time);
   }
 
-  int getRemainingDays(){
+  int getRemainingDays() {
+    // todo (API)
     var time = DateTime.parse(deadline);
     var now = DateTime.now();
     return time.difference(now).inDays;

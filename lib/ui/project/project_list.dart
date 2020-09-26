@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_tracker/model/project.dart';
+import 'package:project_tracker/model/project/project.dart';
 import 'package:project_tracker/ui/project/project_card.dart';
 
 class ProjectList {

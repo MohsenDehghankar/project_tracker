@@ -119,7 +119,6 @@ class LoginWidgetBuilder {
         return _buildLoginButtonByState(AuthStateUsernameEntered(), context);
       }
     } else {
-      // todo other states
       return Center(
         key: UniqueKey(),
       );
@@ -160,7 +159,6 @@ class LoginWidgetBuilder {
             AuthStateUsernameEntered(), context, true);
       }
     } else {
-      // todo other states
       return Center(
         key: UniqueKey(),
       );
@@ -197,10 +195,7 @@ class LoginWidgetBuilder {
         BlocProvider.of<AuthBLoC>(context).add(AuthEventReturnToUsername());
         textController.clear();
       });
-    } else if (state is AuthStateStart && state.loginFailed) {
-      return _getErrorWidget(state.error);
     } else {
-      // todo other states
       return Center(
         key: UniqueKey(),
       );
@@ -209,11 +204,20 @@ class LoginWidgetBuilder {
 
   Widget build(BuildContext context, AuthState state) {
     if (state is AuthStatePasswordEntered) {
-      return Expanded(
-          child: Center(
-              child: CircularProgressIndicator(
-        backgroundColor: Theme.of(context).buttonColor,
-      )));
+      return BlocListener<AuthBLoC, AuthState>(
+        listener: (context, state) {
+          if (state is AuthStateStart && state.loginFailed) {
+            Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text(state.error, style: TextStyle(color: Colors.red),),
+            ));
+          }
+        },
+        child: Expanded(
+            child: Center(
+                child: CircularProgressIndicator(
+          backgroundColor: Theme.of(context).buttonColor,
+        ))),
+      );
     } else
       return Expanded(child: getWidgetsByState(state, context));
   }

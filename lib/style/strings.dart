@@ -1,5 +1,7 @@
 
 class Strings {
+
+  // auth
   static const String userPageDescription = """Enter Your Username!""";
   static const String passPageDescription = """Enter Your Password!""";
   static const String username = "Username";
@@ -9,10 +11,19 @@ class Strings {
   static const String appTitle = "Project Tracker";
   static const String returnToUsername = "Change Username";
   static const String empty = "Enter something!";
-  static const String progress = "Progress";
-  static const String timeRemained = "Remaining Time";
   static const String authing = "Logging In...";
   static const String failedLoggin = "Username or Password is Invalid";
+
+  // main page
+  static const String reload = "Reload";
+  static const String progress = "Progress";
+  static const String timeRemained = "Remaining Time";
   static const String loadData = "Loading...";
+
+  // errors
   static const String networkFail = "Problem in network connectivity";
+  static const String unknownError = "Unknown Error!";
+  static const String networkFailProject = "Network Problem while fetching projects!";
+  static const String unknownErrorProject = "Unknown error while fetching projects list.";
+
 }

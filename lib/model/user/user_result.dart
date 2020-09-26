@@ -1,4 +1,4 @@
-import 'package:project_tracker/model/user.dart';
+import 'package:project_tracker/model/user/user.dart';
 
 class UserResult {
   User user;
