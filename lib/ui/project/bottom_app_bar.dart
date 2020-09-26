@@ -16,7 +16,9 @@ class BottomAppBarBuilder {
             },
             icon: Icon(Icons.logout),
           ),
-          IconButton(icon: Icon(Icons.refresh), onPressed: () {})
+          IconButton(icon: Icon(Icons.refresh), onPressed: () {
+            BlocProvider.of<MainBloc>(context).add(MainEventRefresh());
+          })
         ],
       ),
     );

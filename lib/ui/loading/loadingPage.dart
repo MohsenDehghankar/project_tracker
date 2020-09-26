@@ -16,7 +16,6 @@ class LoadingPageState extends State<LoadingPage> {
     bool loadauthtmp = true;
     try {
       String token = await storage.read(key: "token");
-      debugPrint("Hello $token");
       loadauthtmp = token == null;
     } catch (e) {}
     if (loadauthtmp) {

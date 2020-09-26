@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:project_tracker/model/project.dart';
 import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/project/project_progress_indicator.dart';
 
 class ProjectCard {
-  static Widget build(Color progressColor, Color timeColor, Size size) {
+  static Widget build(
+      Color progressColor, Color timeColor, Size size, Project project) {
     final makeListTile = ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         leading: Container(
@@ -17,7 +19,7 @@ class ProjectCard {
           child: Icon(Icons.autorenew, color: Colors.white),
         ),
         title: Text(
-          "Project Name",
+          project.name,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
@@ -26,9 +28,9 @@ class ProjectCard {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Icon(Icons.linear_scale, color: Colors.yellowAccent),
-                Text(" Until 99/08/30", style: TextStyle(color: Colors.white)),
-                Text(" [24 day(s)]", style: TextStyle(color: Colors.white)),
+                Icon(Icons.timeline, color: Colors.yellowAccent, size: 15.0,),
+                Text(" Until ${project.getDate()}", style: TextStyle(color: Colors.white, fontSize: 12.0)),
+                Text(" [${project.getRemainingDays()} day(s)]", style: TextStyle(color: Colors.white)),
               ],
             ),
             Row(

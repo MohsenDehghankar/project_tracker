@@ -5,7 +5,6 @@ import 'package:project_tracker/blocs/auth_bloc.dart';
 import 'package:project_tracker/main.dart';
 import 'package:project_tracker/ui/auth/landscape_auth_widget.dart';
 import 'package:project_tracker/ui/auth/portrait_auth_widget.dart';
-import 'package:project_tracker/ui/project/main_page.dart';
 
 ///
 /// Authentication Widget:

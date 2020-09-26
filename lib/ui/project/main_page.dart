@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/blocs/main_bloc.dart';
 import 'package:project_tracker/main.dart';
 import 'package:project_tracker/ui/project/bottom_app_bar.dart';
-import 'package:project_tracker/ui/project/profile_widget.dart';
-import 'package:project_tracker/ui/project/project_list.dart';
+import 'package:project_tracker/ui/project/loading_body.dart';
+import 'package:project_tracker/ui/project/main_body.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -15,27 +15,6 @@ class MainPage extends StatefulWidget {
 class MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    Widget body = NestedScrollView(
-      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-        return <Widget>[
-          SliverAppBar(
-            expandedHeight: 220.0,
-            floating: true,
-            pinned: false,
-            snap: false,
-            flexibleSpace: FlexibleSpaceBar(
-              background: ProfileWidget().build(Theme.of(context).buttonColor),
-              centerTitle: true,
-            ),
-          ),
-        ];
-      },
-      body: Center(
-        child:
-            ProjectList.build(Theme.of(context), MediaQuery.of(context).size),
-      ),
-    );
-
     return BlocProvider(
         create: (context) => MainBloc(MyApp.navigatorKey),
         child: Scaffold(
@@ -52,6 +31,10 @@ class MainPageState extends State<MainPage> {
             ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
-            body: body));
+            body: BlocBuilder<MainBloc, MainState>(builder: (context, state) {
+              return (state is MainStateLoading)
+                  ? LoadingBody.build(context)
+                  : MainBody.build(context);
+            })));
   }
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:project_tracker/model/user.dart';
 
 class ProfileWidget {
-  Widget build(Color color) {
+  Widget build(Color color, User user) {
     return new Container(
       height: 150.0,
       color: color,
@@ -15,23 +16,27 @@ class ProfileWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  new Container(
-                      width: 140.0,
-                      height: 140.0,
-                      decoration: new BoxDecoration(
-                        shape: BoxShape.circle,
-                        /*gradient: LinearGradient(
-                            begin: Alignment.topRight,
-                            end: Alignment.bottomLeft,
-                            colors: [Colors.red, Colors.lightBlueAccent]),*/
-                        // todo profile
-                        image: new DecorationImage(
-                          image: new ExactAssetImage(
-                              'images/profile.png'),
-                          fit: BoxFit.cover,
-                        )
-
-                      )),
+                  Stack(
+                    children: [
+                      new Container(
+                          width: 140.0,
+                          height: 140.0,
+                          decoration: new BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: new DecorationImage(
+                                  image: AssetImage('images/profile.png'),
+                                  fit: BoxFit.cover))),
+                      new Container(
+                          width: 140.0,
+                          height: 140.0,
+                          decoration: new BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: new DecorationImage(
+                                image: NetworkImage(user.avatarAddr),
+                                fit: BoxFit.cover,
+                              ))),
+                    ],
+                  )
                 ],
               ),
               Padding(
@@ -52,19 +57,17 @@ class ProfileWidget {
             ]),
           ),
           Padding(
-            padding: EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(10.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text("Mammd Mammadi",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold
-                    ),
+                  Text(
+                    user.name,
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Text("Flutter Developer"),
+                  Text(user.role),
                 ],
-              )
-          )
+              ))
         ],
       ),
     );
