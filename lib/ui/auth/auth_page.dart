@@ -48,11 +48,14 @@ class AuthWidgetState extends State<AuthPage> {
 
     return BlocProvider(
       create: (context) => AuthBLoC(MyApp.navigatorKey),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        // appBar: AppBarBuilder.build(),
-        body: body,
-      ),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          resizeToAvoidBottomInset: false,
+          // appBar: AppBarBuilder.build(),
+          body: body,
+        ),
+      )
     );
   }
 }

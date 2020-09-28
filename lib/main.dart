@@ -55,8 +55,8 @@ class _LoginState extends State<MainApp> {
   Widget build(BuildContext context) {
     // return loadAuth ? AuthPage() : MainPage();
     // return MainPage();
-    return LoadingPage();
-    // return DetailPage();
+    // return LoadingPage();
+    return DetailPage();
     // return load ? LoadingPage() : loadAuth ? AuthPage() : MainPage();
   }
 }

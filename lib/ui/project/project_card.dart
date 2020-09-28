@@ -28,10 +28,27 @@ class ProjectCard {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Icon(Icons.timeline, color: Colors.yellowAccent, size: 15.0,),
-                Text(" Nearest Phase: ${project.getNearestDate()}", style: TextStyle(color: Colors.white, fontSize: 12.0)),
-                Text(" [${project.getRemainingDays()} day(s)]", style: TextStyle(color: Colors.white)),
+                Icon(
+                  Icons.timeline,
+                  color: Colors.yellowAccent,
+                  size: 15.0,
+                ),
+                Text(" Nearest Deadline:",
+                    style: TextStyle(color: Colors.white, fontSize: 12.0)),
               ],
+            ),
+            Center(
+                child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(" ${project.getNearestDate()}",
+                    style: TextStyle(color: Colors.white, fontSize: 12.0)),
+                Text(" [${project.getRemainingDays()} day(s)]",
+                    style: TextStyle(color: Colors.white)),
+              ],
+            )),
+            Padding(
+              padding: const EdgeInsets.only(top: 5.0),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
