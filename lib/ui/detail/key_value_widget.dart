@@ -1,44 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:project_tracker/ui/detail/card.dart';
 
 class KeyPairBuilder {
   static Widget build() {
-    return Container(
-        margin: const EdgeInsets.all(8),
-        // constraints: const BoxConstraints(maxHeight: 250.0),
-        decoration: BoxDecoration(
-          color: const Color(0xFF5D6173),
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Column(
-          children: <Widget>[
-            Container(
-                margin: const EdgeInsets.all(8.0),
-                padding: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      // subheading('My Tasks'),
-                      Text(
-                        "Details",
-                        style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
-                      Icon(
-                        Icons.refresh,
-                        color: Colors.white,
-                        size: 32.0,
-                      ),
-                    ])),
-            KeyList.build()
-          ],
-        ));
+    return DetailPageCardBuilder.build(
+        KeyList.build(),
+        Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              // subheading('My Tasks'),
+              Text(
+                "Details",
+                style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+              Icon(
+                Icons.refresh,
+                color: Colors.white,
+                size: 32.0,
+              ),
+            ]));
   }
 
   static CircleAvatar calendarIcon() {
@@ -64,24 +48,24 @@ class KeyList {
           itemBuilder: (context, int) {
             return Container(
                 padding: const EdgeInsets.all(8.0),
-                child: TaskColumn(
-                  icon: Icons.alarm,
-                  iconBackgroundColor: Colors.red,
-                  title: 'To Do',
-                  subtitle: '5 tasks now. 1 started',
+                child: KeyValueWidget(
+                  icon: Icons.info_outline,
+                  iconBackgroundColor: Color(0xFF2ACA8E),
+                  title: 'projectManager',
+                  subtitle: 'g.ahmadi',
                 ));
           }),
     );
   }
 }
 
-class TaskColumn extends StatelessWidget {
+class KeyValueWidget extends StatelessWidget {
   final IconData icon;
   final Color iconBackgroundColor;
   final String title;
   final String subtitle;
 
-  TaskColumn({
+  KeyValueWidget({
     this.icon,
     this.iconBackgroundColor,
     this.title,
@@ -93,14 +77,18 @@ class TaskColumn extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        CircleAvatar(
+        /* CircleAvatar(
           radius: 20.0,
           backgroundColor: iconBackgroundColor,
           child: Icon(
             icon,
-            size: 15.0,
             color: Colors.white,
           ),
+        ),*/
+        Icon(
+          Icons.info_outline,
+          color: iconBackgroundColor,
+          size: 30.0,
         ),
         SizedBox(width: 10.0),
         Column(
@@ -117,7 +105,7 @@ class TaskColumn extends StatelessWidget {
               subtitle,
               style: TextStyle(
                   fontSize: 14.0,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w600,
                   color: Colors.black45),
             ),
           ],

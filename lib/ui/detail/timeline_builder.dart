@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:project_tracker/style/strings.dart';
+import 'package:project_tracker/ui/detail/card.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class TimeLineBuilder {
@@ -120,109 +121,91 @@ class DeliveryTimelineState extends State<DeliveryTimeline> {
       _scrollController.jumpTo(currentStep * 120.0);
     });
 
-    return Container(
-      decoration: BoxDecoration(
-        color: const Color(0xFF5D6173),
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      margin: const EdgeInsets.all(8.0),
-      // padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          Container(
-              margin: const EdgeInsets.all(8.0),
-              padding: const EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    // subheading('My Tasks'),
-                    Text(
-                      "Time Line",
-                      style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
-                    Icon(
-                      Icons.refresh,
-                      color: Colors.white,
-                      size: 32.0,
-                    ),
-                  ])),
-          Container(
-            margin: const EdgeInsets.all(8),
-            constraints: const BoxConstraints(maxHeight: 210),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              controller: _scrollController,
-              // phases + end + start + now
-              itemCount: data.mainList.length,
-              itemBuilder: (BuildContext context, int index) {
-                var indicatorSize = 30.0;
-                var beforeLineStyle = LineStyle(
-                  color: Colors.white.withOpacity(0.8),
-                );
+    return DetailPageCardBuilder.build(
+        Container(
+          margin: const EdgeInsets.all(8),
+          constraints: const BoxConstraints(maxHeight: 210),
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            controller: _scrollController,
+            // phases + end + start + now
+            itemCount: data.mainList.length,
+            itemBuilder: (BuildContext context, int index) {
+              var indicatorSize = 30.0;
+              var beforeLineStyle = LineStyle(
+                color: Colors.white.withOpacity(0.8),
+              );
 
-                TimeSteps status;
-                LineStyle afterLineStyle;
-                String step;
-                String addr = "";
+              TimeSteps status;
+              LineStyle afterLineStyle;
+              String step;
+              String addr = "";
 
-                if (index == 0) {
-                  status = TimeSteps.start;
-                  step = Strings.start;
-                  addr = "images/start.png";
-                } else if (index == data.now) {
-                  status = TimeSteps.now;
-                  step = Strings.now;
-                  afterLineStyle = const LineStyle(color: Color(0xFF747888));
-                } else if (index == data.mainList.length - 1) {
-                  status = TimeSteps.end;
-                  step = Strings.end;
-                  indicatorSize = 20;
-                  beforeLineStyle = const LineStyle(color: Color(0xFF747888));
-                } else if (index < currentStep) {
-                  step = 'Phase ${index - 1} Deadline';
-                  addr = "images/location.png";
-                  status = TimeSteps.phaseDeadline;
-                } else {
-                  step = 'Phase ${index - 2} Deadline';
-                  afterLineStyle = const LineStyle(color: Color(0xFF747888));
-                  beforeLineStyle = const LineStyle(color: Color(0xFF747888));
-                  status = TimeSteps.phaseDeadline;
-                }
+              if (index == 0) {
+                status = TimeSteps.start;
+                step = Strings.start;
+                addr = "images/start.png";
+              } else if (index == data.now) {
+                status = TimeSteps.now;
+                step = Strings.now;
+                afterLineStyle = const LineStyle(color: Color(0xFF747888));
+              } else if (index == data.mainList.length - 1) {
+                status = TimeSteps.end;
+                step = Strings.end;
+                indicatorSize = 20;
+                beforeLineStyle = const LineStyle(color: Color(0xFF747888));
+              } else if (index < currentStep) {
+                step = 'Phase ${index - 1} Deadline';
+                addr = "images/location.png";
+                status = TimeSteps.phaseDeadline;
+              } else {
+                step = 'Phase ${index - 2} Deadline';
+                afterLineStyle = const LineStyle(color: Color(0xFF747888));
+                beforeLineStyle = const LineStyle(color: Color(0xFF747888));
+                status = TimeSteps.phaseDeadline;
+              }
 
-                return TimelineTile(
-                  axis: TimelineAxis.horizontal,
-                  alignment: TimelineAlign.manual,
-                  lineXY: 0.6,
-                  isFirst: index == 0,
-                  isLast: index == data.mainList.length - 1,
-                  beforeLineStyle: beforeLineStyle,
-                  afterLineStyle: afterLineStyle,
-                  indicatorStyle: IndicatorStyle(
-                    width: indicatorSize,
-                    height: indicatorSize,
-                    indicator: _IndicatorDelivery(status, currentStep, index),
-                  ),
-                  startChild:
-                      _StartChildDelivery(index, data.mainList[index], addr),
-                  endChild: _EndChildDelivery(
-                    text: step,
-                    current: index == currentStep,
-                  ),
-                );
-              },
-            ),
+              return TimelineTile(
+                axis: TimelineAxis.horizontal,
+                alignment: TimelineAlign.manual,
+                lineXY: 0.6,
+                isFirst: index == 0,
+                isLast: index == data.mainList.length - 1,
+                beforeLineStyle: beforeLineStyle,
+                afterLineStyle: afterLineStyle,
+                indicatorStyle: IndicatorStyle(
+                  width: indicatorSize,
+                  height: indicatorSize,
+                  indicator: _IndicatorDelivery(status, currentStep, index),
+                ),
+                startChild:
+                    _StartChildDelivery(index, data.mainList[index], addr),
+                endChild: _EndChildDelivery(
+                  text: step,
+                  current: index == currentStep,
+                ),
+              );
+            },
           ),
-        ],
-      ),
-    );
+        ),
+        Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              // subheading('My Tasks'),
+              Text(
+                "Time Line",
+                style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+              Icon(
+                Icons.refresh,
+                color: Colors.white,
+                size: 32.0,
+              ),
+            ]));
   }
 }
 
@@ -240,7 +223,6 @@ class _StartChildDelivery extends StatelessWidget {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Image.asset('images/location.png', height: 64),
           assetAddr.isEmpty
               ? Container(
                   height: 64,
