@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:project_tracker/style/strings.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class TimeLineBuilder {
@@ -28,13 +29,12 @@ class TimeLineBuilder {
             body: Center(
               child: Column(
                 children: <Widget>[
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 10),
                   Expanded(
                     child: CustomScrollView(
                       slivers: <Widget>[
-                        SliverPadding(padding: EdgeInsets.only(top: 20)),
-                        SliverPadding(padding: EdgeInsets.only(top: 20)),
-                        _DeliveryTimeline(
+                        SliverPadding(padding: EdgeInsets.only(top: 15)),
+                        DeliveryTimeline(
                             TimeLineData(startDate, deadline, phasesDeadline)),
                         SliverPadding(padding: EdgeInsets.only(top: 60)),
                       ],
@@ -50,15 +50,15 @@ class TimeLineBuilder {
   }
 }
 
-class _DeliveryTimeline extends StatefulWidget {
+class DeliveryTimeline extends StatefulWidget {
   // const _DeliveryTimeline();
 
   final TimeLineData data;
 
-  _DeliveryTimeline(this.data);
+  DeliveryTimeline(this.data);
 
   @override
-  _DeliveryTimelineState createState() => _DeliveryTimelineState(data);
+  DeliveryTimelineState createState() => DeliveryTimelineState(data);
 }
 
 class TimeLineData {
@@ -81,29 +81,31 @@ class TimeLineData {
       return time1.difference(time2).inHours;
     });
     mainList = <String>[];
-    mainList.add(DateFormat("yyyy-MM-dd").format(DateTime.parse(startDate)));
+    mainList
+        .add(DateFormat(Strings.timeFormat).format(DateTime.parse(startDate)));
     bool less = true;
     var now = DateTime.now();
     for (var time in phaseDeadline) {
       var dead = DateTime.parse(time);
       if (dead.difference(now).inHours > 0 && less) {
-        mainList.add(DateFormat("yyyy-MM-dd").format(now));
+        mainList.add(DateFormat(Strings.timeFormat).format(now));
         this.now = mainList.length - 1;
-        mainList.add(DateFormat("yyyy-MM-dd").format(dead));
+        mainList.add(DateFormat(Strings.timeFormat).format(dead));
         less = false;
       } else {
-        mainList.add(DateFormat("yyyy-MM-dd").format(dead));
+        mainList.add(DateFormat(Strings.timeFormat).format(dead));
       }
     }
-    mainList.add(DateFormat("yyyy-MM-dd").format(DateTime.parse(endDate)));
+    mainList
+        .add(DateFormat(Strings.timeFormat).format(DateTime.parse(endDate)));
   }
 }
 
-class _DeliveryTimelineState extends State<_DeliveryTimeline> {
+class DeliveryTimelineState extends State<DeliveryTimeline> {
   ScrollController _scrollController;
   final TimeLineData data;
 
-  _DeliveryTimelineState(this.data);
+  DeliveryTimelineState(this.data);
 
   @override
   void initState() {
@@ -118,81 +120,113 @@ class _DeliveryTimelineState extends State<_DeliveryTimeline> {
       _scrollController.jumpTo(currentStep * 120.0);
     });
 
-    return SliverToBoxAdapter(
-      child: Container(
-        margin: const EdgeInsets.all(8),
-        constraints: const BoxConstraints(maxHeight: 210),
+    return Container(
+      decoration: BoxDecoration(
         color: const Color(0xFF5D6173),
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          controller: _scrollController,
-          // phases + end + start + now
-          itemCount: data.mainList.length,
-          itemBuilder: (BuildContext context, int index) {
-            var indicatorSize = 30.0;
-            var beforeLineStyle = LineStyle(
-              color: Colors.white.withOpacity(0.8),
-            );
-
-            TimeSteps status;
-            LineStyle afterLineStyle;
-            String step;
-            bool done = false;
-
-            if (index == 0) {
-              status = TimeSteps.start;
-              step = "Start";
-            } else if (index == data.now) {
-              status = TimeSteps.now;
-              step = "Now";
-              afterLineStyle = const LineStyle(color: Color(0xFF747888));
-            } else if (index == data.mainList.length - 1) {
-              status = TimeSteps.end;
-              step = "End";
-              indicatorSize = 20;
-              beforeLineStyle = const LineStyle(color: Color(0xFF747888));
-            } else if (index < currentStep) {
-              step = 'Phase ${index - 1} Deadline';
-              done = true;
-              status = TimeSteps.phaseDeadline;
-            } else {
-              step = 'Phase ${index - 1} Deadline';
-              afterLineStyle = const LineStyle(color: Color(0xFF747888));
-              beforeLineStyle = const LineStyle(color: Color(0xFF747888));
-              status = TimeSteps.phaseDeadline;
-            }
-
-            return TimelineTile(
-              axis: TimelineAxis.horizontal,
-              alignment: TimelineAlign.manual,
-              lineXY: 0.6,
-              isFirst: index == 0,
-              isLast: index == data.mainList.length - 1,
-              beforeLineStyle: beforeLineStyle,
-              afterLineStyle: afterLineStyle,
-              indicatorStyle: IndicatorStyle(
-                width: indicatorSize,
-                height: indicatorSize,
-                indicator: _IndicatorDelivery(status, currentStep, index),
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      margin: const EdgeInsets.all(8.0),
+      // padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Container(
+              margin: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(10.0),
               ),
-              startChild: _StartChildDelivery(index, data.mainList[index],
-                  done ? "images/location.png" : ""),
-              endChild: _EndChildDelivery(
-                text: step,
-                current: index == currentStep,
-              ),
-            );
-          },
-        ),
+              child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    // subheading('My Tasks'),
+                    Text(
+                      "Time Line",
+                      style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                    Icon(
+                      Icons.refresh,
+                      color: Colors.white,
+                      size: 32.0,
+                    ),
+                  ])),
+          Container(
+            margin: const EdgeInsets.all(8),
+            constraints: const BoxConstraints(maxHeight: 210),
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              controller: _scrollController,
+              // phases + end + start + now
+              itemCount: data.mainList.length,
+              itemBuilder: (BuildContext context, int index) {
+                var indicatorSize = 30.0;
+                var beforeLineStyle = LineStyle(
+                  color: Colors.white.withOpacity(0.8),
+                );
+
+                TimeSteps status;
+                LineStyle afterLineStyle;
+                String step;
+                String addr = "";
+
+                if (index == 0) {
+                  status = TimeSteps.start;
+                  step = Strings.start;
+                  addr = "images/start.png";
+                } else if (index == data.now) {
+                  status = TimeSteps.now;
+                  step = Strings.now;
+                  afterLineStyle = const LineStyle(color: Color(0xFF747888));
+                } else if (index == data.mainList.length - 1) {
+                  status = TimeSteps.end;
+                  step = Strings.end;
+                  indicatorSize = 20;
+                  beforeLineStyle = const LineStyle(color: Color(0xFF747888));
+                } else if (index < currentStep) {
+                  step = 'Phase ${index - 1} Deadline';
+                  addr = "images/location.png";
+                  status = TimeSteps.phaseDeadline;
+                } else {
+                  step = 'Phase ${index - 2} Deadline';
+                  afterLineStyle = const LineStyle(color: Color(0xFF747888));
+                  beforeLineStyle = const LineStyle(color: Color(0xFF747888));
+                  status = TimeSteps.phaseDeadline;
+                }
+
+                return TimelineTile(
+                  axis: TimelineAxis.horizontal,
+                  alignment: TimelineAlign.manual,
+                  lineXY: 0.6,
+                  isFirst: index == 0,
+                  isLast: index == data.mainList.length - 1,
+                  beforeLineStyle: beforeLineStyle,
+                  afterLineStyle: afterLineStyle,
+                  indicatorStyle: IndicatorStyle(
+                    width: indicatorSize,
+                    height: indicatorSize,
+                    indicator: _IndicatorDelivery(status, currentStep, index),
+                  ),
+                  startChild:
+                      _StartChildDelivery(index, data.mainList[index], addr),
+                  endChild: _EndChildDelivery(
+                    text: step,
+                    current: index == currentStep,
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
 class _StartChildDelivery extends StatelessWidget {
-  // const _StartChildDelivery({Key key, this.index, this.time, this.assetAddr})
-  //     : super(key: key);
-
   _StartChildDelivery(this.index, this.time, this.assetAddr);
 
   final int index;
@@ -213,7 +247,7 @@ class _StartChildDelivery extends StatelessWidget {
                 )
               : Image.asset(
                   assetAddr,
-                  height: 64,
+                  height: 50.0,
                 ),
           Text(time)
         ],
@@ -306,7 +340,6 @@ class _IndicatorDelivery extends StatelessWidget {
 
     switch (show) {
       case ShowCase.doing:
-        // debugPrint("doing");
         return Container(
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
@@ -325,7 +358,6 @@ class _IndicatorDelivery extends StatelessWidget {
         );
 
       case ShowCase.done:
-        // debugPrint("done");
         return Container(
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
@@ -336,7 +368,6 @@ class _IndicatorDelivery extends StatelessWidget {
               ),
         );
       case ShowCase.todo:
-        // debugPrint("todoa");
         return Container(
           decoration: const BoxDecoration(
             shape: BoxShape.circle,

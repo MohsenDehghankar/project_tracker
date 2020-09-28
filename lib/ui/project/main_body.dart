@@ -40,29 +40,5 @@ class MainBody {
         );
       }
     });
-
-    return BlocBuilder<MainBloc, MainState>(builder: (context, state) {
-      return NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              expandedHeight: 220.0,
-              floating: true,
-              pinned: false,
-              snap: false,
-              flexibleSpace: FlexibleSpaceBar(
-                background: ProfileWidget().build(Theme.of(context).buttonColor,
-                    BlocProvider.of<MainBloc>(context).user),
-                centerTitle: true,
-              ),
-            ),
-          ];
-        },
-        body: Center(
-          child: ProjectList.build(
-              Theme.of(context), MediaQuery.of(context).size, projects),
-        ),
-      );
-    });
   }
 }

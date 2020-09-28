@@ -26,4 +26,11 @@ class Strings {
   static const String networkFailProject = "Network Problem while fetching projects!";
   static const String unknownErrorProject = "Unknown error while fetching projects list.";
 
+  // project detail page
+  static const String timeFormat = "yyyy-MM-dd";
+  static const String start = "Start";
+  static const String end = "End";
+  static const String now = "Now";
+
+
 }
