@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project_tracker/model/project/time_line_data.dart';
+import 'package:project_tracker/ui/detail/charts_widget.dart';
 import 'package:project_tracker/ui/detail/key_value_widget.dart';
+import 'package:project_tracker/ui/detail/page_header.dart';
 import 'package:project_tracker/ui/detail/phases.dart';
 import 'package:project_tracker/ui/detail/timeline_builder.dart';
 import 'package:project_tracker/ui/project/bottom_app_bar.dart';
-import 'package:project_tracker/ui/project/profile_widget.dart';
-import 'package:timeline_tile/timeline_tile.dart';
 
 class DetailPage extends StatefulWidget {
   @override
@@ -34,6 +35,11 @@ class DetailPageState extends State<DetailPage> {
         SizedBox(
           height: 10.0,
         ),
+        ChartsWidgetBuilder.build(DateTime.parse("2020-08-28T11:21:25.825Z"),
+            DateTime.parse("2020-09-28T11:21:25.825Z")),
+        SizedBox(
+          height: 10.0,
+        ),
         KeyPairBuilder.build(),
         SizedBox(
           height: 10.0,
@@ -59,35 +65,7 @@ class DetailPageState extends State<DetailPage> {
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return <Widget>[
-                    SliverAppBar(
-                      shape: ContinuousRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(30.0),
-                              bottomRight: Radius.circular(30.0))),
-                      title: Text(
-                        "Sourcit",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      expandedHeight: 100.0,
-                      floating: true,
-                      pinned: true,
-                      backgroundColor: Theme.of(context).buttonColor,
-                      snap: false,
-                      flexibleSpace: FlexibleSpaceBar(
-                        background: Column(
-                          children: [
-                            SizedBox(
-                              height: 60.0,
-                            ),
-                            Text(
-                              "purchase & sales ERP platform",
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
-                        centerTitle: true,
-                      ),
-                    ),
+                    PageHeader.build(Theme.of(context).buttonColor)
                   ];
                 },
                 body: body)));

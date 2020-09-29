@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:project_tracker/model/project/time_line_data.dart';
 import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/detail/card.dart';
 import 'package:timeline_tile/timeline_tile.dart';
@@ -62,45 +63,6 @@ class DeliveryTimeline extends StatefulWidget {
   DeliveryTimelineState createState() => DeliveryTimelineState(data);
 }
 
-class TimeLineData {
-  final String startDate;
-  final String endDate;
-
-  // should be sorted
-  final List<String> phaseDeadline;
-  List<String> mainList;
-  int now;
-
-  TimeLineData(this.startDate, this.endDate, this.phaseDeadline) {
-    this.setMainList();
-  }
-
-  void setMainList() {
-    phaseDeadline.sort((a, b) {
-      var time1 = DateTime.parse(a);
-      var time2 = DateTime.parse(b);
-      return time1.difference(time2).inHours;
-    });
-    mainList = <String>[];
-    mainList
-        .add(DateFormat(Strings.timeFormat).format(DateTime.parse(startDate)));
-    bool less = true;
-    var now = DateTime.now();
-    for (var time in phaseDeadline) {
-      var dead = DateTime.parse(time);
-      if (dead.difference(now).inHours > 0 && less) {
-        mainList.add(DateFormat(Strings.timeFormat).format(now));
-        this.now = mainList.length - 1;
-        mainList.add(DateFormat(Strings.timeFormat).format(dead));
-        less = false;
-      } else {
-        mainList.add(DateFormat(Strings.timeFormat).format(dead));
-      }
-    }
-    mainList
-        .add(DateFormat(Strings.timeFormat).format(DateTime.parse(endDate)));
-  }
-}
 
 class DeliveryTimelineState extends State<DeliveryTimeline> {
   ScrollController _scrollController;
@@ -194,14 +156,14 @@ class DeliveryTimelineState extends State<DeliveryTimeline> {
             children: <Widget>[
               // subheading('My Tasks'),
               Text(
-                "Time Line",
+                "Status",
                 style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),
               Icon(
-                Icons.refresh,
+                Icons.menu,
                 color: Colors.white,
                 size: 32.0,
               ),

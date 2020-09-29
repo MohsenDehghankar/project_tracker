@@ -5,7 +5,7 @@ class DetailPageCardBuilder {
     return Container(
       margin: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: const Color(0xFF5D6173),
+        color: Colors.blueGrey,//const Color(0xFF5D6173),
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: Column(

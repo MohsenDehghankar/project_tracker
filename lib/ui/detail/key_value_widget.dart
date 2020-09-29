@@ -4,7 +4,8 @@ import 'package:project_tracker/ui/detail/card.dart';
 class KeyPairBuilder {
   static Widget build() {
     return DetailPageCardBuilder.build(
-        KeyList.build(),
+        // KeyList.build(),
+        TableWidget.build(),
         Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -18,7 +19,7 @@ class KeyPairBuilder {
                     color: Colors.white),
               ),
               Icon(
-                Icons.refresh,
+                Icons.menu,
                 color: Colors.white,
                 size: 32.0,
               ),
@@ -38,19 +39,74 @@ class KeyPairBuilder {
   }
 }
 
+class TableWidget {
+  static Widget build() {
+    return Container(
+        constraints: const BoxConstraints(maxHeight: 200.0),
+        margin: const EdgeInsets.all(10.0),
+        child: SingleChildScrollView(
+            child: Table(
+          border: TableBorder(
+              horizontalInside: BorderSide(
+                  width: 1, color: Colors.blue, style: BorderStyle.solid)),
+          children: [
+            TableRow(children: [
+              TableCell(child: getCell("Project Manager")),
+              TableCell(child: getCell("G.Ahmadi"))
+            ]),
+            TableRow(children: [
+              TableCell(child: getCell("Project Manager")),
+              TableCell(child: getCell("G.Ahmadi"))
+            ]),
+            TableRow(children: [
+              TableCell(child: getCell("Project Manager")),
+              TableCell(child: getCell("G.Ahmadi"))
+            ]),
+            TableRow(children: [
+              TableCell(child: getCell("Project Manager")),
+              TableCell(child: getCell("G.Ahmadi"))
+            ]),
+            TableRow(children: [
+              TableCell(child: getCell("Project Manager")),
+              TableCell(child: getCell("G.Ahmadi"))
+            ]),
+            TableRow(children: [
+              TableCell(child: getCell("Project Manager")),
+              TableCell(child: getCell("G.Ahmadi"))
+            ]),
+            TableRow(children: [
+              TableCell(child: getCell("Project Manager")),
+              TableCell(child: getCell("G.Ahmadi"))
+            ]),
+            TableRow(children: [
+              TableCell(child: getCell("Project Manager")),
+              TableCell(child: getCell("G.Ahmadi"))
+            ]),
+          ],
+        )));
+  }
+
+  static Widget getCell(String txt) {
+    return Container(
+      margin: const EdgeInsets.all(8.0),
+      child: Text(txt),
+    );
+  }
+}
+
 class KeyList {
   static Widget build() {
     return Container(
       constraints: const BoxConstraints(maxHeight: 200.0),
       margin: const EdgeInsets.all(10.0),
       child: ListView.builder(
-          itemCount: 10,
+          itemCount: 7,
           itemBuilder: (context, int) {
             return Container(
                 padding: const EdgeInsets.all(8.0),
                 child: KeyValueWidget(
                   icon: Icons.arrow_right,
-                  iconBackgroundColor: Colors.blue,//Color(0xFF2ACA8E),
+                  iconBackgroundColor: Colors.blue, //Color(0xFF2ACA8E),
                   title: 'projectManager',
                   subtitle: 'g.ahmadi',
                 ));

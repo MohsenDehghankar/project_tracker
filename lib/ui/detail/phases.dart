@@ -19,7 +19,7 @@ class PhasesWidget {
                     color: Colors.white),
               ),
               Icon(
-                Icons.refresh,
+                Icons.menu,
                 color: Colors.white,
                 size: 32.0,
               ),
@@ -31,19 +31,22 @@ class PhasesWidget {
         constraints: const BoxConstraints(maxHeight: 200.0),
         margin: const EdgeInsets.all(10.0),
         child: ListView.builder(
-            itemCount: 10,
+            itemCount: 4,
             itemBuilder: (context, index) {
               return ExpansionTile(
-                title: Text(
-                  "Phase 1",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Phase 1",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Icon(Icons.done)
+                  ],
                 ),
                 subtitle: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("design UI/UX"),
-                    Text("2020-77-11")
-                  ],
+                  children: [Text("design UI/UX"), Text("2020-77-11")],
                 ),
                 children: [
                   getRequirementWidget("req 1", "req 1 decs", 1),
@@ -61,8 +64,8 @@ class PhasesWidget {
         children: [
           KeyValueWidget(
               icon: Icons.arrow_right,
-              iconBackgroundColor: Colors.blue,//Color(0xFF2ACA8E),
-              title:  title,
+              iconBackgroundColor: Colors.blue, //Color(0xFF2ACA8E),
+              title: title,
               subtitle: desc),
           Text("Priority: $prior")
         ],
