@@ -41,7 +41,7 @@ class DetailPageState extends State<DetailPage> {
         PhasesWidget.build(),
         SizedBox(
           height: 100.0,
-        )
+        ),
       ],
     ));
 

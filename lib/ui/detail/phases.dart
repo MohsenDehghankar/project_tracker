@@ -38,7 +38,13 @@ class PhasesWidget {
                   "Phase 1",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                subtitle: Text("design UI/UX"),
+                subtitle: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("design UI/UX"),
+                    Text("2020-77-11")
+                  ],
+                ),
                 children: [
                   getRequirementWidget("req 1", "req 1 decs", 1),
                   getRequirementWidget("req 2", "req 1 decs", 2),
@@ -55,7 +61,7 @@ class PhasesWidget {
         children: [
           KeyValueWidget(
               icon: Icons.arrow_right,
-              iconBackgroundColor: Color(0xFF2ACA8E),
+              iconBackgroundColor: Colors.blue,//Color(0xFF2ACA8E),
               title:  title,
               subtitle: desc),
           Text("Priority: $prior")

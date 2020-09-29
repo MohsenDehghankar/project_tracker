@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/blocs/main_bloc.dart';
-import 'package:project_tracker/style/strings.dart';
 
 class LoadingBody {
   static Widget build(BuildContext context) {

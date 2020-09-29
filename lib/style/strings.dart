@@ -17,7 +17,7 @@ class Strings {
   // main page
   static const String reload = "Reload";
   static const String progress = "Progress";
-  static const String timeRemained = "Remaining Time";
+  static const String timeRemained = "Time Remained";
   static const String loadData = "Loading...";
 
   // errors

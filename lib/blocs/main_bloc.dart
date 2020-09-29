@@ -62,13 +62,9 @@ class MainBloc extends Bloc<MainEvent, MainState> {
       ProjectListResult projectListResult =
           await projectRepository.fetchProjects();
 
-      // todo set project's phases (prj.setPhases())
-
       if (result.success && projectListResult.success) {
         this.user = result.user;
         this.projects = projectListResult.projects;
-
-        projects[0].getNearestDate();
 
         yield MainStateLoaded();
       } else {

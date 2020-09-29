@@ -49,8 +49,8 @@ class KeyList {
             return Container(
                 padding: const EdgeInsets.all(8.0),
                 child: KeyValueWidget(
-                  icon: Icons.info_outline,
-                  iconBackgroundColor: Color(0xFF2ACA8E),
+                  icon: Icons.arrow_right,
+                  iconBackgroundColor: Colors.blue,//Color(0xFF2ACA8E),
                   title: 'projectManager',
                   subtitle: 'g.ahmadi',
                 ));
@@ -77,16 +77,8 @@ class KeyValueWidget extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        /* CircleAvatar(
-          radius: 20.0,
-          backgroundColor: iconBackgroundColor,
-          child: Icon(
-            icon,
-            color: Colors.white,
-          ),
-        ),*/
         Icon(
-          Icons.info_outline,
+          icon,
           color: iconBackgroundColor,
           size: 30.0,
         ),

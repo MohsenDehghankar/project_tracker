@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:intl/intl.dart';
 import 'package:project_tracker/model/project/project.dart';
 import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/style/strings.dart';
@@ -33,7 +32,7 @@ class ProjectCard {
                   color: Colors.yellowAccent,
                   size: 15.0,
                 ),
-                Text(" Nearest Deadline:",
+                Text(" Until ${project.nearestPhaseName}",
                     style: TextStyle(color: Colors.white, fontSize: 12.0)),
               ],
             ),
@@ -41,7 +40,7 @@ class ProjectCard {
                 child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(" ${project.getNearestDate()}",
+                Text(" ${DateFormat(Strings.timeFormat).format(project.nearest)}",
                     style: TextStyle(color: Colors.white, fontSize: 12.0)),
                 Text(" [${project.getRemainingDays()} day(s)]",
                     style: TextStyle(color: Colors.white)),
@@ -54,9 +53,9 @@ class ProjectCard {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 ProjectProgressIndicator.build(
-                    progressColor, 50, Strings.progress, size.width),
+                    progressColor, project.getProgressPercent(), Strings.progress, size.width),
                 ProjectProgressIndicator.build(
-                    timeColor, 20, Strings.timeRemained, size.width)
+                    timeColor, project.getRemainedTimePercent(), Strings.timeRemained, size.width)
               ],
             ),
           ],
