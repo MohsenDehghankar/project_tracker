@@ -35,8 +35,11 @@ class ProjectDetailBloc extends Bloc<DetailEvent, DetailState> {
   Project project;
   ProjectRepository repository = ProjectRepository();
 
-  @override
-  DetailState get initialState => DetailStateLoading();
+
+  ProjectDetailBloc():super(DetailStateLoading());
+
+ /* @override
+  DetailState get initialState => DetailStateLoading();*/
 
   @override
   Stream<DetailState> mapEventToState(DetailEvent event) async* {

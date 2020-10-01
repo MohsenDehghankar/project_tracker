@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:project_tracker/blocs/auth_bloc.dart';
 import 'package:project_tracker/style/strings.dart';
+import 'package:project_tracker/ui/add_project/add_project_page.dart';
 import 'package:project_tracker/ui/auth/auth_page.dart';
 import 'package:project_tracker/ui/detail/project_details_page.dart';
 import 'package:project_tracker/ui/loading/loadingPage.dart';
@@ -40,23 +41,18 @@ class MainApp extends StatefulWidget {
 }
 
 class _LoginState extends State<MainApp> {
-  bool loadAuth;
-  bool load;
 
 
   @override
   void initState() {
     super.initState();
-    loadAuth = true;
-    load = true;
   }
 
   @override
   Widget build(BuildContext context) {
-    // return loadAuth ? AuthPage() : MainPage();
     // return MainPage();
-    return LoadingPage();
+    // return LoadingPage();
     // return DetailPage();
-    // return load ? LoadingPage() : loadAuth ? AuthPage() : MainPage();
+    return AddProjectPage();
   }
 }

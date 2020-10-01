@@ -46,10 +46,10 @@ class MainBloc extends Bloc<MainEvent, MainState> {
   List<Project> projects;
   String error;
 
-  MainBloc(this.navigatorKey);
+  MainBloc(this.navigatorKey):super(MainStateLoading());
 
-  @override
-  MainState get initialState => MainStateLoading();
+  /*@override
+  MainState get initialState => MainStateLoading();*/
 
   @override
   Stream<MainState> mapEventToState(MainEvent event) async* {
