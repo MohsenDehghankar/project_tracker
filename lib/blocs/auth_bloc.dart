@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +7,7 @@ import 'package:project_tracker/repository/auth_repository.dart';
 import 'package:project_tracker/ui/project/main_page.dart';
 
 ///
-/// Auth Event as input for Auth BLoC
+/// Auth Events for Auth BLoC
 ///
 abstract class AuthEvent {}
 
@@ -33,7 +31,7 @@ class AuthEventError extends AuthEvent {}
 class AuthEventSendLogin extends AuthEvent {}
 
 ///
-/// Auth State as output of Auth BLoC
+/// Auth States for Auth BLoC
 ///
 abstract class AuthState {}
 

@@ -1,5 +1,8 @@
 import 'package:project_tracker/model/project/project.dart';
 
+///
+/// Fetched list of projects for a specific user
+///
 class ProjectListResult {
   List<Project> projects;
   String error;
@@ -32,6 +35,7 @@ class ProjectListResult {
     success = true;
   }
 
+  // sort projects based on their nearest phase deadline
   void sortProjects() {
     projects.sort((a, b) => a.nearest.compareTo(b.nearest));
   }

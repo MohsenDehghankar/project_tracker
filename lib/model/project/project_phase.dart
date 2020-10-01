@@ -1,5 +1,8 @@
 import 'package:project_tracker/model/project/requirement.dart';
 
+///
+/// A Phase of a Project
+///
 class Phase {
   String name;
   String desc;
@@ -22,7 +25,8 @@ class Phase {
     _sortRequirements();
   }
 
-  void _sortRequirements(){
+  // sort requirements based on their Priority
+  void _sortRequirements() {
     this.requirements.sort((a, b) => b.priority.compareTo(a.priority));
   }
 }

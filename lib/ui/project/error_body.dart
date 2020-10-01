@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+/// body to show when an error occurs
 class ErrorBody {
   static Widget build(BuildContext context) {
     return Container(

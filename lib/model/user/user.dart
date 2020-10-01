@@ -1,6 +1,6 @@
 
 ///
-/// Class indicating a User
+/// a User
 ///
 class User {
   String name;

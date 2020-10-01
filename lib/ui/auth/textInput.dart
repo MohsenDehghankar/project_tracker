@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:project_tracker/style/strings.dart';
 
+
+///
+/// TextInput Widget for Auth Page
+///
 class TextInput {
   Size size;
   Key _textKey;

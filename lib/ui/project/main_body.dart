@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/blocs/main_bloc.dart';
 import 'package:project_tracker/model/project/project.dart';
-import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/project/error_body.dart';
 import 'package:project_tracker/ui/project/profile_widget.dart';
 import 'package:project_tracker/ui/project/project_list.dart';
 
+/// main body of projects page
 class MainBody {
   static Widget build(BuildContext context) {
     List<Project> projects = BlocProvider.of<MainBloc>(context).projects;

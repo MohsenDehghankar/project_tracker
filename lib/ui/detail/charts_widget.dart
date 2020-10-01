@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:project_tracker/ui/detail/card.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
+///
+/// Chart Widget for a project
+///   BurnDown Chart
+///
 class ChartsWidgetBuilder {
   static Widget build(DateTime startDate, DateTime endDate) {
     return DetailPageCardBuilder.build(
@@ -38,6 +42,7 @@ class ChartsWidgetBuilder {
             ]));
   }
 
+  // get hard coded points in chart
   static Widget _getBody(DateTime start, DateTime endDate) {
     final data = [
       new TimeSeriesSales(start, 100),
@@ -55,11 +60,10 @@ class ChartsWidgetBuilder {
 
     List<charts.Series<TimeSeriesSales, DateTime>> seriesList = [
       new charts.Series<TimeSeriesSales, DateTime>(
-        id: 'Salma',
+        id: 'done',
         colorFn: (_, __) => charts.MaterialPalette.black,
         domainFn: (TimeSeriesSales sales, _) => sales.time,
         measureFn: (TimeSeriesSales sales, _) => sales.sales,
-        displayName: "salam",
         data: data,
       ),
       new charts.Series<TimeSeriesSales, DateTime>(
@@ -88,6 +92,9 @@ class TimeSeriesSales {
   TimeSeriesSales(this.time, this.sales);
 }
 
+///
+/// Label builder for Chart
+///
 class ChartLabel {
   static Widget build() {
     return Row(
@@ -103,6 +110,9 @@ class ChartLabel {
   }
 }
 
+///
+/// Label of chart
+///
 class Label extends StatelessWidget {
   final String _label;
   final Color _color;
@@ -133,6 +143,7 @@ class Label extends StatelessWidget {
   }
 }
 
+/// line for a label of chart
 class DrawLine extends CustomPainter {
   final Color color;
   final Offset from;

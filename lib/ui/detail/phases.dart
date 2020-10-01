@@ -8,6 +8,8 @@ import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/detail/card.dart';
 import 'package:project_tracker/ui/detail/key_value_widget.dart';
 
+
+/// phases widget builder for detail page
 class PhasesWidget {
   static Widget build(Project project) {
     return DetailPageCardBuilder.build(

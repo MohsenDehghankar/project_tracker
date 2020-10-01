@@ -2,12 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/blocs/project_detail_bloc.dart';
+import 'package:project_tracker/model/project/project.dart';
 import 'package:project_tracker/ui/detail/detail_page_body.dart';
 import 'package:project_tracker/ui/detail/loading_page.dart';
 import 'package:project_tracker/ui/detail/page_header.dart';
 import 'package:project_tracker/ui/project/bottom_app_bar.dart';
 
 class DetailPage extends StatefulWidget {
+  final String projectId;
+
+  DetailPage(this.projectId);
+
   @override
   DetailPageState createState() => DetailPageState();
 }
@@ -15,9 +20,7 @@ class DetailPage extends StatefulWidget {
 class DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: BlocProvider(
+    return BlocProvider(
             create: (context) => ProjectDetailBloc(),
             child: Scaffold(
                 extendBody: true,
@@ -56,6 +59,6 @@ class DetailPageState extends State<DetailPage> {
                       return Center();
                     }
                   },
-                ))));
+                )));
   }
 }

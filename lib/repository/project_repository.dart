@@ -17,6 +17,7 @@ import 'package:project_tracker/style/strings.dart';
 /// For Fetching Projects data
 ///
 class ProjectRepository {
+  // clear token
   void clearToken() async {
     try {
       LocalStorage.saveToken(null);

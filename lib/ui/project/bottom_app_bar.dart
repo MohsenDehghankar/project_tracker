@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/blocs/main_bloc.dart';
 import 'package:project_tracker/blocs/project_detail_bloc.dart';
 
+/// bottom app bar for projects page
 class BottomAppBarBuilder {
   Widget build(Color color, BuildContext context, bool mainPage) {
     return new BottomAppBar(
@@ -18,9 +19,11 @@ class BottomAppBarBuilder {
                   },
                   icon: Icon(Icons.logout),
                 )
-              : IconButton(icon: Icon(Icons.keyboard_return), onPressed: () {
-                // todo return from navigator
-          }),
+              : IconButton(
+                  icon: Icon(Icons.keyboard_return),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }),
           IconButton(
               icon: Icon(Icons.refresh),
               onPressed: mainPage

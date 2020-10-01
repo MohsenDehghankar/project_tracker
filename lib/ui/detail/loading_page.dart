@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/blocs/project_detail_bloc.dart';
 
+
+/// loading page while fetching a project's data
 class LoadingWidget {
   static Widget build(BuildContext context) {
     BlocProvider.of<ProjectDetailBloc>(context).add(DetailEventLoadData());

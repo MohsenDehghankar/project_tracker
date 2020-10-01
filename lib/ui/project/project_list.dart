@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_tracker/model/project/project.dart';
 import 'package:project_tracker/ui/project/project_card.dart';
 
+/// builder for list of projects in projects page
 class ProjectList {
   static Widget build(ThemeData theme, Size size, List<Project> projects) {
     final makeBody = Container(
@@ -11,7 +12,7 @@ class ProjectList {
         itemCount: projects.length,
         itemBuilder: (BuildContext context, int index) {
           return ProjectCard.build(
-              theme.accentColor, Colors.black, size, projects[index]);
+              theme.accentColor, Colors.black, size, projects[index], context);
         },
       ),
     );

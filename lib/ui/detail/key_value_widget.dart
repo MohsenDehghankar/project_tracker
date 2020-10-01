@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_tracker/ui/detail/card.dart';
 
+
+/// key value widget builder for detail page
 class KeyPairBuilder {
   static Widget build(Map<String, String> keyValues) {
     return DetailPageCardBuilder.build(
@@ -38,6 +40,7 @@ class KeyPairBuilder {
   }
 }
 
+/// Table Builder for Key Value widget
 class TableWidget {
   static Widget build(Map<String, String> keyvalues) {
     return Container(

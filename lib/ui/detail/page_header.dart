@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// detail page header
 class PageHeader {
   static Widget build(Color backgroundColor, String title, String decs) {
     return SliverAppBar(

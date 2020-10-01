@@ -1,8 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:flutter/widgets.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart';
 import 'package:project_tracker/model/auth/auth_model.dart';
 import 'package:project_tracker/model/auth/auth_result.dart';
@@ -40,9 +37,13 @@ class AuthRepository {
       ..error = result["message"];
   }
 
+  // save fetched token
   void _saveToken(String token) async {
     await LocalStorage.saveToken(token);
   }
 }
 
+///
+/// Result Statuses
+///
 enum AuthResultStatus { success, failed }

@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:project_tracker/resource/local_storage.dart';
-import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/auth/auth_page.dart';
 import 'package:project_tracker/ui/project/main_page.dart';
 
+
+///
+/// loading page in startup
+/// if reading localStorage has a latency
+///
 class LoadingPage extends StatefulWidget {
   @override
   LoadingPageState createState() => LoadingPageState();

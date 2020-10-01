@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+///
+/// Button Widget for Auth Page
+///
 class Button {
   Size size;
   bool error;

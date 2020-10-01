@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+///
+/// A Card in Project's Detail page
+///
 class DetailPageCardBuilder {
   static Widget build(Widget child, Row bar) {
     return Container(

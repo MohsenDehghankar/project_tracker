@@ -3,11 +3,14 @@ import 'package:intl/intl.dart';
 import 'package:project_tracker/model/project/project.dart';
 import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/style/strings.dart';
+import 'package:project_tracker/ui/detail/project_details_page.dart';
 import 'package:project_tracker/ui/project/project_progress_indicator.dart';
 
+
+/// a project card in projects page
 class ProjectCard {
-  static Widget build(
-      Color progressColor, Color timeColor, Size size, Project project) {
+  static Widget build(Color progressColor, Color timeColor, Size size,
+      Project project, BuildContext context) {
     final makeListTile = ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         leading: Container(
@@ -40,7 +43,8 @@ class ProjectCard {
                 child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(" ${DateFormat(Strings.timeFormat).format(project.nearest)}",
+                Text(
+                    " ${DateFormat(Strings.timeFormat).format(project.nearest)}",
                     style: TextStyle(color: Colors.white, fontSize: 12.0)),
                 Text(" [${project.getRemainingDays()} day(s)]",
                     style: TextStyle(color: Colors.white)),
@@ -52,16 +56,25 @@ class ProjectCard {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
+                ProjectProgressIndicator.build(progressColor,
+                    project.getProgressPercent(), Strings.progress, size.width),
                 ProjectProgressIndicator.build(
-                    progressColor, project.getProgressPercent(), Strings.progress, size.width),
-                ProjectProgressIndicator.build(
-                    timeColor, project.getRemainedTimePercent(), Strings.timeRemained, size.width)
+                    timeColor,
+                    project.getRemainedTimePercent(),
+                    Strings.timeRemained,
+                    size.width)
               ],
             ),
           ],
         ),
-        trailing:
-            Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0));
+        trailing: IconButton(
+          icon:
+              Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => DetailPage(project.projectId)));
+          },
+        ));
 
     final makeCard = Card(
       elevation: 8.0,

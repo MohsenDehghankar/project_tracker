@@ -6,6 +6,7 @@ import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/detail/card.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
+/// timeline widget for detail page
 class TimeLineBuilder {
   static Widget build(String startDate, List<Phase> phases, String deadline,
       BuildContext context) {
@@ -170,6 +171,7 @@ class ProjectTimeLineState extends State<ProjectTimeLine> {
   }
 }
 
+/// start child in the timeline
 class _StartChildDelivery extends StatelessWidget {
   _StartChildDelivery(this.index, this.time, this.assetAddr);
 
@@ -199,6 +201,7 @@ class _StartChildDelivery extends StatelessWidget {
   }
 }
 
+/// last child in the timeline
 class _EndChildDelivery extends StatelessWidget {
   const _EndChildDelivery({
     Key key,
@@ -237,10 +240,13 @@ class _EndChildDelivery extends StatelessWidget {
   }
 }
 
+/// time steps of a project
 enum TimeSteps { start, now, phaseDeadline, end }
 
+/// status for showing
 enum ShowCase { done, doing, todo }
 
+/// a step's widget
 class _IndicatorDelivery extends StatelessWidget {
   // const _IndicatorDelivery({Key key, this.status}) : super(key: key);
 
@@ -280,7 +286,7 @@ class _IndicatorDelivery extends StatelessWidget {
           child: const Center(
               child: Icon(
             Icons.access_time,
-                size: 20.0,
+            size: 20.0,
           )),
         );
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_tracker/model/user/user.dart';
 
+
+/// builder for profile widget in projects page
 class ProfileWidget {
   Widget build(Color color, User user) {
     return new Container(

@@ -1,8 +1,10 @@
 import 'package:intl/intl.dart';
-import 'package:project_tracker/model/project/project.dart';
 import 'package:project_tracker/model/project/project_phase.dart';
 import 'package:project_tracker/style/strings.dart';
 
+///
+/// Data for showing a project's timeline
+///
 class TimeLineData {
   final String startDate;
   final String endDate;
@@ -16,6 +18,7 @@ class TimeLineData {
     this.setMainList();
   }
 
+  // list of times in timeline Axis
   void setMainList() {
     phases.sort((a, b) {
       var time1 = DateTime.parse(a.deadline);

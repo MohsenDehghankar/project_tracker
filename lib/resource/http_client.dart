@@ -2,10 +2,9 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:project_tracker/model/auth/auth_model.dart';
-import 'package:project_tracker/model/auth/auth_result.dart';
 
 ///
-/// API Calls
+/// HTTP API Call
 ///
 class HttpClient {
   // Authenticate By API call

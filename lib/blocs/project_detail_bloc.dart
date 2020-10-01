@@ -3,12 +3,18 @@ import 'package:project_tracker/model/project/project.dart';
 import 'package:project_tracker/model/project/project_detail_result.dart';
 import 'package:project_tracker/repository/project_repository.dart';
 
+///
+/// Events for Project Detail Page's BLoC
+///
 abstract class DetailEvent {}
 
 class DetailEventLoadData extends DetailEvent {}
 
 class DetailEventReloadData extends DetailEvent {}
 
+///
+/// States for Project Detail Page's BLoC
+///
 abstract class DetailState {}
 
 class DetailStateLoading extends DetailState {}
@@ -21,6 +27,10 @@ class DetailStateDataLoaded extends DetailState {
   Project project;
 }
 
+
+///
+/// BLoC for project detail page
+///
 class ProjectDetailBloc extends Bloc<DetailEvent, DetailState> {
   Project project;
   ProjectRepository repository = ProjectRepository();

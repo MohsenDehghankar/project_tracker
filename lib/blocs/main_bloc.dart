@@ -8,7 +8,7 @@ import 'package:project_tracker/repository/project_repository.dart';
 import 'package:project_tracker/ui/auth/auth_page.dart';
 
 ///
-/// Main Page Events as Input to Main Page BLoC
+/// Main Page Events for Main Page BLoC
 ///
 abstract class MainEvent {}
 
@@ -19,7 +19,7 @@ class MainEventLoadData extends MainEvent {}
 class MainEventRefresh extends MainEvent {}
 
 ///
-/// Main Page State as output of Main Page BLoC
+/// Main Page State for Main Page BLoC
 ///
 abstract class MainState {}
 

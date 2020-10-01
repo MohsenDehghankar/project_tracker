@@ -6,6 +6,8 @@ import 'package:project_tracker/ui/detail/key_value_widget.dart';
 import 'package:project_tracker/ui/detail/phases.dart';
 import 'package:project_tracker/ui/detail/timeline_builder.dart';
 
+
+/// main body for detail page
 class DetailPageBody {
   static Widget build(Project project) {
     return SingleChildScrollView(

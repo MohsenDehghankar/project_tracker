@@ -1,7 +1,7 @@
 import 'package:project_tracker/model/project/project_phase.dart';
 
 ///
-/// Indicating a Project
+/// A Project
 ///
 class Project {
   String name;
@@ -44,6 +44,7 @@ class Project {
     _sortPhases();
   }
 
+  // sort phases based on deadline
   void _sortPhases() {
     this.phases.sort((a, b) => DateTime.parse(a.deadline)
         .difference(DateTime.parse(b.deadline))
@@ -54,6 +55,7 @@ class Project {
     this.phases = phases;
   }
 
+  // get phase with nearest deadline
   void getNearestDate() {
     var now = DateTime.now();
     var near = DateTime.parse(deadline);
@@ -69,11 +71,13 @@ class Project {
     this.nearestPhaseName = name;
   }
 
+  // get number of days remained till the project deadline
   int getRemainingDays() {
     var now = DateTime.now();
     return nearest.difference(now).inDays;
   }
 
+  // get percent of project progress, based on done phases
   int getProgressPercent() {
     // todo based on done phases
     var now = DateTime.now();
@@ -84,6 +88,7 @@ class Project {
     return (n * 100) ~/ phases.length;
   }
 
+  // get percent of remaining time
   int getRemainedTimePercent() {
     int diff =
         DateTime.parse(deadline).difference(DateTime.parse(startDate)).inDays;
@@ -91,6 +96,7 @@ class Project {
     return (now * 100) ~/ diff;
   }
 
+  // get deadline list of phases as String
   List<String> getPhaseDeadlineList(){
     List<String> result = List<String>();
     for (var phs in phases){
@@ -99,6 +105,7 @@ class Project {
     return result;
   }
 
+  // project dynamic key values
   Map<String, String> getKeyValues(){
     // todo
     Map<String, String> result = Map();
