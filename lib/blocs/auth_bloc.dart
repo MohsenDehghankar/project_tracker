@@ -6,9 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/model/auth/auth_model.dart';
 import 'package:project_tracker/model/auth/auth_result.dart';
 import 'package:project_tracker/repository/auth_repository.dart';
-import 'package:project_tracker/ui/auth/auth_page.dart';
 import 'package:project_tracker/ui/project/main_page.dart';
-import 'package:project_tracker/ui/project/project_page.dart';
 
 ///
 /// Auth Event as input for Auth BLoC

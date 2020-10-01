@@ -1,4 +1,6 @@
 import 'package:intl/intl.dart';
+import 'package:project_tracker/model/project/project.dart';
+import 'package:project_tracker/model/project/project_phase.dart';
 import 'package:project_tracker/style/strings.dart';
 
 class TimeLineData {
@@ -6,18 +8,18 @@ class TimeLineData {
   final String endDate;
 
   // should be sorted
-  final List<String> phaseDeadline;
+  final List<Phase> phases;
   List<String> mainList;
   int now;
 
-  TimeLineData(this.startDate, this.endDate, this.phaseDeadline) {
+  TimeLineData(this.startDate, this.endDate, this.phases) {
     this.setMainList();
   }
 
   void setMainList() {
-    phaseDeadline.sort((a, b) {
-      var time1 = DateTime.parse(a);
-      var time2 = DateTime.parse(b);
+    phases.sort((a, b) {
+      var time1 = DateTime.parse(a.deadline);
+      var time2 = DateTime.parse(b.deadline);
       return time1.difference(time2).inHours;
     });
     mainList = <String>[];
@@ -25,7 +27,8 @@ class TimeLineData {
         .add(DateFormat(Strings.timeFormat).format(DateTime.parse(startDate)));
     bool less = true;
     var now = DateTime.now();
-    for (var time in phaseDeadline) {
+    for (var ph in phases) {
+      var time = ph.deadline;
       var dead = DateTime.parse(time);
       if (dead.difference(now).inHours > 0 && less) {
         mainList.add(DateFormat(Strings.timeFormat).format(now));

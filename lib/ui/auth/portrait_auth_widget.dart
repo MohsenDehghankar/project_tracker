@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/blocs/auth_bloc.dart';
 import 'package:project_tracker/ui/auth/auth_page.dart';
 import 'package:project_tracker/ui/auth/auth_widget_utils.dart';
-import 'package:project_tracker/ui/project/project_page.dart';
 
 ///
 /// Auth Widget Builder for Portrait displays

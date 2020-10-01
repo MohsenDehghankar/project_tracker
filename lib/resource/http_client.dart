@@ -33,4 +33,13 @@ class HttpClient {
         'https://66080cab-1451-4b58-9d0d-cf58942cecfa.mock.pstmn.io/api/v1/projects',
         headers: headers);
   }
+
+  static Future<http.Response> fetchProjectDetail(String projectId, String token){
+    Map<String, String> headers = Map();
+    headers['Authorization'] = token;
+    return http.get(
+      'https://66080cab-1451-4b58-9d0d-cf58942cecfa.mock.pstmn.io/api/v1/project/10',
+      headers: headers
+    );
+  }
 }

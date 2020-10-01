@@ -1,7 +1,3 @@
-import 'dart:convert';
-
-import 'package:flutter/widgets.dart';
-import 'package:intl/intl.dart';
 import 'package:project_tracker/model/project/project_phase.dart';
 
 ///
@@ -16,7 +12,6 @@ class Project {
   String deadline;
   String startDate;
 
-  // brief detail of phases (deadline, name)
   List<Phase> phases;
 
   // Nearest deadline
@@ -26,7 +21,7 @@ class Project {
   Project(this.name, this.detail, this.clientId, this.projectManager,
       this.deadline, this.projectId, this.startDate);
 
-  Project.fromJson(Map<String, dynamic> json)
+  Project.fromJson(Map<String, dynamic> json, bool detail)
       : name = json['name'],
         detail = json['detail'],
         clientId = json['clientId'],
@@ -36,10 +31,23 @@ class Project {
         startDate = json['startDate'] {
     var phases = json['phases'];
     this.phases = List<Phase>();
-    for (var phs in phases) {
-      this.phases.add(Phase.buildBrief(phs));
+    if (detail) {
+      for (var phs in phases) {
+        this.phases.add(Phase.fromJson(phs));
+      }
+    } else {
+      for (var phs in phases) {
+        this.phases.add(Phase.buildBrief(phs));
+      }
     }
     getNearestDate();
+    _sortPhases();
+  }
+
+  void _sortPhases() {
+    this.phases.sort((a, b) => DateTime.parse(a.deadline)
+        .difference(DateTime.parse(b.deadline))
+        .inDays);
   }
 
   set setPhases(List<Phase> phases) {
@@ -81,5 +89,27 @@ class Project {
         DateTime.parse(deadline).difference(DateTime.parse(startDate)).inDays;
     int now = DateTime.now().difference(DateTime.parse(startDate)).inDays;
     return (now * 100) ~/ diff;
+  }
+
+  List<String> getPhaseDeadlineList(){
+    List<String> result = List<String>();
+    for (var phs in phases){
+      result.add(phs.deadline);
+    }
+    return result;
+  }
+
+  Map<String, String> getKeyValues(){
+    // todo
+    Map<String, String> result = Map();
+    result['name'] = name;
+    result['description'] = detail;
+    result['client'] = clientId;
+    result['Project Manager'] = projectManager;
+    result['Project Manager 2'] = projectManager;
+    result['Project Manager 3'] = projectManager;
+    result['Project Manager 4'] = projectManager;
+    result['Project Manager 5'] = projectManager;
+    return result;
   }
 }

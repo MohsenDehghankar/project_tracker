@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:project_tracker/model/project/project_phase.dart';
 import 'package:project_tracker/model/project/time_line_data.dart';
 import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/detail/card.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class TimeLineBuilder {
-  static Widget build(String startDate, List<String> phasesDeadline,
-      String deadline, BuildContext context) {
+  static Widget build(String startDate, List<Phase> phases, String deadline,
+      BuildContext context) {
     // String current date
     return Container(
       decoration: const BoxDecoration(
@@ -36,8 +37,8 @@ class TimeLineBuilder {
                     child: CustomScrollView(
                       slivers: <Widget>[
                         SliverPadding(padding: EdgeInsets.only(top: 15)),
-                        DeliveryTimeline(
-                            TimeLineData(startDate, deadline, phasesDeadline)),
+                        ProjectTimeLine(
+                            TimeLineData(startDate, deadline, phases)),
                         SliverPadding(padding: EdgeInsets.only(top: 60)),
                       ],
                     ),
@@ -52,23 +53,22 @@ class TimeLineBuilder {
   }
 }
 
-class DeliveryTimeline extends StatefulWidget {
+class ProjectTimeLine extends StatefulWidget {
   // const _DeliveryTimeline();
 
   final TimeLineData data;
 
-  DeliveryTimeline(this.data);
+  ProjectTimeLine(this.data);
 
   @override
-  DeliveryTimelineState createState() => DeliveryTimelineState(data);
+  ProjectTimeLineState createState() => ProjectTimeLineState(data);
 }
 
-
-class DeliveryTimelineState extends State<DeliveryTimeline> {
+class ProjectTimeLineState extends State<ProjectTimeLine> {
   ScrollController _scrollController;
   final TimeLineData data;
 
-  DeliveryTimelineState(this.data);
+  ProjectTimeLineState(this.data);
 
   @override
   void initState() {
@@ -90,10 +90,9 @@ class DeliveryTimelineState extends State<DeliveryTimeline> {
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             controller: _scrollController,
-            // phases + end + start + now
             itemCount: data.mainList.length,
             itemBuilder: (BuildContext context, int index) {
-              var indicatorSize = 30.0;
+              var indicatorSize = 20.0;
               var beforeLineStyle = LineStyle(
                 color: Colors.white.withOpacity(0.8),
               );
@@ -117,11 +116,11 @@ class DeliveryTimelineState extends State<DeliveryTimeline> {
                 indicatorSize = 20;
                 beforeLineStyle = const LineStyle(color: Color(0xFF747888));
               } else if (index < currentStep) {
-                step = 'Phase ${index - 1} Deadline';
+                step = '${data.phases[index - 1].name} Deadline';
                 addr = "images/location.png";
                 status = TimeSteps.phaseDeadline;
               } else {
-                step = 'Phase ${index - 2} Deadline';
+                step = '${data.phases[index - 2].name} Deadline';
                 afterLineStyle = const LineStyle(color: Color(0xFF747888));
                 beforeLineStyle = const LineStyle(color: Color(0xFF747888));
                 status = TimeSteps.phaseDeadline;
@@ -238,16 +237,7 @@ class _EndChildDelivery extends StatelessWidget {
   }
 }
 
-enum TimeSteps {
-  /*done,
-  todo,
-  doing,*/
-  // main part
-  start,
-  now,
-  phaseDeadline,
-  end
-}
+enum TimeSteps { start, now, phaseDeadline, end }
 
 enum ShowCase { done, doing, todo }
 
@@ -260,8 +250,6 @@ class _IndicatorDelivery extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // debugPrint("index ==> $crrIndx");
-
     ShowCase show;
     switch (status) {
       case TimeSteps.start:
@@ -290,15 +278,10 @@ class _IndicatorDelivery extends StatelessWidget {
             color: Color(0xFF2ACA8E),
           ),
           child: const Center(
-            child: SizedBox(
-              height: 15,
-              width: 15,
-              child: CircularProgressIndicator(
-                strokeWidth: 3,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-              ),
-            ),
-          ),
+              child: Icon(
+            Icons.access_time,
+                size: 20.0,
+          )),
         );
 
       case ShowCase.done:

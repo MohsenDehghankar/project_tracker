@@ -1,12 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:project_tracker/model/project/project.dart';
+import 'package:project_tracker/model/project/project_phase.dart';
+import 'package:project_tracker/model/project/requirement.dart';
+import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/detail/card.dart';
 import 'package:project_tracker/ui/detail/key_value_widget.dart';
 
 class PhasesWidget {
-  static Widget build() {
+  static Widget build(Project project) {
     return DetailPageCardBuilder.build(
-        getPhaseList(),
+        getPhaseList(project),
         Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -26,22 +31,23 @@ class PhasesWidget {
             ]));
   }
 
-  static Widget getPhaseList() {
+  static Widget getPhaseList(Project project) {
     return Container(
         constraints: const BoxConstraints(maxHeight: 300.0),
         margin: const EdgeInsets.all(10.0),
         child: ListView.builder(
-            itemCount: 4,
+            itemCount: project.phases.length,
             itemBuilder: (context, index) {
+              var deadline = DateTime.parse(project.phases[index].deadline);
               return ExpansionTile(
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Phase 1",
+                      project.phases[index].name,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    index == 0
+                    DateTime.now().isAfter(deadline)
                         ? Icon(Icons.done, color: Colors.green)
                         : Icon(
                             Icons.access_time,
@@ -51,18 +57,19 @@ class PhasesWidget {
                 ),
                 subtitle: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Text("design UI/UX"), Text("2020-77-11")],
+                  children: [
+                    Text(project.phases[index].desc),
+                    Text(DateFormat(Strings.timeFormat).format(deadline))
+                  ],
                 ),
-                children: [
-                  getRequirementWidget("req 1", "req 1 decs", 1),
-                  getRequirementWidget("req 2", "req 1 decs", 2),
-                  getRequirementWidget("req 3", "", 0),
-                ],
+                children: _getRequirements(project.phases[index]),
               );
             }));
   }
 
-  static Widget getRequirementWidget(String title, String desc, int prior) {
+  static Widget getRequirementWidget(Requirement requirement) {
+    var title = requirement.title == null ? "" : requirement.title;
+    var decs = requirement.description == null ? "" : requirement.description;
     return Container(
       margin: const EdgeInsets.all(8.0),
       child: Table(
@@ -72,10 +79,18 @@ class PhasesWidget {
         children: [
           TableRow(children: [
             TableCell(child: TableWidget.getCell(title)),
-            TableCell(child: TableWidget.getCell(desc))
+            TableCell(child: TableWidget.getCell(decs))
           ]),
         ],
       ),
     );
+  }
+
+  static List<Widget> _getRequirements(Phase phase) {
+    List<Widget> reqs = List<Widget>();
+    for (var req in phase.requirements) {
+      reqs.add(getRequirementWidget(req));
+    }
+    return reqs;
   }
 }

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class PageHeader {
-  static Widget build(Color backgroundColor) {
+  static Widget build(Color backgroundColor, String title, String decs) {
     return SliverAppBar(
       shape: ContinuousRectangleBorder(
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(30.0),
               bottomRight: Radius.circular(30.0))),
       title: Text(
-        "Sourcit",
+        title,
         style: TextStyle(color: Colors.black),
       ),
       expandedHeight: 100.0,
@@ -24,7 +24,7 @@ class PageHeader {
             ),
             FittedBox(
                 child: Text(
-              "purchase & sales ERP platform",
+              decs,
               textAlign: TextAlign.center,
             )),
           ],

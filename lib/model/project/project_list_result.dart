@@ -12,7 +12,7 @@ class ProjectListResult {
 
     try {
       for (var obj in json) {
-        projects.add(Project.fromJson(obj));
+        projects.add(Project.fromJson(obj, false));
       }
     } on Exception {
       this.error = "Error in creating projects from Json";

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/blocs/main_bloc.dart';
+import 'package:project_tracker/blocs/project_detail_bloc.dart';
 
 class BottomAppBarBuilder {
   Widget build(Color color, BuildContext context, bool mainPage) {
@@ -17,7 +18,9 @@ class BottomAppBarBuilder {
                   },
                   icon: Icon(Icons.logout),
                 )
-              : IconButton(icon: Icon(Icons.keyboard_return), onPressed: () {}),
+              : IconButton(icon: Icon(Icons.keyboard_return), onPressed: () {
+                // todo return from navigator
+          }),
           IconButton(
               icon: Icon(Icons.refresh),
               onPressed: mainPage
@@ -25,7 +28,10 @@ class BottomAppBarBuilder {
                       BlocProvider.of<MainBloc>(context)
                           .add(MainEventRefresh());
                     }
-                  : () {})
+                  : () {
+                      BlocProvider.of<ProjectDetailBloc>(context)
+                          .add(DetailEventReloadData());
+                    })
         ],
       ),
     );

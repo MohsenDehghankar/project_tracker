@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:project_tracker/blocs/main_bloc.dart';
+import 'package:project_tracker/blocs/project_detail_bloc.dart';
 
-class LoadingBody {
+class LoadingWidget {
   static Widget build(BuildContext context) {
-    BlocProvider.of<MainBloc>(context).add(MainEventLoadData());
+    BlocProvider.of<ProjectDetailBloc>(context).add(DetailEventLoadData());
 
-    return BlocListener<MainBloc, MainState>(
+    return BlocListener<ProjectDetailBloc, DetailState>(
       listener: (context, state) {
-        if (state is MainStateErrorLoading) {
+        if (state is DetailStateError) {
           Scaffold.of(context).showSnackBar(SnackBar(
             content: Text(
               state.error,

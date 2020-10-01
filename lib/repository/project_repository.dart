@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart';
+import 'package:project_tracker/model/project/project.dart';
+import 'package:project_tracker/model/project/project_detail_result.dart';
 import 'package:project_tracker/model/project/project_list_result.dart';
 import 'package:project_tracker/model/user/user.dart';
 import 'package:project_tracker/model/user/user_result.dart';
@@ -57,6 +59,30 @@ class ProjectRepository {
       return ProjectListResult(false)..error = Strings.networkFailProject;
     } on Exception catch (e) {
       return ProjectListResult(false)..error = Strings.unknownErrorProject;
+    }
+  }
+
+  Future<ProjectDetailResult> fetchProjectDetails(String projectId) async {
+    try {
+      var token = await LocalStorage.getToken();
+      Response response = await HttpClient.fetchProjectDetail(projectId, token);
+      Project project = Project.fromJson(jsonDecode(response.body), true);
+      return ProjectDetailResult()
+        ..project = project
+        ..error = ""
+        ..success = true;
+    } on SocketException {
+      return ProjectDetailResult()
+        ..success = false
+        ..error = Strings.networkFail;
+    } on HandshakeException {
+      return ProjectDetailResult()
+        ..success = false
+        ..error = Strings.networkFail;
+    } on Exception {
+      return ProjectDetailResult()
+        ..success = false
+        ..error = Strings.unknownError;
     }
   }
 }

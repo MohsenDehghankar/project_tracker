@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:project_tracker/ui/detail/card.dart';
 
 class KeyPairBuilder {
-  static Widget build() {
+  static Widget build(Map<String, String> keyValues) {
     return DetailPageCardBuilder.build(
-        // KeyList.build(),
-        TableWidget.build(),
+        TableWidget.build(keyValues),
         Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -40,7 +39,7 @@ class KeyPairBuilder {
 }
 
 class TableWidget {
-  static Widget build() {
+  static Widget build(Map<String, String> keyvalues) {
     return Container(
         constraints: const BoxConstraints(maxHeight: 200.0),
         margin: const EdgeInsets.all(10.0),
@@ -49,41 +48,23 @@ class TableWidget {
           border: TableBorder(
               horizontalInside: BorderSide(
                   width: 1, color: Colors.blue, style: BorderStyle.solid)),
-          children: [
-            TableRow(children: [
-              TableCell(child: getCell("Project Manager")),
-              TableCell(child: getCell("G.Ahmadi"))
-            ]),
-            TableRow(children: [
-              TableCell(child: getCell("Project Manager")),
-              TableCell(child: getCell("G.Ahmadi"))
-            ]),
-            TableRow(children: [
-              TableCell(child: getCell("Project Manager")),
-              TableCell(child: getCell("G.Ahmadi"))
-            ]),
-            TableRow(children: [
-              TableCell(child: getCell("Project Manager")),
-              TableCell(child: getCell("G.Ahmadi"))
-            ]),
-            TableRow(children: [
-              TableCell(child: getCell("Project Manager")),
-              TableCell(child: getCell("G.Ahmadi"))
-            ]),
-            TableRow(children: [
-              TableCell(child: getCell("Project Manager")),
-              TableCell(child: getCell("G.Ahmadi"))
-            ]),
-            TableRow(children: [
-              TableCell(child: getCell("Project Manager")),
-              TableCell(child: getCell("G.Ahmadi"))
-            ]),
-            TableRow(children: [
-              TableCell(child: getCell("Project Manager")),
-              TableCell(child: getCell("G.Ahmadi"))
-            ]),
-          ],
+          children: _getTableRows(keyvalues),
         )));
+  }
+
+  static List<TableRow> _getTableRows(Map<String, String> keyVal){
+    List<TableRow> result = List<TableRow>();
+    for (var key in keyVal.keys){
+      result.add(
+        TableRow(
+          children: [
+            TableCell(child: getCell(key),),
+            TableCell(child: getCell(keyVal[key]),)
+          ]
+        )
+      );
+    }
+    return result;
   }
 
   static Widget getCell(String txt) {
