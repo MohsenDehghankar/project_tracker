@@ -95,16 +95,18 @@ class AllFieldsForm extends StatelessWidget {
                 children: <Widget>[
                   FloatingActionButton.extended(
                     heroTag: null,
+                    backgroundColor: Colors.white,
                     onPressed: formBloc.addErrors,
-                    icon: Icon(Icons.error_outline),
-                    label: Text('ADD ERRORS'),
+                    icon: Icon(Icons.error_outline, color: Colors.blue[300],),
+                    label: Text('ADD ERRORS', style: TextStyle(color: Colors.blue[300]),),
                   ),
                   SizedBox(height: 12),
                   FloatingActionButton.extended(
                     heroTag: null,
+                    backgroundColor: Colors.white,
                     onPressed: formBloc.submit,
-                    icon: Icon(Icons.send),
-                    label: Text('Send'),
+                    icon: Icon(Icons.send, color: Colors.blue[300]),
+                    label: Text('Send', style: TextStyle(color: Colors.blue[300]),),
                   ),
                 ],
               ),
@@ -225,6 +227,92 @@ class AllFieldsForm extends StatelessWidget {
                                             helperText: 'Date',
                                           ),
                                         ),
+                                        SizedBox(height: 20.0,),
+                                        Container(
+                                            alignment: Alignment.bottomRight,
+                                            height: 40,
+                                            width: 100.0,
+                                            // width: size.width,
+                                            decoration: BoxDecoration(
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.blue[300],
+                                                  blurRadius: 10.0,
+                                                  // has the effect of softening the shadow
+                                                  spreadRadius: 1.0,
+                                                  // has the effect of extending the shadow
+                                                  offset: Offset(
+                                                    5.0,
+                                                    // horizontal, move right 10
+                                                    5.0, // vertical, move down 10
+                                                  ),
+                                                ),
+                                              ],
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                            ),
+                                            child: FlatButton(
+                                              onPressed: () {
+                                                showDialog(context: context, builder: (context) {
+                                                  return AlertDialog(
+                                                    title: Text("Title"),
+                                                    content: Container(
+                                                      constraints: BoxConstraints(maxHeight: 200.0),
+                                                      child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      children: [
+                                                        TextField(
+                                                          decoration: InputDecoration(
+                                                            labelText: 'Phase Name',
+                                                            prefixIcon: Icon(Icons.description),
+                                                          ),
+                                                        ),
+                                                        TextField(
+                                                          decoration: InputDecoration(
+                                                            labelText: 'Phase Detail',
+                                                            prefixIcon: Icon(Icons.description),
+                                                          ),
+                                                        ),
+                                                        SizedBox(height: 10.0,),
+                                                        FlatButton(
+                                                          color: Colors.black,
+                                                          highlightColor: Colors.yellow,
+                                                          splashColor: Colors.yellow,
+                                                          onPressed: (){
+                                                            showDialog(context: context, builder: (context){
+                                                              return AlertDialog(
+                                                                title: Text("Requirement"),
+                                                                content: Text("Add Requirements"),
+                                                                actions: [
+                                                                  FlatButton(onPressed: (){Navigator.of(context).pop();}, child: Text("Add"))
+                                                                ],
+                                                              );
+                                                            });
+                                                          },
+                                                          child: Text("Add Requirement", style: TextStyle(color: Colors.white),),
+                                                        )
+                                                      ],
+                                                    )),
+                                                    actions: [
+                                                      FlatButton(onPressed: (){Navigator.of(context).pop();}, child: Text("Close")),
+                                                      FlatButton(onPressed: (){},child: Text("Add"),)
+                                                    ],
+                                                  );
+                                                });
+                                              },
+                                              child: Center(
+                                                child:Text(
+                                                "Add Phase",
+                                                style: TextStyle(
+                                                  color: Colors
+                                                      .lightBlueAccent,
+                                                  fontSize: 14,
+                                                  fontWeight:
+                                                  FontWeight.w700,
+                                                ),
+                                              ),
+                                            )))
                                         /*TimeFieldBlocBuilder(
                                 timeFieldBloc: formBloc.time1,
                                 format: DateFormat('hh:mm a'),
