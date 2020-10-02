@@ -7,14 +7,14 @@ class DateTimeFieldBuilder {
     return DateTimeFieldBlocBuilder(
       dateTimeFieldBloc: fieldBloc,
       canSelectTime: true,
-      format: DateFormat('dd-mm-yyyy  hh:mm'),
+      format: DateFormat(dateFormat),
       initialDate: DateTime.now(),
       firstDate: DateTime(1900),
       lastDate: DateTime(2100),
       decoration: InputDecoration(
-        labelText: 'Project Deadline',
+        labelText: label,
         prefixIcon: Icon(Icons.calendar_today),
-        helperText: 'Date',
+        helperText: helper,
       ),
     );
   }

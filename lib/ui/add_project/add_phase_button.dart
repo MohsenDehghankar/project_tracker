@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_tracker/ui/add_project/add_phase_dialog.dart';
 
 class AddPhaseButton {
   static Widget build(BuildContext context) {
@@ -30,70 +31,7 @@ class AddPhaseButton {
               showDialog(
                   context: context,
                   builder: (context) {
-                    return AlertDialog(
-                      contentPadding: const EdgeInsets.all(8.0),
-                      title: Text("Title"),
-                      content: Container(
-                          constraints: BoxConstraints(maxHeight: 200.0),
-                          child: SingleChildScrollView(
-                              child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              TextField(
-                                decoration: InputDecoration(
-                                  labelText: 'Phase Name',
-                                  prefixIcon: Icon(Icons.description),
-                                ),
-                              ),
-                              TextField(
-                                decoration: InputDecoration(
-                                  labelText: 'Phase Detail',
-                                  prefixIcon: Icon(Icons.description),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 15.0,
-                              ),
-                              FlatButton(
-                                color: Colors.black,
-                                highlightColor: Colors.yellow,
-                                splashColor: Colors.yellow,
-                                onPressed: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: Text("Requirement"),
-                                          content: Text("Add Requirements"),
-                                          actions: [
-                                            FlatButton(
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                                child: Text("Add"))
-                                          ],
-                                        );
-                                      });
-                                },
-                                child: Text(
-                                  "Add Requirement",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              )
-                            ],
-                          ))),
-                      actions: [
-                        FlatButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Text("Close")),
-                        FlatButton(
-                          onPressed: () {},
-                          child: Text("Add"),
-                        )
-                      ],
-                    );
+                    return AddPhaseDialogBuilder.build(context);
                   });
             },
             child: Center(

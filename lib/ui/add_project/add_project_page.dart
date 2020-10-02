@@ -8,7 +8,6 @@ import 'package:project_tracker/ui/add_project/floating_action_button.dart';
 import 'package:project_tracker/ui/add_project/form_body_widget.dart';
 import 'package:project_tracker/ui/add_project/text_field_builder.dart';
 import 'package:project_tracker/ui/add_project/transparent_appbar.dart';
-import 'package:project_tracker/ui/app_theme.dart';
 
 class AddProjectPage extends StatefulWidget {
   @override
@@ -110,11 +109,10 @@ class SuccessScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Icon(Icons.tag_faces, size: 100),
             SizedBox(height: 10),
             Text(
               'Success',
-              style: TextStyle(fontSize: 54, color: Colors.black),
+              style: TextStyle(fontSize: 54, color: Colors.green),
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 10),
@@ -122,7 +120,7 @@ class SuccessScreen extends StatelessWidget {
               onPressed: () => Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (_) => AddProjectPage())),
               icon: Icon(Icons.replay),
-              label: Text('AGAIN'),
+              label: Text('Back'),
             ),
           ],
         ),

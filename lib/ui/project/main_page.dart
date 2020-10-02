@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/blocs/main_bloc.dart';
 import 'package:project_tracker/main.dart';
 import 'package:project_tracker/ui/project/bottom_app_bar.dart';
+import 'package:project_tracker/ui/project/floating_action_button.dart';
 import 'package:project_tracker/ui/project/loading_body.dart';
 import 'package:project_tracker/ui/project/main_body.dart';
 
@@ -27,10 +28,7 @@ class MainPageState extends State<MainPage> {
                       .build(Theme.of(context).buttonColor, context, true);
                 },
               ),
-              floatingActionButton: new FloatingActionButton(
-                child: Icon(Icons.add),
-                onPressed: () {},
-              ),
+              floatingActionButton: FloatingButtonBuilder.build(context),
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerDocked,
               body: BlocBuilder<MainBloc, MainState>(builder: (context, state) {
