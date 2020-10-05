@@ -1,4 +1,7 @@
+import 'package:charts_flutter/flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as mat;
+import 'package:flutter/rendering.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:project_tracker/blocs/add_project_form_bloc.dart';
 import 'package:project_tracker/model/project/project_phase.dart';
@@ -65,11 +68,14 @@ class AddProjectFormState extends State<AddProjectPage> {
                                   "Project Deadline",
                                   'Date',
                                   Icon(Icons.calendar_today)),
-                              Text("Number of phases ==> ${phases.length}"),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              _getPhases(),
                               SizedBox(
                                 height: 20.0,
                               ),
-                              AddPhaseButton.build(context, (value){
+                              AddPhaseButton.build(context, (value) {
                                 setState(() {
                                   phases.add(value);
                                 });
@@ -81,6 +87,27 @@ class AddProjectFormState extends State<AddProjectPage> {
         },
       ),
     );
+  }
+
+  Widget _getPhases() {
+    List<Widget> chips = [];
+    for (var phs in phases) {
+      chips.add(Container(
+          padding: const EdgeInsets.all(5.0),
+          child: ActionChip(
+            avatar: CircleAvatar(
+              child: Icon(Icons.close),
+            ),
+            label: Text(phs.name),
+            onPressed: () {},
+          )
+      ));
+    }
+    return SingleChildScrollView(
+        scrollDirection: mat.Axis.horizontal,
+        child: Row(
+          children: chips,
+        ));
   }
 }
 
@@ -127,7 +154,7 @@ class SuccessScreen extends StatelessWidget {
             SizedBox(height: 10),
             Text(
               'Success',
-              style: TextStyle(fontSize: 54, color: Colors.green),
+              style: mat.TextStyle(fontSize: 54, color: Colors.green),
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 10),

@@ -3,6 +3,10 @@ import 'package:flutter/services.dart';
 
 class RequirementDialogBuilder {
   static Widget build(BuildContext context) {
+    TextEditingController title = TextEditingController();
+    TextEditingController detail = TextEditingController();
+    TextEditingController priority = TextEditingController();
+
     return AlertDialog(
       title: Text("Requirement"),
       content: Container(
@@ -10,7 +14,7 @@ class RequirementDialogBuilder {
           child: SingleChildScrollView(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: _getFields(context),
+            children: _getFields(context, title, detail, priority),
           ))),
       actions: [
         FlatButton(
@@ -20,30 +24,40 @@ class RequirementDialogBuilder {
             child: Text("Close")),
         FlatButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).pop([
+                title.value.text,
+                detail.value.text,
+                int.parse(priority.value.text)
+              ]);
             },
             child: Text("Add"))
       ],
     );
   }
 
-  static List<Widget> _getFields(BuildContext context) {
+  static List<Widget> _getFields(
+      BuildContext context,
+      TextEditingController title,
+      TextEditingController detail,
+      TextEditingController prior) {
     return [
       TextField(
+        controller: title,
         decoration: InputDecoration(
           labelText: 'Title',
           prefixIcon: Icon(Icons.title),
         ),
       ),
       TextField(
+        controller: detail,
         decoration: InputDecoration(
           labelText: 'Detail',
           prefixIcon: Icon(Icons.description),
         ),
       ),
       TextField(
-        inputFormatters: [
-        ],
+        inputFormatters: [],
+        controller: prior,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
           labelText: 'Priority (1-5)',

@@ -32,7 +32,7 @@ class AddPhaseButton {
               showDialog(
                   context: context,
                   builder: (context) {
-                    return AddPhaseDialogBuilder.build(context);
+                    return PhaseForm();
                   }).then((value) {
                     var name = value[0];
                     var detail = value[1];
