@@ -1,10 +1,12 @@
-import 'package:charts_flutter/flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as mat;
 import 'package:flutter/rendering.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:google_fonts/google_fonts.dart' as gFont;
 import 'package:project_tracker/blocs/add_project_form_bloc.dart';
 import 'package:project_tracker/model/project/project_phase.dart';
+import 'package:project_tracker/style/fonts.dart';
+import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/add_project/add_phase_button.dart';
 import 'package:project_tracker/ui/add_project/datetime_field_builder.dart';
 import 'package:project_tracker/ui/add_project/dropdown_field_builder.dart';
@@ -50,50 +52,58 @@ class AddProjectFormState extends State<AddProjectPage> {
                         backgroundColor: Colors.transparent,
                         appBar: TransparentAppBar.build(context),
                         body: FormBodyBuilder.build(
-                          context,
-                          Column(
-                            children: <Widget>[
-                              TextFieldBuilder.build('Project Name',
-                                  Icon(Icons.title), formBloc.text1),
-                              TextFieldBuilder.build('Project Description',
-                                  Icon(Icons.description), formBloc.text2),
-                              DropDownFieldBuilder.build(
-                                  formBloc.select1,
-                                  "Project Manager",
-                                  'choose',
-                                  Icon(Icons.portrait)),
-                              DateTimeFieldBuilder.build(
-                                  formBloc.date1,
-                                  'dd-mm-yyyy  hh:mm',
-                                  "Project Deadline",
-                                  'Date',
-                                  Icon(Icons.calendar_today)),
-                              SizedBox(
-                                height: 10.0,
-                              ),
-                              _getPhases(),
-                              SizedBox(
-                                height: 20.0,
-                              ),
-                              AddPhaseButton.build(context, (value) {
-                                setState(() {
-                                  phases.add(value);
-                                });
-                              })
-                            ],
-                          ),
-                         () {
-                            showDialog(context: context, builder: (context) {
-                              return AlertDialog(
-                                content: Text("Project Created"),
-                                actions: [
-                                  FlatButton(onPressed: (){
-                                    Navigator.of(context).pop();
-                                  }, child: Text("OK"))
-                                ],
-                              );
-                            });
-                      }))
+                            context,
+                            Column(
+                              children: <Widget>[
+                                TextFieldBuilder.build(Strings.projectName,
+                                    Icon(Icons.title), formBloc.text1),
+                                TextFieldBuilder.build(Strings.projectDesc,
+                                    Icon(Icons.description), formBloc.text2),
+                                DropDownFieldBuilder.build(
+                                    formBloc.select1,
+                                    Strings.projectManager,
+                                    'choose',
+                                    Icon(Icons.portrait)),
+                                DateTimeFieldBuilder.build(
+                                    formBloc.date1,
+                                    Strings.phaseDeadlineFormat,
+                                    Strings.projectDeadline,
+                                    'Date',
+                                    Icon(Icons.calendar_today)),
+                                SizedBox(
+                                  height: 10.0,
+                                ),
+                                _getPhases(),
+                                SizedBox(
+                                  height: 20.0,
+                                ),
+                                AddPhaseButton.build(context, (value) {
+                                  setState(() {
+                                    phases.add(value);
+                                  });
+                                })
+                              ],
+                            ), () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  content: Text(
+                                    Strings.projectSuccess,
+                                    style: gFont.GoogleFonts.getFont(
+                                        Fonts.mainFont),
+                                  ),
+                                  actions: [
+                                    FlatButton(
+                                        onPressed: () {
+                                          formBloc.clear();
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text("OK"))
+                                  ],
+                                );
+                              });
+                        }))
                   ])));
         },
       ),
@@ -110,11 +120,12 @@ class AddProjectFormState extends State<AddProjectPage> {
               child: Icon(Icons.close),
             ),
             label: Text(phs.name),
-            onPressed: () {setState(() {
-              phases.remove(phs);
-            });},
-          )
-      ));
+            onPressed: () {
+              setState(() {
+                phases.remove(phs);
+              });
+            },
+          )));
     }
     return SingleChildScrollView(
         scrollDirection: mat.Axis.horizontal,

@@ -31,6 +31,22 @@ class Strings {
   static const String start = "Start";
   static const String end = "End";
   static const String now = "Now";
+  
+  // add project
+  static const String phaseFormNoResult = "No Result passed from Phase Form";
+  static const String addPhase = "Add Phase";
+  static const String phaseName = "Phase Name";
+  static const String phaseDetail = "Phase Detail";
+  static const String phaseDeadlineFormat = 'dd-mm-yyyy  hh:mm';
+  static const String deadline = 'Deadline';
+  static const String requirementFormNoResult = "No Result Returned from Requirement Form";
+  static const String addRequirement = 'Add Requirement';
+  static const String projectName = 'Project Name';
+  static const String projectDesc = 'Project Description';
+  static const String projectManager = 'Project Manager';
+  static const String projectDeadline = 'Project Deadline';
+  static const String projectSuccess = "Project Created Successfully";
+  static const String requirement = "Requirement";
 
 
 }

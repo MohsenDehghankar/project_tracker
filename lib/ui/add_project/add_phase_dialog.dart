@@ -1,8 +1,8 @@
-import 'package:charts_flutter/flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as mat;
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:project_tracker/model/project/requirement.dart';
+import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/add_project/add_requirement_dialog.dart';
 import 'package:project_tracker/ui/add_project/datetime_field_builder.dart';
 import 'package:project_tracker/ui/add_project/text_field_builder.dart';
@@ -19,7 +19,15 @@ class PhaseFormState extends State<PhaseForm> {
   void initState() {
     super.initState();
     requirements = [];
+    scrollCtrnlr = ScrollController();
   }
+
+  void scrollToBtm(){
+    scrollCtrnlr.animateTo(scrollCtrnlr.position.maxScrollExtent,
+        curve: Curves.ease, duration: Duration(milliseconds: 100));
+  }
+
+
 
   Widget getReqs(List<Requirement> reqs) {
     List<Widget> chips = [];
@@ -31,9 +39,11 @@ class PhaseFormState extends State<PhaseForm> {
             child: Icon(Icons.close),
           ),
           label: Text(rq.title),
-          onPressed: () {setState(() {
-            reqs.remove(rq);
-          });},
+          onPressed: () {
+            setState(() {
+              reqs.remove(rq);
+            });
+          },
         ),
       ));
     }
@@ -48,10 +58,10 @@ class PhaseFormState extends State<PhaseForm> {
   List<Widget> _getFields(
       BuildContext context, AddPhaseFormBloc formBloc, List<Requirement> reqs) {
     return [
-      TextFieldBuilder.build('Phase Name', Icon(Icons.title), formBloc.text1),
-      TextFieldBuilder.build('Phase Detail', Icon(Icons.title), formBloc.text2),
-      DateTimeFieldBuilder.build(formBloc.date1, 'dd-mm-yyyy  hh:mm',
-          'Deadline', '', Icon(Icons.calendar_today)),
+      TextFieldBuilder.build(Strings.phaseName, Icon(Icons.title), formBloc.text1),
+      TextFieldBuilder.build(Strings.phaseDetail, Icon(Icons.title), formBloc.text2),
+      DateTimeFieldBuilder.build(formBloc.date1, Strings.phaseDeadlineFormat,
+          Strings.deadline, '', Icon(Icons.calendar_today)),
       getReqs(reqs),
       FlatButton(
         color: Colors.black,
@@ -64,18 +74,28 @@ class PhaseFormState extends State<PhaseForm> {
               builder: (context) {
                 return RequirementDialogBuilder.build(context);
               }).then((value) {
-            setState(() {
-              reqs.add(Requirement(value[0], value[1], value[2]));
-            });
+            try {
+              setState(() {
+                reqs.add(Requirement(value[0], value[1], value[2]));
+              });
+            } on Exception {
+              debugPrint(Strings.requirementFormNoResult);
+            } on Error {
+              debugPrint(Strings.requirementFormNoResult);
+            }
+            Future.delayed(Duration(milliseconds: 200)).then((value) => scrollToBtm());
           });
         },
         child: Text(
-          "Add Requirement",
+          Strings.addRequirement,
           style: mat.TextStyle(color: Colors.white),
         ),
       )
     ];
   }
+
+  ScrollController scrollCtrnlr;
+
 
   @override
   Widget build(BuildContext context) {
@@ -90,16 +110,17 @@ class PhaseFormState extends State<PhaseForm> {
               return Container(
                   constraints: BoxConstraints(maxHeight: 280.0),
                   child: SingleChildScrollView(
+                      controller: scrollCtrnlr,
                       child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: _getFields(context, formBloc, requirements),
-                  )));
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: _getFields(context, formBloc, requirements),
+                      )));
             },
           ),
           actions: [
             FlatButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.of(context).pop([]);
                 },
                 child: Text("Close")),
             Builder(

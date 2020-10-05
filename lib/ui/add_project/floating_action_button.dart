@@ -7,13 +7,13 @@ class FloatingButtons {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
-        FloatingActionButton(
+        /*FloatingActionButton(
           heroTag: null,
           backgroundColor: Colors.white,
           onPressed:(){},// formBloc.addErrors,
-          child: Icon(Icons.error_outline, color: Colors.blue[300]),
+          child: Icon(Icons.delete_outline, color: Colors.blue[300]),
         ),
-        SizedBox(height: 12),
+        SizedBox(height: 12),*/
         FloatingActionButton(
           heroTag: null,
           backgroundColor: Colors.white,

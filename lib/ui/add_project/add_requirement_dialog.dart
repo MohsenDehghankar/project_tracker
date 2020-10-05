@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:project_tracker/style/strings.dart';
 
 class RequirementDialogBuilder {
   static Widget build(BuildContext context) {
@@ -8,7 +9,7 @@ class RequirementDialogBuilder {
     TextEditingController priority = TextEditingController();
 
     return AlertDialog(
-      title: Text("Requirement"),
+      title: Text(Strings.requirement),
       content: Container(
           constraints: BoxConstraints(maxHeight: 270.0),
           child: SingleChildScrollView(
@@ -19,7 +20,7 @@ class RequirementDialogBuilder {
       actions: [
         FlatButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).pop([]);
             },
             child: Text("Close")),
         FlatButton(

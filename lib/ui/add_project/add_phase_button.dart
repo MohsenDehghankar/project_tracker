@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_tracker/model/project/project_phase.dart';
+import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/add_project/add_phase_dialog.dart';
 
 class AddPhaseButton {
@@ -34,15 +35,22 @@ class AddPhaseButton {
                   builder: (context) {
                     return PhaseForm();
                   }).then((value) {
-                    var name = value[0];
-                    var detail = value[1];
-                    var deadline = value[2];
-                    onPhaseAdded(Phase(name, detail, deadline.toString(), []));
+                    try {
+                      var name = value[0];
+                      var detail = value[1];
+                      var deadline = value[2];
+                      onPhaseAdded(
+                          Phase(name, detail, deadline.toString(), []));
+                    } on Error {
+                      debugPrint(Strings.phaseFormNoResult);
+                    } on Exception {
+                      debugPrint(Strings.phaseFormNoResult);
+                    }
               });
             },
             child: Center(
               child: Text(
-                "Add Phase",
+                Strings.addPhase,
                 style: TextStyle(
                   color: Colors.lightBlueAccent,
                   fontSize: 14,
