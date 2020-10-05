@@ -5,7 +5,7 @@ import 'package:project_tracker/ui/add_project/add_project_page.dart';
 import 'package:project_tracker/ui/app_theme.dart';
 
 class FormBodyBuilder {
-  static Widget build(BuildContext context, Column mainFields) {
+  static Widget build(BuildContext context, Column mainFields, void Function() sucess) {
     return Container(
         height: MediaQuery.of(context).size.height,
         decoration: ContainerDecoration.getDecoration(),
@@ -15,9 +15,9 @@ class FormBodyBuilder {
             },
             onSuccess: (context, state) {
               LoadingDialog.hide(context);
-
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => SuccessScreen()));
+              sucess();
+              /*Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (_) => SuccessScreen()));*/
             },
             onFailure: (context, state) {
               LoadingDialog.hide(context);

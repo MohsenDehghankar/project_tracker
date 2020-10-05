@@ -31,7 +31,9 @@ class PhaseFormState extends State<PhaseForm> {
             child: Icon(Icons.close),
           ),
           label: Text(rq.title),
-          onPressed: () {},
+          onPressed: () {setState(() {
+            reqs.remove(rq);
+          });},
         ),
       ));
     }

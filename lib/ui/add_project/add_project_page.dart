@@ -82,7 +82,18 @@ class AddProjectFormState extends State<AddProjectPage> {
                               })
                             ],
                           ),
-                        ))
+                         () {
+                            showDialog(context: context, builder: (context) {
+                              return AlertDialog(
+                                content: Text("Project Created"),
+                                actions: [
+                                  FlatButton(onPressed: (){
+                                    Navigator.of(context).pop();
+                                  }, child: Text("OK"))
+                                ],
+                              );
+                            });
+                      }))
                   ])));
         },
       ),
@@ -99,7 +110,9 @@ class AddProjectFormState extends State<AddProjectPage> {
               child: Icon(Icons.close),
             ),
             label: Text(phs.name),
-            onPressed: () {},
+            onPressed: () {setState(() {
+              phases.remove(phs);
+            });},
           )
       ));
     }
