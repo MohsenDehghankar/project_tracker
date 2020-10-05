@@ -56,7 +56,11 @@ class TableWidget {
   static Widget getCell(String txt) {
     return Container(
       margin: const EdgeInsets.all(8.0),
-      child: Text(txt),
+      child: Text(
+        txt,
+        style: GoogleFonts.getFont(Fonts.mainFont),
+        textAlign: TextAlign.center,
+      ),
     );
   }
 }
