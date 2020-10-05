@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:project_tracker/style/fonts.dart';
 
 /// progress indicators for a project in projects page
 class ProjectProgressIndicator {
@@ -16,7 +18,7 @@ class ProjectProgressIndicator {
       footer: Flexible(
           child: Text(
         title,
-        style: TextStyle(color: Colors.white),
+        style: GoogleFonts.getFont(Fonts.mainFont, color: Colors.white),
       )),
       progressColor: color,
       animation: true,

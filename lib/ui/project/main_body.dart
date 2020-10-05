@@ -20,7 +20,7 @@ class MainBody {
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               SliverAppBar(
-                expandedHeight: 220.0,
+                expandedHeight: 200.0,
                 floating: true,
                 pinned: false,
                 snap: false,

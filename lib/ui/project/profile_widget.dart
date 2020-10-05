@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project_tracker/model/user/user.dart';
-
+import 'package:project_tracker/style/fonts.dart';
 
 /// builder for profile widget in projects page
 class ProfileWidget {
@@ -65,9 +66,13 @@ class ProfileWidget {
                 children: <Widget>[
                   Text(
                     user.name,
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: GoogleFonts.getFont(Fonts.mainFont,
+                        fontWeight: FontWeight.bold),
                   ),
-                  Text(user.role),
+                  Text(
+                    user.role,
+                    style: GoogleFonts.getFont(Fonts.mainFont),
+                  ),
                 ],
               ))
         ],

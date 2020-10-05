@@ -16,8 +16,6 @@ class FormBodyBuilder {
             onSuccess: (context, state) {
               LoadingDialog.hide(context);
               sucess();
-              /*Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => SuccessScreen()));*/
             },
             onFailure: (context, state) {
               LoadingDialog.hide(context);

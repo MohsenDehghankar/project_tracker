@@ -21,7 +21,7 @@ class Strings {
   static const String loadData = "Loading...";
 
   // errors
-  static const String networkFail = "Problem in network connectivity";
+  static const String networkFail = "Network problem, Try Again";
   static const String unknownError = "Unknown Error!";
   static const String networkFailProject = "Network Problem while fetching projects!";
   static const String unknownErrorProject = "Unknown error while fetching projects list.";

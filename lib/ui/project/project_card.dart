@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:project_tracker/model/project/project.dart';
 import 'package:project_tracker/style/colors.dart';
+import 'package:project_tracker/style/fonts.dart';
 import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/detail/project_details_page.dart';
 import 'package:project_tracker/ui/project/project_progress_indicator.dart';
-
 
 /// a project card in projects page
 class ProjectCard {
@@ -22,7 +23,8 @@ class ProjectCard {
         ),
         title: Text(
           project.name,
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: GoogleFonts.getFont(Fonts.mainFont,
+              color: Colors.white, fontWeight: FontWeight.bold),
         ),
         // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
 
@@ -36,7 +38,8 @@ class ProjectCard {
                   size: 15.0,
                 ),
                 Text(" Until ${project.nearestPhaseName}",
-                    style: TextStyle(color: Colors.white, fontSize: 12.0)),
+                    style: GoogleFonts.getFont(Fonts.mainFont,
+                        color: Colors.white, fontSize: 12.0)),
               ],
             ),
             Center(
@@ -45,9 +48,11 @@ class ProjectCard {
               children: <Widget>[
                 Text(
                     " ${DateFormat(Strings.timeFormat).format(project.nearest)}",
-                    style: TextStyle(color: Colors.white, fontSize: 12.0)),
+                    style: GoogleFonts.getFont(Fonts.mainFont,
+                        color: Colors.white, fontSize: 12.0)),
                 Text(" [${project.getRemainingDays()} day(s)]",
-                    style: TextStyle(color: Colors.white)),
+                    style: GoogleFonts.getFont(Fonts.mainFont,
+                        color: Colors.white)),
               ],
             )),
             Padding(
@@ -72,7 +77,9 @@ class ProjectCard {
               Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => DetailPage(project.projectId)));
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DetailPage(project.projectId)));
           },
         ));
 
