@@ -19,19 +19,17 @@ class BottomAppBarBuilder {
                   },
                   icon: Icon(Icons.logout),
                 )
-              : IconButton(
-                  icon: Icon(Icons.keyboard_return),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }),
+              : IconButton(icon: Icon(Icons.menu), onPressed: () {}),
           IconButton(
               icon: Icon(Icons.refresh),
               onPressed: mainPage
                   ? () {
+                      Scaffold.of(context).removeCurrentSnackBar();
                       BlocProvider.of<MainBloc>(context)
                           .add(MainEventRefresh());
                     }
                   : () {
+                      Scaffold.of(context).removeCurrentSnackBar();
                       BlocProvider.of<ProjectDetailBloc>(context)
                           .add(DetailEventReloadData());
                     })

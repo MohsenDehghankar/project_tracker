@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:project_tracker/model/project/project_phase.dart';
 import 'package:project_tracker/ui/add_project/add_phase_dialog.dart';
 
 class AddPhaseButton {
-  static Widget build(BuildContext context) {
+  static Widget build(BuildContext context, void Function(Phase value) onPhaseAdded) {
     return Container(
         alignment: Alignment.bottomRight,
         height: 40,
@@ -32,7 +33,12 @@ class AddPhaseButton {
                   context: context,
                   builder: (context) {
                     return AddPhaseDialogBuilder.build(context);
-                  });
+                  }).then((value) {
+                    var name = value[0];
+                    var detail = value[1];
+                    var deadline = value[2];
+                    onPhaseAdded(Phase(name, detail, deadline.toString(), []));
+              });
             },
             child: Center(
               child: Text(

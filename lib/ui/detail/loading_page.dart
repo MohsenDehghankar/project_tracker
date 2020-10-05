@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:project_tracker/blocs/project_detail_bloc.dart';
-
 
 /// loading page while fetching a project's data
 class LoadingWidget {
@@ -28,8 +28,8 @@ class LoadingWidget {
                 colors: [Colors.blueGrey, Colors.lightBlueAccent]),
           ),
           child: Center(
-              child: CircularProgressIndicator(
-            backgroundColor: Colors.black,
+              child: SpinKitFadingCube(
+            color: Colors.white70,
           ))),
     );
   }

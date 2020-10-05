@@ -2,58 +2,56 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:project_tracker/ui/add_project/add_requirement_dialog.dart';
 import 'package:project_tracker/ui/add_project/datetime_field_builder.dart';
+import 'package:project_tracker/ui/add_project/text_field_builder.dart';
 
 class AddPhaseDialogBuilder {
   static Widget build(BuildContext context) {
-    return AlertDialog(
-      contentPadding: const EdgeInsets.all(8.0),
-      content: BlocProvider(
+    return BlocProvider(
         create: (context) => AddPhaseFormBloc(),
-        child: Builder(
-          builder: (context) {
-            final formBloc = BlocProvider.of<AddPhaseFormBloc>(context);
+        child: AlertDialog(
+          contentPadding: const EdgeInsets.all(8.0),
+          content: Builder(
+            builder: (context) {
+              final formBloc = BlocProvider.of<AddPhaseFormBloc>(context);
 
-            return Container(
-                constraints: BoxConstraints(maxHeight: 270.0),
-                child: SingleChildScrollView(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: _getFields(context, formBloc),
-                )));
-          },
-        ),
-      ),
-      actions: [
-        FlatButton(
-            onPressed: () {
-              Navigator.of(context).pop();
+              return Container(
+                  constraints: BoxConstraints(maxHeight: 280.0),
+                  child: SingleChildScrollView(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: _getFields(context, formBloc),
+                  )));
             },
-            child: Text("Close")),
-        FlatButton(
-          onPressed: () {},
-          child: Text("Add"),
-        )
-      ],
-    );
+          ),
+          actions: [
+            FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("Close")),
+            Builder(
+              builder: (context) {
+                return FlatButton(
+                  onPressed: () {
+                    var formBloc = BlocProvider.of<AddPhaseFormBloc>(context);
+                    Navigator.of(context)
+                        .pop([formBloc.text1.value, formBloc.text2.value, formBloc.date1.value]);
+                  },
+                  child: Text("Add"),
+                );
+              },
+            )
+          ],
+        ));
   }
 
   static List<Widget> _getFields(
       BuildContext context, AddPhaseFormBloc formBloc) {
     return [
-      TextField(
-        decoration: InputDecoration(
-          labelText: 'Phase Name',
-          prefixIcon: Icon(Icons.title),
-        ),
-      ),
-      TextField(
-        decoration: InputDecoration(
-          labelText: 'Phase Detail',
-          prefixIcon: Icon(Icons.description),
-        ),
-      ),
-      DateTimeFieldBuilder.build(
-          formBloc.date1, 'dd-mm-yyyy  hh:mm', 'Deadline', '', Icon(Icons.calendar_today)),
+      TextFieldBuilder.build('Phase Name', Icon(Icons.title), formBloc.text1),
+      TextFieldBuilder.build('Phase Detail', Icon(Icons.title), formBloc.text2),
+      DateTimeFieldBuilder.build(formBloc.date1, 'dd-mm-yyyy  hh:mm',
+          'Deadline', '', Icon(Icons.calendar_today)),
       FlatButton(
         color: Colors.black,
         highlightColor: Colors.yellow,

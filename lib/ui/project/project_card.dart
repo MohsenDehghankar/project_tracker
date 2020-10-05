@@ -18,7 +18,7 @@ class ProjectCard {
           decoration: new BoxDecoration(
               border: new Border(
                   right: new BorderSide(width: 1.0, color: Colors.white24))),
-          child: Icon(Icons.autorenew, color: Colors.white),
+          child: Icon(Icons.more_vert, color: Colors.white),
         ),
         title: Text(
           project.name,

@@ -9,6 +9,9 @@ class Phase {
   String deadline;
   List<Requirement> requirements;
 
+
+  Phase(this.name, this.desc, this.deadline, this.requirements);
+
   Phase.buildBrief(dynamic json)
       : name = json['name'],
         deadline = json['deadline'];

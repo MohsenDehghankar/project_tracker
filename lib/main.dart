@@ -52,7 +52,7 @@ class _LoginState extends State<MainApp> {
   Widget build(BuildContext context) {
     // return MainPage();
     // return LoadingPage();
-    return DetailPage("test_id");
-    // return AddProjectPage();
+    // return DetailPage("test_id");
+    return AddProjectPage();
   }
 }

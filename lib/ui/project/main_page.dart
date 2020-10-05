@@ -25,7 +25,7 @@ class MainPageState extends State<MainPage> {
               bottomNavigationBar: BlocBuilder<MainBloc, MainState>(
                 builder: (context, state) {
                   return BottomAppBarBuilder()
-                      .build(Theme.of(context).buttonColor, context, true);
+                      .build(Colors.white70, context, true);
                 },
               ),
               floatingActionButton: FloatingButtonBuilder.build(context),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:project_tracker/blocs/add_project_form_bloc.dart';
+import 'package:project_tracker/model/project/project_phase.dart';
 import 'package:project_tracker/ui/add_project/add_phase_button.dart';
 import 'package:project_tracker/ui/add_project/datetime_field_builder.dart';
 import 'package:project_tracker/ui/add_project/dropdown_field_builder.dart';
@@ -15,6 +16,15 @@ class AddProjectPage extends StatefulWidget {
 }
 
 class AddProjectFormState extends State<AddProjectPage> {
+  // added phases
+  List<Phase> phases;
+
+  @override
+  void initState() {
+    super.initState();
+    phases = [];
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -55,10 +65,15 @@ class AddProjectFormState extends State<AddProjectPage> {
                                   "Project Deadline",
                                   'Date',
                                   Icon(Icons.calendar_today)),
+                              Text("Number of phases ==> ${phases.length}"),
                               SizedBox(
                                 height: 20.0,
                               ),
-                              AddPhaseButton.build(context)
+                              AddPhaseButton.build(context, (value){
+                                setState(() {
+                                  phases.add(value);
+                                });
+                              })
                             ],
                           ),
                         ))
