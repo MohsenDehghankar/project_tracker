@@ -51,8 +51,8 @@ class _LoginState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     // return MainPage();
-    return LoadingPage();
-    // return DetailPage();
+    // return LoadingPage();
+    return DetailPage("test_id");
     // return AddProjectPage();
   }
 }

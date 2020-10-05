@@ -1,30 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:project_tracker/style/fonts.dart';
 import 'package:project_tracker/ui/detail/card.dart';
-
 
 /// key value widget builder for detail page
 class KeyPairBuilder {
   static Widget build(Map<String, String> keyValues) {
     return DetailPageCardBuilder.build(
-        TableWidget.build(keyValues),
-        Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              // subheading('My Tasks'),
-              Text(
-                "Details",
-                style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
-              Icon(
-                Icons.menu,
-                color: Colors.white,
-                size: 32.0,
-              ),
-            ]));
+        TableWidget.build(keyValues), "Details", Colors.lightGreenAccent);
   }
 
   static CircleAvatar calendarIcon() {
@@ -55,17 +38,17 @@ class TableWidget {
         )));
   }
 
-  static List<TableRow> _getTableRows(Map<String, String> keyVal){
+  static List<TableRow> _getTableRows(Map<String, String> keyVal) {
     List<TableRow> result = List<TableRow>();
-    for (var key in keyVal.keys){
-      result.add(
-        TableRow(
-          children: [
-            TableCell(child: getCell(key),),
-            TableCell(child: getCell(keyVal[key]),)
-          ]
+    for (var key in keyVal.keys) {
+      result.add(TableRow(children: [
+        TableCell(
+          child: getCell(key),
+        ),
+        TableCell(
+          child: getCell(keyVal[key]),
         )
-      );
+      ]));
     }
     return result;
   }
@@ -126,20 +109,14 @@ class KeyValueWidget extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            Text(
-              subtitle,
-              style: TextStyle(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black45),
-            ),
+            Text(title,
+                style: GoogleFonts.getFont(Fonts.mainFont,
+                    fontSize: 16.0, fontWeight: FontWeight.w700)),
+            Text(subtitle,
+                style: GoogleFonts.getFont(Fonts.mainFont,
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black45)),
           ],
         )
       ],

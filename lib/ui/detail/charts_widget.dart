@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:project_tracker/style/fonts.dart';
 import 'package:project_tracker/ui/detail/card.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -22,24 +24,7 @@ class ChartsWidgetBuilder {
             )
           ],
         ),
-        Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              // subheading('My Tasks'),
-              Text(
-                "Analytics",
-                style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
-              Icon(
-                Icons.menu,
-                color: Colors.white,
-                size: 32.0,
-              ),
-            ]));
+        "Analytics", Colors.red);
   }
 
   // get hard coded points in chart
@@ -124,7 +109,7 @@ class Label extends StatelessWidget {
     return Row(
       children: <Widget>[
         SizedBox(width: 25),
-        Text(_label, style: TextStyle(fontSize: 13)),
+        Text(_label, style: GoogleFonts.getFont(Fonts.mainFont, fontSize: 13)),
         Container(
           width: 100,
           height: 10,

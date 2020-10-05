@@ -24,11 +24,12 @@ class DetailPageState extends State<DetailPage> {
             create: (context) => ProjectDetailBloc(),
             child: Scaffold(
                 extendBody: true,
+                backgroundColor: Colors.blueGrey[100],
                 bottomNavigationBar:
                     BlocBuilder<ProjectDetailBloc, DetailState>(
                   builder: (context, state) {
                     return BottomAppBarBuilder()
-                        .build(Theme.of(context).buttonColor, context, false);
+                        .build(Colors.white70, context, false);
                   },
                 ),
                 floatingActionButton: new FloatingActionButton(
@@ -48,7 +49,7 @@ class DetailPageState extends State<DetailPage> {
                                   bool innerBoxIsScrolled) {
                                 return <Widget>[
                                   PageHeader.build(
-                                      Theme.of(context).buttonColor,
+                                      Colors.white70,
                                       state.project.name,
                                       state.project.detail)
                                 ];

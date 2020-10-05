@@ -14,23 +14,7 @@ class PhasesWidget {
   static Widget build(Project project) {
     return DetailPageCardBuilder.build(
         getPhaseList(project),
-        Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                "Phases",
-                style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
-              Icon(
-                Icons.menu,
-                color: Colors.white,
-                size: 32.0,
-              ),
-            ]));
+        "Phases", Colors.orange);
   }
 
   static Widget getPhaseList(Project project) {

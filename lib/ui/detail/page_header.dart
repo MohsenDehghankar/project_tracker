@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:project_tracker/style/fonts.dart';
 
 /// detail page header
 class PageHeader {
@@ -10,12 +12,12 @@ class PageHeader {
               bottomRight: Radius.circular(30.0))),
       title: Text(
         title,
-        style: TextStyle(color: Colors.black),
+        style: GoogleFonts.getFont(Fonts.mainFont, color: Colors.black),
       ),
       expandedHeight: 100.0,
       floating: true,
       pinned: true,
-      backgroundColor: backgroundColor,
+      backgroundColor: Color.fromRGBO(189, 201, 255, 0.5),
       snap: false,
       flexibleSpace: FlexibleSpaceBar(
         background: Column(
@@ -27,6 +29,7 @@ class PageHeader {
                 child: Text(
               decs,
               textAlign: TextAlign.center,
+                  style: GoogleFonts.getFont(Fonts.mainFont),
             )),
           ],
         ),

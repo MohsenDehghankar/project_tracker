@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:project_tracker/model/project/project_phase.dart';
 import 'package:project_tracker/model/project/time_line_data.dart';
+import 'package:project_tracker/style/fonts.dart';
 import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/detail/card.dart';
 import 'package:timeline_tile/timeline_tile.dart';
@@ -17,7 +19,7 @@ class TimeLineBuilder {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Color(0xFFF8F8F8),
+            Colors.black, //Color(0xFFF8F8F8),
             Colors.white,
           ],
         ),
@@ -95,8 +97,8 @@ class ProjectTimeLineState extends State<ProjectTimeLine> {
             itemBuilder: (BuildContext context, int index) {
               var indicatorSize = 20.0;
               var beforeLineStyle = LineStyle(
-                color: Colors.white.withOpacity(0.8),
-              );
+                  //color: Colors.white.withOpacity(0.8),
+                  color: Colors.green.withOpacity(0.7));
 
               TimeSteps status;
               LineStyle afterLineStyle;
@@ -150,24 +152,8 @@ class ProjectTimeLineState extends State<ProjectTimeLine> {
             },
           ),
         ),
-        Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              // subheading('My Tasks'),
-              Text(
-                "Status",
-                style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
-              Icon(
-                Icons.menu,
-                color: Colors.white,
-                size: 32.0,
-              ),
-            ]));
+        "Status",
+        Colors.green);
   }
 }
 
@@ -190,11 +176,15 @@ class _StartChildDelivery extends StatelessWidget {
               ? Container(
                   height: 64,
                 )
-              : Image.asset(
-                  assetAddr,
-                  height: 50.0,
+              : Icon(
+                  Icons.done,
+                  size: 64.0,
+                  color: Colors.black45,
                 ),
-          Text(time)
+          Text(
+            time,
+            style: GoogleFonts.getFont(Fonts.mainFont, fontSize: 13.0),
+          )
         ],
       )),
     );
@@ -226,9 +216,10 @@ class _EndChildDelivery extends StatelessWidget {
                 child: Text(
                   text,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: GoogleFonts.getFont(
+                    Fonts.mainFont,
                     fontSize: 16,
-                    color: current ? const Color(0xFF2ACA8E) : Colors.white,
+                    color: current ? Colors.green : Colors.black,
                   ),
                 ),
               ),
@@ -281,20 +272,22 @@ class _IndicatorDelivery extends StatelessWidget {
         return Container(
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            color: Color(0xFF2ACA8E),
+            color: Colors.green,
           ),
           child: const Center(
-              child: Icon(
-            Icons.access_time,
+              /*child: Icon(
+            Icons.arrow_forward,
             size: 20.0,
-          )),
+            color: const Color.fromRGBO(0, 0, 0, 0.6),
+          )*/
+              ),
         );
 
       case ShowCase.done:
         return Container(
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.white,
+            color: Colors.black54,
           ),
           child: const Center(
               // child: Icon(Icons.check, color: Color(0xFF5D6173)),
