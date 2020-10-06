@@ -7,6 +7,8 @@ import 'package:project_tracker/ui/add_project/add_requirement_dialog.dart';
 import 'package:project_tracker/ui/add_project/datetime_field_builder.dart';
 import 'package:project_tracker/ui/add_project/text_field_builder.dart';
 
+
+/// Form for Adding Phase
 class PhaseForm extends StatefulWidget {
   @override
   PhaseFormState createState() => PhaseFormState();
@@ -144,6 +146,8 @@ class PhaseFormState extends State<PhaseForm> {
   }
 }
 
+
+/// Phase form BLoC
 class AddPhaseFormBloc extends FormBloc<String, String> {
   final text1 = TextFieldBloc();
   final text2 = TextFieldBloc();

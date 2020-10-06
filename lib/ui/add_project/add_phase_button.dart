@@ -3,6 +3,7 @@ import 'package:project_tracker/model/project/project_phase.dart';
 import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/add_project/add_phase_dialog.dart';
 
+/// Build Button for adding phase
 class AddPhaseButton {
   static Widget build(BuildContext context, void Function(Phase value) onPhaseAdded) {
     return Container(

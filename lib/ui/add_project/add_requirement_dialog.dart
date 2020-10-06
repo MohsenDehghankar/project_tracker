@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:project_tracker/style/strings.dart';
 
+
+/// Dialog for creating requirements of a phase
 class RequirementDialogBuilder {
   static Widget build(BuildContext context) {
     TextEditingController title = TextEditingController();

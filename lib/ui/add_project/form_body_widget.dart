@@ -4,6 +4,7 @@ import 'package:project_tracker/blocs/add_project_form_bloc.dart';
 import 'package:project_tracker/ui/add_project/add_project_page.dart';
 import 'package:project_tracker/ui/app_theme.dart';
 
+/// Main body of Project addition form
 class FormBodyBuilder {
   static Widget build(BuildContext context, Column mainFields, void Function() sucess) {
     return Container(

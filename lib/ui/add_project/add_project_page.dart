@@ -15,6 +15,7 @@ import 'package:project_tracker/ui/add_project/form_body_widget.dart';
 import 'package:project_tracker/ui/add_project/text_field_builder.dart';
 import 'package:project_tracker/ui/add_project/transparent_appbar.dart';
 
+/// Page for creating new projects
 class AddProjectPage extends StatefulWidget {
   @override
   AddProjectFormState createState() => AddProjectFormState();
@@ -135,6 +136,7 @@ class AddProjectFormState extends State<AddProjectPage> {
   }
 }
 
+/// loading after form submitted
 class LoadingDialog extends StatelessWidget {
   static void show(BuildContext context, {Key key}) => showDialog<void>(
         context: context,
@@ -157,7 +159,9 @@ class LoadingDialog extends StatelessWidget {
             width: 80,
             height: 80,
             padding: EdgeInsets.all(12.0),
-            child: CircularProgressIndicator(backgroundColor: Colors.black,),
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.black,
+            ),
           ),
         ),
       ),
