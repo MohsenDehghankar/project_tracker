@@ -7,6 +7,7 @@ import 'package:project_tracker/model/project/requirement.dart';
 import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/detail/card.dart';
 import 'package:project_tracker/ui/detail/key_value_widget.dart';
+import 'package:shamsi_date/shamsi_date.dart';
 
 
 /// phases widget builder for detail page
@@ -25,6 +26,7 @@ class PhasesWidget {
             itemCount: project.phases.length,
             itemBuilder: (context, index) {
               var deadline = DateTime.parse(project.phases[index].deadline);
+              var jalaliDeadline = Jalali.fromDateTime(deadline).formatter;
               return ExpansionTile(
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -45,7 +47,7 @@ class PhasesWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(project.phases[index].desc),
-                    Text(DateFormat(Strings.timeFormat).format(deadline))
+                    Text('${jalaliDeadline.yyyy}/${jalaliDeadline.mm}/${jalaliDeadline.dd}')
                   ],
                 ),
                 children: _getRequirements(project.phases[index]),

@@ -1,4 +1,5 @@
 import 'package:project_tracker/model/project/project_phase.dart';
+import 'package:shamsi_date/shamsi_date.dart';
 
 ///
 /// A Project
@@ -118,5 +119,10 @@ class Project {
     result['Project Manager 4'] = projectManager;
     result['Project Manager 5'] = projectManager;
     return result;
+  }
+
+  String getNearestJalali(){
+    var f = Jalali.fromDateTime(nearest).formatter;
+    return '${f.yyyy}/${f.mm}/${f.dd}';
   }
 }

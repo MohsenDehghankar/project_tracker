@@ -6,6 +6,7 @@ import 'package:project_tracker/model/project/time_line_data.dart';
 import 'package:project_tracker/style/fonts.dart';
 import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/detail/card.dart';
+import 'package:shamsi_date/shamsi_date.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 /// timeline widget for detail page
@@ -167,6 +168,8 @@ class _StartChildDelivery extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var jalali = Jalali.fromDateTime(DateTime.parse(time)).formatter;
+
     return Container(
       child: Center(
           child: Column(
@@ -182,7 +185,7 @@ class _StartChildDelivery extends StatelessWidget {
                   color: Colors.black45,
                 ),
           Text(
-            time,
+            '${jalali.yyyy}/${jalali.mm}/${jalali.dd}',
             style: GoogleFonts.getFont(Fonts.mainFont, fontSize: 13.0),
           )
         ],

@@ -7,6 +7,7 @@ import 'package:project_tracker/style/fonts.dart';
 import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/detail/project_details_page.dart';
 import 'package:project_tracker/ui/project/project_progress_indicator.dart';
+import 'package:shamsi_date/shamsi_date.dart';
 
 /// a project card in projects page
 class ProjectCard {
@@ -47,7 +48,7 @@ class ProjectCard {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                    " ${DateFormat(Strings.timeFormat).format(project.nearest)}",
+                    " ${project.getNearestJalali()}",
                     style: GoogleFonts.getFont(Fonts.mainFont,
                         color: Colors.white, fontSize: 12.0)),
                 Text(" [${project.getRemainingDays()} day(s)]",
