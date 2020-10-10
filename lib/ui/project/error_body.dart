@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project_tracker/style/colors.dart';
 
 /// body to show when an error occurs
 class ErrorBody {
@@ -10,7 +11,7 @@ class ErrorBody {
           gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [Colors.blueGrey, Colors.lightBlueAccent]),
+              colors: [ConstColors.gradientStart, ConstColors.gradientEnd]),
         ),
         child: Center());
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_tracker/style/colors.dart';
 
 class ContainerDecoration {
   static Decoration getDecoration(){
@@ -7,8 +8,8 @@ class ContainerDecoration {
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
           colors: [
-            Colors.blueGrey,
-            Colors.lightBlueAccent
+            ConstColors.gradientStart,
+            ConstColors.gradientEnd
           ]),
     );
   }

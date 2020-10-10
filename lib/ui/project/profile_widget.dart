@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_tracker/model/user/user.dart';
+import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/style/fonts.dart';
 
 /// builder for profile widget in projects page
 class ProfileWidget {
   Widget build(Color color, User user) {
     return new Container(
+      decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(25.0),
+              bottomRight: Radius.circular(25.0))),
       height: 150.0,
-      color: color,
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -42,21 +47,6 @@ class ProfileWidget {
                   )
                 ],
               ),
-              Padding(
-                  padding: EdgeInsets.only(top: 90.0, right: 100.0),
-                  child: new Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      new CircleAvatar(
-                        backgroundColor: Colors.red,
-                        radius: 18.0,
-                        child: new Icon(
-                          Icons.camera_alt,
-                          color: color,
-                        ),
-                      )
-                    ],
-                  )),
             ]),
           ),
           Padding(
@@ -67,11 +57,13 @@ class ProfileWidget {
                   Text(
                     user.name,
                     style: GoogleFonts.getFont(Fonts.mainFont,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.bold,
+                        color: ConstColors.topBarTxtColor),
                   ),
                   Text(
                     user.role,
-                    style: GoogleFonts.getFont(Fonts.mainFont),
+                    style: GoogleFonts.getFont(Fonts.mainFont,
+                        color: ConstColors.topBarTxtColor),
                   ),
                 ],
               ))

@@ -63,12 +63,7 @@ class AuthBLoC extends Bloc<AuthEvent, AuthState> {
 
   final GlobalKey<NavigatorState> navigatorKey;
 
-
-
-  AuthBLoC(this.navigatorKey):super(AuthStateStart(false, ""));
-
-  /*@override
-  AuthState get initialState => AuthStateStart(false, "");*/
+  AuthBLoC(this.navigatorKey) : super(AuthStateStart(false, ""));
 
   @override
   Stream<AuthState> mapEventToState(AuthEvent event) async* {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_tracker/model/project/project_phase.dart';
+import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/add_project/add_phase_dialog.dart';
 
@@ -14,7 +15,7 @@ class AddPhaseButton {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Colors.blue[300],
+              color: ConstColors.authButtonShadowColor,//Colors.blue[300],
               blurRadius: 10.0,
               // has the effect of softening the shadow
               spreadRadius: 1.0,
@@ -26,7 +27,7 @@ class AddPhaseButton {
               ),
             ),
           ],
-          color: Colors.white,
+          color: ConstColors.authButtonColor,
           borderRadius: BorderRadius.circular(30),
         ),
         child: FlatButton(
@@ -53,7 +54,7 @@ class AddPhaseButton {
               child: Text(
                 Strings.addPhase,
                 style: TextStyle(
-                  color: Colors.lightBlueAccent,
+                  color: ConstColors.authButtonTextColor,
                   fontSize: 14,
                   fontWeight: FontWeight.w700,
                 ),

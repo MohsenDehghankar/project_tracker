@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/style/strings.dart';
 
 
@@ -28,15 +29,14 @@ class TextInput {
           textInputAction: TextInputAction.next,
           obscureText: !isUsrLogin,
           style: TextStyle(
-            color: Colors.white,
+            color: ConstColors.inputTxtColor,
           ),
           decoration: InputDecoration(
             border: InputBorder.none,
-            fillColor: Colors.lightBlueAccent,
             labelText: isUsrLogin ? Strings.username : Strings.password,
             errorText: error ? Strings.empty : null,
             labelStyle: TextStyle(
-              color: Colors.white70,
+              color: ConstColors.inputLblColor,
             ),
           ),
         ),

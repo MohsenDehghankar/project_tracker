@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project_tracker/blocs/add_project_form_bloc.dart';
 import 'package:project_tracker/blocs/auth_bloc.dart';
 import 'package:project_tracker/main.dart';
+import 'package:project_tracker/style/colors.dart';
+import 'package:project_tracker/ui/add_project/floating_action_button.dart';
+import 'package:project_tracker/ui/auth/auth_widget_utils.dart';
+import 'package:project_tracker/ui/auth/button.dart';
 import 'package:project_tracker/ui/auth/landscape_auth_widget.dart';
 import 'package:project_tracker/ui/auth/portrait_auth_widget.dart';
 
@@ -42,21 +47,32 @@ class AuthWidgetState extends State<AuthPage> {
           gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [Colors.blueGrey, Colors.lightBlueAccent]),
+              colors: [ConstColors.gradientStart, ConstColors.gradientEnd]),
         ),
         child: body);
 
     return BlocProvider(
-      create: (context) => AuthBLoC(MyApp.navigatorKey),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          resizeToAvoidBottomInset: false,
-          // appBar: AppBarBuilder.build(),
-          body: body,
-        ),
-      )
-    );
+        create: (context) => AuthBLoC(MyApp.navigatorKey),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(accentColor: ConstColors.accentColor),
+          home: Scaffold(
+              // resizeToAvoidBottomInset: false,
+              // body: body,
+              body: Scaffold(
+                resizeToAvoidBottomInset: false,
+                backgroundColor: Colors.transparent,
+                body: SingleChildScrollView(child: body),
+              ),
+              floatingActionButton: BlocBuilder<AuthBLoC, AuthState>(
+                builder: (context, state) {
+                  var builder = LoginWidgetBuilder()
+                    ..size = MediaQuery.of(context).size
+                    ..orientation = MediaQuery.of(context).orientation;
+                  return builder.buildLoginButtonByState(state, context);
+                },
+              )),
+        ));
   }
 }
 

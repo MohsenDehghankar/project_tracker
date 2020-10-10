@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:project_tracker/blocs/project_detail_bloc.dart';
+import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/ui/animations/loading_animation.dart';
 
 /// loading page while fetching a project's data
@@ -36,7 +37,7 @@ class ProjectLoadingState extends LoadingState<LoadingWidget> {
             gradient: LinearGradient(
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
-                colors: [Colors.blueGrey, Colors.lightBlueAccent]),
+                colors: [ConstColors.gradientStart, ConstColors.gradientEnd]),
           ),
           child: this.getChild()),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/blocs/auth_bloc.dart';
+import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/auth/button.dart';
 import 'package:project_tracker/ui/auth/textInput.dart';
@@ -41,7 +42,7 @@ class DescWidgetBuilder {
                 desc,
                 style: TextStyle(
                   fontSize: 24,
-                  color: Colors.white,
+                  color: ConstColors.authDescriptionTxt,
                 ),
               ),
             ),
@@ -101,7 +102,7 @@ class LoginWidgetBuilder {
   }
 
   // build button based on AuthState
-  Widget _buildLoginButtonByState(AuthState state, BuildContext context) {
+  Widget buildLoginButtonByState(AuthState state, BuildContext context) {
     if (state is AuthStateStart) {
       return _buildLoginButton((input) {
         BlocProvider.of<AuthBLoC>(context).add(AuthEventAddUsername(input));
@@ -114,9 +115,9 @@ class LoginWidgetBuilder {
       }, context, state, state is AuthStateEmptyInput);
     } else if (state is AuthStateEmptyInput) {
       if (state.inUserPage) {
-        return _buildLoginButtonByState(AuthStateStart(false, ""), context);
+        return buildLoginButtonByState(AuthStateStart(false, ""), context);
       } else {
-        return _buildLoginButtonByState(AuthStateUsernameEntered(), context);
+        return buildLoginButtonByState(AuthStateUsernameEntered(), context);
       }
     } else {
       return Center(
@@ -177,16 +178,6 @@ class LoginWidgetBuilder {
     );
   }
 
-  Widget _getErrorWidget(String error) {
-    return Center(
-      key: UniqueKey(),
-      child: Text(
-        error,
-        style: TextStyle(color: Colors.red),
-      ),
-    );
-  }
-
   // build the return button based on state
   Widget _buildReturnWidgetByState(AuthState state, BuildContext context) {
     if (state is AuthStateUsernameEntered ||
@@ -208,14 +199,14 @@ class LoginWidgetBuilder {
         listener: (context, state) {
           if (state is AuthStateStart && state.loginFailed) {
             Scaffold.of(context).showSnackBar(SnackBar(
-              content: Text(state.error, style: TextStyle(color: Colors.red),),
+              content: Text(state.error, style: TextStyle(color: ConstColors.authErrorSnackBarColor),),
             ));
           }
         },
         child: Expanded(
             child: Center(
                 child: CircularProgressIndicator(
-          backgroundColor: Theme.of(context).buttonColor,
+          backgroundColor: ConstColors.projectBackGround,
         ))),
       );
     } else
@@ -226,7 +217,7 @@ class LoginWidgetBuilder {
   Widget getWidgetsByState(AuthState state, BuildContext context) {
     return (Column(children: <Widget>[
       _buildInputTextFieldByState(state, context, state is AuthStateEmptyInput),
-      AnimationBuilder.build(_buildLoginButtonByState(state, context)),
+      // AnimationBuilder.build(buildLoginButtonByState(state, context)),
       AnimationBuilder.build(_buildReturnWidgetByState(state, context)),
     ]));
   }

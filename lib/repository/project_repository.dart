@@ -77,15 +77,15 @@ class ProjectRepository {
     "phases": [
       {
         "name": "phase 1",
-        "deadline": "2020-09-24T11:21:25.825Z"
+        "deadline": "2020-07-24T11:21:25.825Z"
       },
       {
         "name": "phase 2",
-        "deadline": "2020-09-28T11:21:25.825Z"
+        "deadline": "2020-10-28T11:21:25.825Z"
       },
       {
         "name": "phase 3",
-        "deadline": "2020-10-12T11:21:25.825Z"
+        "deadline": "2020-11-12T11:21:25.825Z"
       }
     ]
   },
@@ -96,15 +96,15 @@ class ProjectRepository {
     "clientId": "client-312",
     "projectManager": "g.ahmadi",
     "startDate": "2020-07-21T11:21:25.825Z",
-    "deadline": "2020-10-21T11:21:25.825Z",
+    "deadline": "2020-10-29T11:21:25.825Z",
     "phases": [
       {
         "name": "phase 1",
-        "deadline": "2020-09-24T11:21:25.825Z"
+        "deadline": "2020-10-20T11:21:25.825Z"
       },
       {
         "name": "phase 2",
-        "deadline": "2020-09-28T11:21:25.825Z"
+        "deadline": "2020-10-28T11:21:25.825Z"
       }
     ]
   },
@@ -115,19 +115,19 @@ class ProjectRepository {
     "clientId": "client-322",
     "projectManager": "g.ahmadi",
     "startDate": "2020-07-21T11:21:25.825Z",
-    "deadline": "2020-10-21T11:21:25.825Z",
+    "deadline": "2020-11-21T11:21:25.825Z",
     "phases": [
       {
         "name": "phase 1",
-        "deadline": "2020-09-24T11:21:25.825Z"
+        "deadline": "2020-07-22T11:21:25.825Z"
       },
       {
         "name": "phase 2",
-        "deadline": "2020-09-28T11:21:25.825Z"
+        "deadline": "2020-10-28T11:21:25.825Z"
       },
       {
         "name": "phase 3",
-        "deadline": "2020-10-12T11:21:25.825Z"
+        "deadline": "2020-11-12T11:21:25.825Z"
       }
     ]
   },
@@ -138,11 +138,11 @@ class ProjectRepository {
     "clientId": "client-322",
     "projectManager": "g.ahmadi",
     "startDate": "2020-07-21T11:21:25.825Z",
-    "deadline": "2020-10-21T11:21:25.825Z",
+    "deadline": "2020-11-21T11:21:25.825Z",
     "phases": [
       {
         "name": "phase 1",
-        "deadline": "2020-09-24T11:21:25.825Z"
+        "deadline": "2020-07-21T11:21:25.825Z"
       }
     ]
   }

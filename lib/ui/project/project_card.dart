@@ -20,14 +20,13 @@ class ProjectCard {
           decoration: new BoxDecoration(
               border: new Border(
                   right: new BorderSide(width: 1.0, color: Colors.white24))),
-          child: Icon(Icons.more_vert, color: Colors.white),
+          child: Icon(Icons.delete_outline, color: ConstColors.projectCardTxtColor),
         ),
         title: Text(
           project.name,
           style: GoogleFonts.getFont(Fonts.mainFont,
-              color: Colors.white, fontWeight: FontWeight.bold),
+              color: ConstColors.projectCardTxtColor, fontWeight: FontWeight.bold),
         ),
-        // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
 
         subtitle: Column(
           children: <Widget>[
@@ -35,12 +34,12 @@ class ProjectCard {
               children: <Widget>[
                 Icon(
                   Icons.timeline,
-                  color: Colors.yellowAccent,
+                  color: ConstColors.projectCardTimeIconColor,
                   size: 15.0,
                 ),
                 Text(" Until ${project.nearestPhaseName}",
                     style: GoogleFonts.getFont(Fonts.mainFont,
-                        color: Colors.white, fontSize: 12.0)),
+                        color: ConstColors.projectCardTxtColor, fontSize: 12.0)),
               ],
             ),
             Center(
@@ -50,10 +49,10 @@ class ProjectCard {
                 Text(
                     " ${project.getNearestJalali()}",
                     style: GoogleFonts.getFont(Fonts.mainFont,
-                        color: Colors.white, fontSize: 12.0)),
+                        color: ConstColors.projectCardTxtColor, fontSize: 12.0)),
                 Text(" [${project.getRemainingDays()} day(s)]",
                     style: GoogleFonts.getFont(Fonts.mainFont,
-                        color: Colors.white)),
+                        color: ConstColors.projectCardTxtColor)),
               ],
             )),
             Padding(
@@ -75,7 +74,7 @@ class ProjectCard {
         ),
         trailing: IconButton(
           icon:
-              Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+              Icon(Icons.keyboard_arrow_right, color: ConstColors.projectCardTxtColor, size: 30.0),
           onPressed: () {
             Navigator.push(
                 context,
@@ -88,7 +87,7 @@ class ProjectCard {
       elevation: 8.0,
       margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
       child: Container(
-        decoration: BoxDecoration(color: ConstColors.cardColor),
+        decoration: BoxDecoration(color: ConstColors.projectCardBackground),
         child: makeListTile,
       ),
     );

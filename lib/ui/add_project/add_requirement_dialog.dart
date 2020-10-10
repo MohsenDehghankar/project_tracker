@@ -24,7 +24,7 @@ class RequirementDialogBuilder {
             onPressed: () {
               Navigator.of(context).pop([]);
             },
-            child: Text("Close")),
+            child: Text("Close", style: TextStyle(color: Colors.black),)),
         FlatButton(
             onPressed: () {
               Navigator.of(context).pop([
@@ -33,7 +33,7 @@ class RequirementDialogBuilder {
                 int.parse(priority.value.text)
               ]);
             },
-            child: Text("Add"))
+            child: Text("Add", style: TextStyle(color: Colors.black)))
       ],
     );
   }

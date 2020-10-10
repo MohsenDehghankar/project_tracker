@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/blocs/main_bloc.dart';
 import 'package:project_tracker/main.dart';
+import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/ui/project/bottom_app_bar.dart';
 import 'package:project_tracker/ui/project/floating_action_button.dart';
 import 'package:project_tracker/ui/project/loading_body.dart';
@@ -18,14 +19,18 @@ class MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        accentColor: ConstColors.accentColor
+      ),
       home: BlocProvider(
           create: (context) => MainBloc(MyApp.navigatorKey),
           child: Scaffold(
+            backgroundColor: ConstColors.projectBackGround,
               extendBody: true,
               bottomNavigationBar: BlocBuilder<MainBloc, MainState>(
                 builder: (context, state) {
                   return BottomAppBarBuilder()
-                      .build(Colors.white70, context, true);
+                      .build(ConstColors.bottomAppBarColor, context, true);
                 },
               ),
               floatingActionButton: FloatingButtonBuilder.build(context),

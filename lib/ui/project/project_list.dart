@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_tracker/model/project/project.dart';
+import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/ui/project/project_card.dart';
 
 /// builder for list of projects in projects page
@@ -12,7 +13,7 @@ class ProjectList {
         itemCount: projects.length,
         itemBuilder: (BuildContext context, int index) {
           return ProjectCard.build(
-              theme.accentColor, Colors.black, size, projects[index], context);
+              ConstColors.progressIndicator, ConstColors.timeRemainedIndicator, size, projects[index], context);
         },
       ),
     );

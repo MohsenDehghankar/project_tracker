@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_tracker/style/colors.dart';
 
 class TransparentAppBar {
   static AppBar build(BuildContext context) {
@@ -11,7 +12,7 @@ class TransparentAppBar {
               icon: Icon(
                 Icons.close,
                 size: 30.0,
-                color: Theme.of(context).buttonColor,
+                color: ConstColors.accentColor,
               ),
               onPressed: () {
                 Navigator.of(context).pop();

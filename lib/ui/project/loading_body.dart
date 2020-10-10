@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/blocs/main_bloc.dart';
+import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/ui/animations/loading_animation.dart';
 
 /// loading body when fetching data in projects page
@@ -24,7 +25,7 @@ class AllProjectsLoadingState extends LoadingState<LoadingBody> {
           Scaffold.of(context).showSnackBar(SnackBar(
             content: Text(
               state.error,
-              style: TextStyle(color: Colors.red),
+              style: TextStyle(color: ConstColors.authErrorSnackBarColor),
             ),
           ));
         }
@@ -35,7 +36,7 @@ class AllProjectsLoadingState extends LoadingState<LoadingBody> {
             gradient: LinearGradient(
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
-                colors: [Colors.blueGrey, Colors.lightBlueAccent]),
+                colors: [ConstColors.gradientStart, ConstColors.gradientEnd]),
           ),
           child: getChild()),
     );

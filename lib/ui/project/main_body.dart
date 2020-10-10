@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/blocs/main_bloc.dart';
 import 'package:project_tracker/model/project/project.dart';
+import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/ui/project/error_body.dart';
 import 'package:project_tracker/ui/project/profile_widget.dart';
 import 'package:project_tracker/ui/project/project_list.dart';
@@ -20,13 +21,18 @@ class MainBody {
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               SliverAppBar(
+                backgroundColor: ConstColors.topBarColor,
                 expandedHeight: 200.0,
                 floating: true,
                 pinned: false,
                 snap: false,
+                shape: ContinuousRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(55.0),
+                        bottomRight: Radius.circular(55.0))),
                 flexibleSpace: FlexibleSpaceBar(
                   background: ProfileWidget().build(
-                      Theme.of(context).buttonColor,
+                      ConstColors.topBarColorBackground,
                       BlocProvider.of<MainBloc>(context).user),
                   centerTitle: true,
                 ),

@@ -5,6 +5,7 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:google_fonts/google_fonts.dart' as gFont;
 import 'package:project_tracker/blocs/add_project_form_bloc.dart';
 import 'package:project_tracker/model/project/project_phase.dart';
+import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/style/fonts.dart';
 import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/add_project/add_phase_button.dart';
@@ -44,8 +45,8 @@ class AddProjectFormState extends State<AddProjectPage> {
               floatingActionButton: FloatingButtons.build(formBloc),
               body: Theme(
                   data: new ThemeData(
-                    primaryColor: Colors.white,
-                    accentColor: Colors.white70,
+                    accentColor: ConstColors.accentColor,
+                    primaryColor: Colors.black
                   ),
                   child: Stack(children: <Widget>[
                     Scaffold(
@@ -123,8 +124,10 @@ class AddProjectFormState extends State<AddProjectPage> {
       chips.add(Container(
           padding: const EdgeInsets.all(5.0),
           child: ActionChip(
+            backgroundColor: ConstColors.chipBackColor,
             avatar: CircleAvatar(
-              child: Icon(Icons.close),
+              backgroundColor: Colors.black,
+              child: Icon(Icons.close, color: Colors.white,),
             ),
             label: Text(phs.name),
             onPressed: () {
@@ -169,35 +172,6 @@ class LoadingDialog extends StatelessWidget {
               backgroundColor: Colors.black,
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class SuccessScreen extends StatelessWidget {
-  SuccessScreen({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(height: 10),
-            Text(
-              'Success',
-              style: mat.TextStyle(fontSize: 54, color: Colors.green),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 10),
-            RaisedButton.icon(
-              onPressed: () {},
-              icon: Icon(Icons.replay),
-              label: Text('Back'),
-            ),
-          ],
         ),
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/blocs/main_bloc.dart';
+import 'package:project_tracker/style/colors.dart';
 
 
 class LoadingState<T extends StatefulWidget> extends State<T>
@@ -57,7 +58,7 @@ class LoadingState<T extends StatefulWidget> extends State<T>
                       child: Container(
                         padding: EdgeInsets.only(
                             right: 5.0, left: 5.0, top: animation.value),
-                        child: Icon(Icons.circle, size: 15.0, color: Colors.white),
+                        child: Icon(Icons.circle, size: 15.0, color: ConstColors.loadingColor1),
                       )),
                   SizedBox(
                       height: 50.0,
@@ -65,7 +66,7 @@ class LoadingState<T extends StatefulWidget> extends State<T>
                         padding: EdgeInsets.only(
                             right: 5.0, left: 5.0, top: 40 - animation.value),
                         child:
-                        Icon(Icons.circle, size: 15.0, color: Colors.black45),
+                        Icon(Icons.circle, size: 15.0, color: ConstColors.loadingColor2),
                       )),
                 ],
               )),
@@ -77,7 +78,7 @@ class LoadingState<T extends StatefulWidget> extends State<T>
                       child: Container(
                         padding: EdgeInsets.only(
                             right: 5.0, left: 5.0, top: animation2.value),
-                        child: Icon(Icons.circle, size: 15.0, color: Colors.white),
+                        child: Icon(Icons.circle, size: 15.0, color: ConstColors.loadingColor1),
                       )),
                   SizedBox(
                       height: 50.0,
@@ -85,7 +86,7 @@ class LoadingState<T extends StatefulWidget> extends State<T>
                         padding: EdgeInsets.only(
                             right: 5.0, left: 5.0, top: 40 - animation2.value),
                         child:
-                        Icon(Icons.circle, size: 15.0, color: Colors.black45),
+                        Icon(Icons.circle, size: 15.0, color: ConstColors.loadingColor2),
                       )),
                 ],
               )),
@@ -97,7 +98,7 @@ class LoadingState<T extends StatefulWidget> extends State<T>
                       child: Container(
                         padding: EdgeInsets.only(
                             right: 5.0, left: 5.0, top: animation3.value),
-                        child: Icon(Icons.circle, size: 15.0, color: Colors.white),
+                        child: Icon(Icons.circle, size: 15.0, color: ConstColors.loadingColor1),
                       )),
                   SizedBox(
                       height: 50.0,
@@ -105,7 +106,7 @@ class LoadingState<T extends StatefulWidget> extends State<T>
                         padding: EdgeInsets.only(
                             right: 5.0, left: 5.0, top: 40 - animation3.value),
                         child:
-                        Icon(Icons.circle, size: 15.0, color: Colors.black45),
+                        Icon(Icons.circle, size: 15.0, color: ConstColors.loadingColor2),
                       )),
                 ],
               )),
@@ -117,7 +118,7 @@ class LoadingState<T extends StatefulWidget> extends State<T>
                       child: Container(
                         padding: EdgeInsets.only(
                             right: 5.0, left: 5.0, top: animation4.value),
-                        child: Icon(Icons.circle, size: 15.0, color: Colors.white),
+                        child: Icon(Icons.circle, size: 15.0, color: ConstColors.loadingColor1),
                       )),
                   SizedBox(
                       height: 50.0,
@@ -125,7 +126,7 @@ class LoadingState<T extends StatefulWidget> extends State<T>
                         padding: EdgeInsets.only(
                             right: 5.0, left: 5.0, top: 40 - animation4.value),
                         child:
-                        Icon(Icons.circle, size: 15.0, color: Colors.black45),
+                        Icon(Icons.circle, size: 15.0, color: ConstColors.loadingColor2),
                       )),
                 ],
               )),
