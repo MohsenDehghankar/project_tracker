@@ -14,6 +14,7 @@ import 'package:project_tracker/ui/add_project/floating_action_button.dart';
 import 'package:project_tracker/ui/add_project/form_body_widget.dart';
 import 'package:project_tracker/ui/add_project/text_field_builder.dart';
 import 'package:project_tracker/ui/add_project/transparent_appbar.dart';
+import 'package:project_tracker/ui/loading/loadingPage.dart';
 
 /// Page for creating new projects
 class AddProjectPage extends StatefulWidget {
@@ -98,9 +99,14 @@ class AddProjectFormState extends State<AddProjectPage> {
                                     FlatButton(
                                         onPressed: () {
                                           formBloc.clear();
-                                          Navigator.of(context).pop();
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                                  MaterialPageRoute(
+                                                      builder: (_) =>
+                                                          LoadingPage()),
+                                                  (route) => false);
                                         },
-                                        child: Text("OK"))
+                                        child: Text(Strings.goBack))
                                   ],
                                 );
                               });
@@ -187,8 +193,7 @@ class SuccessScreen extends StatelessWidget {
             ),
             SizedBox(height: 10),
             RaisedButton.icon(
-              onPressed: () => Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => AddProjectPage())),
+              onPressed: () {},
               icon: Icon(Icons.replay),
               label: Text('Back'),
             ),

@@ -47,6 +47,7 @@ class Strings {
   static const String projectDeadline = 'Project Deadline';
   static const String projectSuccess = "Project Created Successfully";
   static const String requirement = "Requirement";
+  static const String goBack = "Go to projects";
 
 
 }
