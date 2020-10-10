@@ -41,7 +41,7 @@ class DetailPageState extends State<DetailPage> {
                 body: BlocBuilder<ProjectDetailBloc, DetailState>(
                   builder: (context, state) {
                     if (state is DetailStateLoading) {
-                      return LoadingWidget.build(context);
+                      return LoadingWidget(BlocProvider.of<ProjectDetailBloc>(context));
                     } else if (state is DetailStateDataLoaded) {
                       return Center(
                           child: NestedScrollView(

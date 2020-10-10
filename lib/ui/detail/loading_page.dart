@@ -2,12 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:project_tracker/blocs/project_detail_bloc.dart';
+import 'package:project_tracker/ui/animations/loading_animation.dart';
 
 /// loading page while fetching a project's data
-class LoadingWidget {
-  static Widget build(BuildContext context) {
-    BlocProvider.of<ProjectDetailBloc>(context).add(DetailEventLoadData());
+class LoadingWidget extends StatefulWidget {
+  final ProjectDetailBloc bloc;
 
+  LoadingWidget(this.bloc) {
+    bloc.add(DetailEventLoadData());
+  }
+
+  @override
+  LoadingState createState() => ProjectLoadingState();
+}
+
+class ProjectLoadingState extends LoadingState<LoadingWidget> {
+  @override
+  Widget build(BuildContext context) {
     return BlocListener<ProjectDetailBloc, DetailState>(
       listener: (context, state) {
         if (state is DetailStateError) {
@@ -27,10 +38,7 @@ class LoadingWidget {
                 end: Alignment.bottomLeft,
                 colors: [Colors.blueGrey, Colors.lightBlueAccent]),
           ),
-          child: Center(
-              child: SpinKitFadingCube(
-            color: Colors.white70,
-          ))),
+          child: this.getChild()),
     );
   }
 }

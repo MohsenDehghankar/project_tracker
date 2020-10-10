@@ -17,7 +17,12 @@ class AuthRepository {
     var result;
     try {
       Response response = await HttpClient.authenticate(auth);
-      result = jsonDecode(response.body);
+      // result = jsonDecode(response.body);
+      result = jsonDecode("""
+{
+  "token": "d0274cdf47c1e5f1cb0a68889632bee816fb5cb5"
+}
+      """);
       token = result['token'];
     } on SocketException catch (e) {
       message = Strings.networkFail;
@@ -26,6 +31,9 @@ class AuthRepository {
       message = Strings.networkFail;
       return AuthResult(token, AuthResultStatus.failed)..error = message;
     } on Exception {
+      message = Strings.unknownError;
+      return AuthResult(token, AuthResultStatus.failed)..error = message;
+    } on Error {
       message = Strings.unknownError;
       return AuthResult(token, AuthResultStatus.failed)..error = message;
     }

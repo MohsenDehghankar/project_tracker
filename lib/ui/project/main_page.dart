@@ -33,7 +33,7 @@ class MainPageState extends State<MainPage> {
                   FloatingActionButtonLocation.centerDocked,
               body: BlocBuilder<MainBloc, MainState>(builder: (context, state) {
                 return (state is MainStateLoading)
-                    ? LoadingBody.build(context)
+                    ? LoadingBody(BlocProvider.of<MainBloc>(context))
                     : MainBody.build(context);
               }))),
     );

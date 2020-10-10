@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:project_tracker/blocs/main_bloc.dart';
+import 'package:project_tracker/ui/animations/loading_animation.dart';
 
 /// loading body when fetching data in projects page
-class LoadingBody {
-  static Widget build(BuildContext context) {
-    BlocProvider.of<MainBloc>(context).add(MainEventLoadData());
+class LoadingBody extends StatefulWidget {
+  final MainBloc bloc;
 
+  LoadingBody(this.bloc) {
+    bloc.add(MainEventLoadData());
+  }
+
+  @override
+  LoadingState createState() => AllProjectsLoadingState();
+}
+
+class AllProjectsLoadingState extends LoadingState<LoadingBody> {
+  @override
+  Widget build(BuildContext context) {
     return BlocListener<MainBloc, MainState>(
       listener: (context, state) {
         if (state is MainStateErrorLoading) {
@@ -27,11 +37,7 @@ class LoadingBody {
                 end: Alignment.bottomLeft,
                 colors: [Colors.blueGrey, Colors.lightBlueAccent]),
           ),
-          child: Center(
-              child: SpinKitFadingCube(
-            color: Colors.white70,
-          )
-          )),
+          child: getChild()),
     );
   }
 }
