@@ -173,7 +173,7 @@ class ProjectRepository {
   "clientId": "client-322",
   "projectManager": "g.ahmadi",
   "startDate": "2020-07-21T11:21:25.825Z",
-  "deadline": "2020-10-21T11:21:25.825Z",
+  "deadline": "2020-11-05T11:21:25.825Z",
   "phases": [
     {
       "name": "phase 1",
@@ -216,7 +216,7 @@ class ProjectRepository {
     {
       "name": "phase 3",
       "description": "debug",
-      "deadline": "2020-10-12T11:21:25.825Z",
+      "deadline": "2020-10-29T11:21:25.825Z",
       "requirements": [
         {
           "title": "req 1",

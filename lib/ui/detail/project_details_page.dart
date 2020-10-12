@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/blocs/project_detail_bloc.dart';
 import 'package:project_tracker/model/project/project.dart';
+import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/ui/detail/detail_page_body.dart';
 import 'package:project_tracker/ui/detail/loading_page.dart';
 import 'package:project_tracker/ui/detail/page_header.dart';
@@ -24,12 +25,12 @@ class DetailPageState extends State<DetailPage> {
             create: (context) => ProjectDetailBloc(),
             child: Scaffold(
                 extendBody: true,
-                backgroundColor: Colors.blueGrey[100],
+                backgroundColor: ConstColors.projectBackGround,//Colors.blueGrey[100],
                 bottomNavigationBar:
                     BlocBuilder<ProjectDetailBloc, DetailState>(
                   builder: (context, state) {
                     return BottomAppBarBuilder()
-                        .build(Colors.white70, context, false);
+                        .build(ConstColors.bottomAppBarColor, context, false);
                   },
                 ),
                 floatingActionButton: new FloatingActionButton(
@@ -49,14 +50,12 @@ class DetailPageState extends State<DetailPage> {
                                   bool innerBoxIsScrolled) {
                                 return <Widget>[
                                   PageHeader.build(
-                                      Colors.white70,
                                       state.project.name,
                                       state.project.detail)
                                 ];
                               },
                               body: DetailPageBody.build(state.project)));
                     } else {
-                      // todo handle other states
                       return Center();
                     }
                   },

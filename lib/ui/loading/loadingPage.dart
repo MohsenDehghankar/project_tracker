@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_tracker/resource/local_storage.dart';
+import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/ui/auth/auth_page.dart';
 import 'package:project_tracker/ui/project/main_page.dart';
 
@@ -39,7 +40,7 @@ class LoadingPageState extends State<LoadingPage> {
           gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [Colors.blueGrey, Colors.lightBlueAccent]),
+              colors: [ConstColors.gradientStart, ConstColors.gradientEnd]),
         ),
         child: Center(child: Column()));
   }

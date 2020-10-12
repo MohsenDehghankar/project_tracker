@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/style/fonts.dart';
 import 'package:project_tracker/ui/detail/card.dart';
 
@@ -8,18 +9,6 @@ class KeyPairBuilder {
   static Widget build(Map<String, String> keyValues) {
     return DetailPageCardBuilder.build(
         TableWidget.build(keyValues), "Details", Colors.lightGreenAccent);
-  }
-
-  static CircleAvatar calendarIcon() {
-    return CircleAvatar(
-      radius: 25.0,
-      backgroundColor: Colors.green,
-      child: Icon(
-        Icons.calendar_today,
-        size: 20.0,
-        color: Colors.white,
-      ),
-    );
   }
 }
 
@@ -33,7 +22,9 @@ class TableWidget {
             child: Table(
           border: TableBorder(
               horizontalInside: BorderSide(
-                  width: 1, color: Colors.blue, style: BorderStyle.solid)),
+                  width: 1,
+                  color: ConstColors.tableBorder,
+                  style: BorderStyle.solid)),
           children: _getTableRows(keyvalues),
         )));
   }
@@ -61,69 +52,6 @@ class TableWidget {
         style: GoogleFonts.getFont(Fonts.mainFont),
         textAlign: TextAlign.center,
       ),
-    );
-  }
-}
-
-class KeyList {
-  static Widget build() {
-    return Container(
-      constraints: const BoxConstraints(maxHeight: 200.0),
-      margin: const EdgeInsets.all(10.0),
-      child: ListView.builder(
-          itemCount: 7,
-          itemBuilder: (context, int) {
-            return Container(
-                padding: const EdgeInsets.all(8.0),
-                child: KeyValueWidget(
-                  icon: Icons.arrow_right,
-                  iconBackgroundColor: Colors.blue, //Color(0xFF2ACA8E),
-                  title: 'projectManager',
-                  subtitle: 'g.ahmadi',
-                ));
-          }),
-    );
-  }
-}
-
-class KeyValueWidget extends StatelessWidget {
-  final IconData icon;
-  final Color iconBackgroundColor;
-  final String title;
-  final String subtitle;
-
-  KeyValueWidget({
-    this.icon,
-    this.iconBackgroundColor,
-    this.title,
-    this.subtitle,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Icon(
-          icon,
-          color: iconBackgroundColor,
-          size: 30.0,
-        ),
-        SizedBox(width: 10.0),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(title,
-                style: GoogleFonts.getFont(Fonts.mainFont,
-                    fontSize: 16.0, fontWeight: FontWeight.w700)),
-            Text(subtitle,
-                style: GoogleFonts.getFont(Fonts.mainFont,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black45)),
-          ],
-        )
-      ],
     );
   }
 }

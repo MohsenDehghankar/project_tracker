@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:project_tracker/model/project/project_phase.dart';
 import 'package:project_tracker/model/project/time_line_data.dart';
+import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/style/fonts.dart';
 import 'package:project_tracker/style/strings.dart';
 import 'package:project_tracker/ui/detail/card.dart';
@@ -25,30 +26,25 @@ class TimeLineBuilder {
           ],
         ),
       ),
-      child: Theme(
-        data: Theme.of(context).copyWith(
-          accentColor: const Color(0xFF35577D).withOpacity(0.2),
-        ),
-        child: SafeArea(
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            extendBodyBehindAppBar: true,
-            body: Center(
-              child: Column(
-                children: <Widget>[
-                  const SizedBox(height: 10),
-                  Expanded(
-                    child: CustomScrollView(
-                      slivers: <Widget>[
-                        SliverPadding(padding: EdgeInsets.only(top: 15)),
-                        ProjectTimeLine(
-                            TimeLineData(startDate, deadline, phases)),
-                        SliverPadding(padding: EdgeInsets.only(top: 60)),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          extendBodyBehindAppBar: true,
+          body: Center(
+            child: Column(
+              children: <Widget>[
+                const SizedBox(height: 10),
+                Expanded(
+                  child: CustomScrollView(
+                    slivers: <Widget>[
+                      SliverPadding(padding: EdgeInsets.only(top: 15)),
+                      ProjectTimeLine(
+                          TimeLineData(startDate, deadline, phases)),
+                      SliverPadding(padding: EdgeInsets.only(top: 60)),
+                    ],
+                  ),
+                )
+              ],
             ),
           ),
         ),
@@ -90,7 +86,7 @@ class ProjectTimeLineState extends State<ProjectTimeLine> {
     return DetailPageCardBuilder.build(
         Container(
           margin: const EdgeInsets.all(8),
-          constraints: const BoxConstraints(maxHeight: 210),
+          constraints: const BoxConstraints(maxHeight: 150),
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             controller: _scrollController,
@@ -98,8 +94,7 @@ class ProjectTimeLineState extends State<ProjectTimeLine> {
             itemBuilder: (BuildContext context, int index) {
               var indicatorSize = 20.0;
               var beforeLineStyle = LineStyle(
-                  //color: Colors.white.withOpacity(0.8),
-                  color: Colors.green.withOpacity(0.7));
+                  color: ConstColors.timelinePassed);//Colors.green.withOpacity(0.7));
 
               TimeSteps status;
               LineStyle afterLineStyle;
@@ -133,7 +128,7 @@ class ProjectTimeLineState extends State<ProjectTimeLine> {
               return TimelineTile(
                 axis: TimelineAxis.horizontal,
                 alignment: TimelineAlign.manual,
-                lineXY: 0.6,
+                lineXY: 0.4,
                 isFirst: index == 0,
                 isLast: index == data.mainList.length - 1,
                 beforeLineStyle: beforeLineStyle,
@@ -154,7 +149,7 @@ class ProjectTimeLineState extends State<ProjectTimeLine> {
           ),
         ),
         "Status",
-        Colors.green);
+        ConstColors.timelinePassed);
   }
 }
 
@@ -175,7 +170,10 @@ class _StartChildDelivery extends StatelessWidget {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          assetAddr.isEmpty
+          Container(
+            height: 30.0,
+          ),
+          /*assetAddr.isEmpty
               ? Container(
                   height: 64,
                 )
@@ -183,7 +181,7 @@ class _StartChildDelivery extends StatelessWidget {
                   Icons.done,
                   size: 64.0,
                   color: Colors.black45,
-                ),
+                ),*/
           Text(
             '${jalali.yyyy}/${jalali.mm}/${jalali.dd}',
             style: GoogleFonts.getFont(Fonts.mainFont, fontSize: 13.0),
@@ -208,7 +206,7 @@ class _EndChildDelivery extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(minWidth: 150),
+      constraints: const BoxConstraints(minWidth: 120),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 100),
@@ -221,8 +219,8 @@ class _EndChildDelivery extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: GoogleFonts.getFont(
                     Fonts.mainFont,
-                    fontSize: 16,
-                    color: current ? Colors.green : Colors.black,
+                    fontSize: 12,
+                    color: Colors.black,//current ? Colors.black : Colors.black,
                   ),
                 ),
               ),
@@ -275,7 +273,7 @@ class _IndicatorDelivery extends StatelessWidget {
         return Container(
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.green,
+            color: ConstColors.timelinePassed,
           ),
           child: const Center(
               /*child: Icon(
@@ -293,7 +291,7 @@ class _IndicatorDelivery extends StatelessWidget {
             color: Colors.black54,
           ),
           child: const Center(
-              // child: Icon(Icons.check, color: Color(0xFF5D6173)),
+              child: Icon(Icons.check, color: Colors.white, size: 15.0,),
               ),
         );
       case ShowCase.todo:
