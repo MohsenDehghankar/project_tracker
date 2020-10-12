@@ -50,7 +50,7 @@ class TableWidget {
       child: Text(
         txt,
         style: GoogleFonts.getFont(Fonts.mainFont),
-        textAlign: TextAlign.center,
+        textAlign: TextAlign.start,
       ),
     );
   }

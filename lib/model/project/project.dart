@@ -78,7 +78,7 @@ class Project {
 
   // get percent of project progress, based on done phases
   int getProgressPercent() {
-    // todo based on done phases
+    // based on done phases
     var now = DateTime.now();
     int n = 0;
     for (var phs in phases) {
