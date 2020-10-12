@@ -1,8 +1,6 @@
 import 'package:project_tracker/model/project/requirement.dart';
 
-///
 /// A Phase of a Project
-///
 class Phase {
   String name;
   String desc;

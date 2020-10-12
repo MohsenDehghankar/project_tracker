@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
+
+/// Form BLoC for adding new project in add_project page.
 class AddProjectFormBloc extends FormBloc<String, String> {
   final text1 = TextFieldBloc();
   final text2 = TextFieldBloc();

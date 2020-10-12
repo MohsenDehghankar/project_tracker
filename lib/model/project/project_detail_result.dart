@@ -1,8 +1,6 @@
 import 'package:project_tracker/model/project/project.dart';
 
-///
-/// Fetched Project detail data
-///
+/// project details fetched in projects repository
 class ProjectDetailResult {
   Project project;
   bool success;

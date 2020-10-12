@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:project_tracker/model/project/project_phase.dart';
 import 'package:project_tracker/model/project/time_line_data.dart';
 import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/style/fonts.dart';
 import 'package:project_tracker/style/strings.dart';
-import 'package:project_tracker/ui/detail/card.dart';
+import 'package:project_tracker/ui/project_detail/widgets/card.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 

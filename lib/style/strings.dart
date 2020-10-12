@@ -1,7 +1,5 @@
-
 class Strings {
-
-  // auth
+  // auth page strings
   static const String userPageDescription = """Enter Your Username!""";
   static const String passPageDescription = """Enter Your Password!""";
   static const String username = "Username";
@@ -14,7 +12,7 @@ class Strings {
   static const String authing = "Logging In...";
   static const String failedLoggin = "Username or Password is Invalid";
 
-  // main page
+  // main page strings
   static const String reload = "Reload";
   static const String progress = "Progress";
   static const String timeRemained = "Time Remained";
@@ -23,23 +21,26 @@ class Strings {
   // errors
   static const String networkFail = "Network problem, Try Again";
   static const String unknownError = "Unknown Error!";
-  static const String networkFailProject = "Network Problem while fetching projects!";
-  static const String unknownErrorProject = "Unknown error while fetching projects list.";
+  static const String networkFailProject =
+      "Network Problem while fetching projects!";
+  static const String unknownErrorProject =
+      "Unknown error while fetching projects list.";
 
-  // project detail page
+  // project detail page strings
   static const String timeFormat = "yyyy-MM-dd";
   static const String start = "Start";
   static const String end = "End";
   static const String now = "Now";
-  
-  // add project
+
+  // add project strings
   static const String phaseFormNoResult = "No Result passed from Phase Form";
   static const String addPhase = "Add Phase";
   static const String phaseName = "Phase Name";
   static const String phaseDetail = "Phase Detail";
   static const String phaseDeadlineFormat = 'dd-mm-yyyy  hh:mm';
   static const String deadline = 'Deadline';
-  static const String requirementFormNoResult = "No Result Returned from Requirement Form";
+  static const String requirementFormNoResult =
+      "No Result Returned from Requirement Form";
   static const String addRequirement = 'Add Requirement';
   static const String projectName = 'Project Name';
   static const String projectDesc = 'Project Description';
@@ -48,6 +49,4 @@ class Strings {
   static const String projectSuccess = "Project Created Successfully";
   static const String requirement = "Requirement";
   static const String goBack = "Go to projects";
-
-
 }

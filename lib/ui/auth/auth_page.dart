@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:project_tracker/blocs/add_project_form_bloc.dart';
 import 'package:project_tracker/blocs/auth_bloc.dart';
 import 'package:project_tracker/main.dart';
 import 'package:project_tracker/style/colors.dart';
-import 'package:project_tracker/ui/add_project/floating_action_button.dart';
-import 'package:project_tracker/ui/auth/auth_widget_utils.dart';
-import 'package:project_tracker/ui/auth/button.dart';
+import 'package:project_tracker/ui/auth/widgets/auth_widget_utils.dart';
 import 'package:project_tracker/ui/auth/landscape_auth_widget.dart';
 import 'package:project_tracker/ui/auth/portrait_auth_widget.dart';
 

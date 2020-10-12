@@ -1,9 +1,7 @@
 import 'package:project_tracker/model/project/project_phase.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 
-///
-/// A Project
-///
+/// a project
 class Project {
   String name;
   String detail;

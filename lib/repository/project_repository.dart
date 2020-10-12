@@ -17,17 +17,12 @@ import 'package:project_tracker/style/strings.dart';
 /// For Fetching Projects data
 ///
 class ProjectRepository {
-  // clear token
-  void clearToken() async {
-    try {
-      LocalStorage.saveToken(null);
-    } catch (e) {}
-  }
-
   Future<UserResult> fetchUserData() async {
     try {
       var token = await LocalStorage.getToken();
-      Response response = await HttpClient.fetchUserProfile(token);
+      var headers = Map<String, String>();
+      headers['Authorization'] = token;
+      Response response = await HttpClient.get(Urls.fetchProfileURL, headers);
       // var res = jsonDecode(response.body);
       var res = jsonDecode("""
 {
@@ -62,7 +57,9 @@ class ProjectRepository {
   Future<ProjectListResult> fetchProjects() async {
     try {
       var token = await LocalStorage.getToken();
-      Response response = await HttpClient.fetchProjectList(token);
+      Map<String, String> headers = Map();
+      headers['Authorization'] = token;
+      Response response = await HttpClient.get(Urls.projectsURL, headers);
       // var res = List.from(jsonDecode(response.body));
       var res = List.from(jsonDecode("""
 [
@@ -163,7 +160,9 @@ class ProjectRepository {
   Future<ProjectDetailResult> fetchProjectDetails(String projectId) async {
     try {
       var token = await LocalStorage.getToken();
-      Response response = await HttpClient.fetchProjectDetail(projectId, token);
+      Map<String, String> headers = Map();
+      headers['Authorization'] = token;
+      Response response = await HttpClient.get(Urls.projectDetailURL, headers);
       // Project project = Project.fromJson(jsonDecode(response.body), true);
       Project project = Project.fromJson(jsonDecode("""
 {
@@ -258,5 +257,12 @@ class ProjectRepository {
         ..success = false
         ..error = Strings.unknownError;
     }
+  }
+
+  // clear token
+  void clearToken() async {
+    try {
+      LocalStorage.saveToken(null);
+    } catch (e) {}
   }
 }

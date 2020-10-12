@@ -7,9 +7,7 @@ import 'package:project_tracker/model/user/user_result.dart';
 import 'package:project_tracker/repository/project_repository.dart';
 import 'package:project_tracker/ui/auth/auth_page.dart';
 
-///
-/// Main Page Events for Main Page BLoC
-///
+/// Main Page BLoC events
 abstract class MainEvent {}
 
 class MainEventLogout extends MainEvent {}
@@ -18,9 +16,7 @@ class MainEventLoadData extends MainEvent {}
 
 class MainEventRefresh extends MainEvent {}
 
-///
-/// Main Page State for Main Page BLoC
-///
+/// Main Page BLoC states
 abstract class MainState {}
 
 class MainStateLoading extends MainState {}
@@ -35,9 +31,7 @@ class MainStateErrorLoading extends MainState {
   MainStateErrorLoading(this.error);
 }
 
-///
-/// Main Page BLoC as Controller between UI & Logic
-///
+/// BLoC pattern for main page (projects list) events.
 class MainBloc extends Bloc<MainEvent, MainState> {
   final projectRepository = ProjectRepository();
   final GlobalKey<NavigatorState> navigatorKey;

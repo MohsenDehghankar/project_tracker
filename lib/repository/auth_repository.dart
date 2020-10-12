@@ -7,16 +7,17 @@ import 'package:project_tracker/resource/http_client.dart';
 import 'package:project_tracker/resource/local_storage.dart';
 import 'package:project_tracker/style/strings.dart';
 
-///
 /// A Class for Fetching Auth related data
-///
 class AuthRepository {
   Future<AuthResult> authenticate(AuthModel auth) async {
     String message;
     String token;
     var result;
     try {
-      Response response = await HttpClient.authenticate(auth);
+      var params = Map<String, String>();
+      params["username"] = auth.getUser();
+      params["password"] = auth.getPass();
+      Response response = await HttpClient.post(Urls.authenticateURL, params);
       // result = jsonDecode(response.body);
       result = jsonDecode("""
 {
@@ -51,7 +52,5 @@ class AuthRepository {
   }
 }
 
-///
 /// Result Statuses
-///
 enum AuthResultStatus { success, failed }

@@ -4,8 +4,8 @@ import 'package:project_tracker/model/project/project.dart';
 import 'package:project_tracker/model/project/project_phase.dart';
 import 'package:project_tracker/model/project/requirement.dart';
 import 'package:project_tracker/style/colors.dart';
-import 'package:project_tracker/ui/detail/card.dart';
-import 'package:project_tracker/ui/detail/key_value_widget.dart';
+import 'package:project_tracker/ui/project_detail/widgets/card.dart';
+import 'package:project_tracker/ui/project_detail/widgets/key_value_widget.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 
 

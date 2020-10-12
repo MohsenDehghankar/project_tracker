@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/style/fonts.dart';
-import 'package:project_tracker/ui/detail/card.dart';
+import 'package:project_tracker/ui/project_detail/widgets/card.dart';
 
 /// key value widget builder for detail page
 class KeyPairBuilder {

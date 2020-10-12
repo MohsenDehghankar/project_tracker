@@ -2,9 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:project_tracker/model/project/project_phase.dart';
 import 'package:project_tracker/style/strings.dart';
 
-///
 /// Data for showing a project's timeline
-///
 class TimeLineData {
   final String startDate;
   final String endDate;

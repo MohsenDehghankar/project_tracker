@@ -7,7 +7,7 @@ import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/ui/project/bottom_app_bar.dart';
 import 'package:project_tracker/ui/project/floating_action_button.dart';
 import 'package:project_tracker/ui/project/loading_body.dart';
-import 'package:project_tracker/ui/project/main_body.dart';
+import 'package:project_tracker/ui/project/main_body_widget.dart';
 
 class MainPage extends StatefulWidget {
   @override

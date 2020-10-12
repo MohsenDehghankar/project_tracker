@@ -3,18 +3,14 @@ import 'package:project_tracker/model/project/project.dart';
 import 'package:project_tracker/model/project/project_detail_result.dart';
 import 'package:project_tracker/repository/project_repository.dart';
 
-///
-/// Events for Project Detail Page's BLoC
-///
+/// events of project details page BLoC
 abstract class DetailEvent {}
 
 class DetailEventLoadData extends DetailEvent {}
 
 class DetailEventReloadData extends DetailEvent {}
 
-///
-/// States for Project Detail Page's BLoC
-///
+/// States of project detail page BLoC
 abstract class DetailState {}
 
 class DetailStateLoading extends DetailState {}
@@ -27,19 +23,12 @@ class DetailStateDataLoaded extends DetailState {
   Project project;
 }
 
-
-///
-/// BLoC for project detail page
-///
+/// BLoC pattern for project details page
 class ProjectDetailBloc extends Bloc<DetailEvent, DetailState> {
   Project project;
   ProjectRepository repository = ProjectRepository();
 
-
-  ProjectDetailBloc():super(DetailStateLoading());
-
- /* @override
-  DetailState get initialState => DetailStateLoading();*/
+  ProjectDetailBloc() : super(DetailStateLoading());
 
   @override
   Stream<DetailState> mapEventToState(DetailEvent event) async* {

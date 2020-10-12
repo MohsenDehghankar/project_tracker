@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:project_tracker/model/project/project.dart';
 import 'package:project_tracker/model/project/time_line_data.dart';
-import 'package:project_tracker/ui/detail/charts_widget.dart';
-import 'package:project_tracker/ui/detail/key_value_widget.dart';
-import 'package:project_tracker/ui/detail/phases.dart';
-import 'package:project_tracker/ui/detail/timeline_builder.dart';
+import 'package:project_tracker/ui/project_detail/widgets/charts_widget.dart';
+import 'package:project_tracker/ui/project_detail/widgets/key_value_widget.dart';
+import 'package:project_tracker/ui/project_detail/widgets/phases.dart';
+import 'package:project_tracker/ui/project_detail/widgets/timeline_builder.dart';
 
 
 /// main body for detail page

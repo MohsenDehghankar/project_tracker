@@ -1,6 +1,4 @@
-///
-/// A class for keeping authentication parameters.
-///
+/// Keeping authentication parameters.
 class AuthModel {
   String _username;
   String _password;

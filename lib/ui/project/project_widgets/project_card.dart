@@ -5,8 +5,8 @@ import 'package:project_tracker/model/project/project.dart';
 import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/style/fonts.dart';
 import 'package:project_tracker/style/strings.dart';
-import 'package:project_tracker/ui/detail/project_details_page.dart';
-import 'package:project_tracker/ui/project/project_progress_indicator.dart';
+import 'package:project_tracker/ui/project_detail/project_details_page.dart';
+import 'package:project_tracker/ui/project/project_widgets/project_progress_indicator.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 
 /// a project card in projects page

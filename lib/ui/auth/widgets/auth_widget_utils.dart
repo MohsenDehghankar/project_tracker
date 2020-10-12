@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/blocs/auth_bloc.dart';
 import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/style/strings.dart';
-import 'package:project_tracker/ui/auth/button.dart';
-import 'package:project_tracker/ui/auth/textInput.dart';
+import 'package:project_tracker/ui/auth/widgets/button.dart';
+import 'package:project_tracker/ui/auth/widgets/textInput.dart';
 
 ///
 /// Builder for description part in Login

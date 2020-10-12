@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_tracker/blocs/project_detail_bloc.dart';
 import 'package:project_tracker/model/project/project.dart';
 import 'package:project_tracker/style/colors.dart';
-import 'package:project_tracker/ui/detail/detail_page_body.dart';
-import 'package:project_tracker/ui/detail/loading_page.dart';
-import 'package:project_tracker/ui/detail/page_header.dart';
+import 'package:project_tracker/ui/project_detail/body_widget.dart';
+import 'package:project_tracker/ui/project_detail/loading_page.dart';
+import 'package:project_tracker/ui/project_detail/page_header.dart';
 import 'package:project_tracker/ui/project/bottom_app_bar.dart';
 
 class DetailPage extends StatefulWidget {

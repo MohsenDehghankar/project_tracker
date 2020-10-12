@@ -1,8 +1,6 @@
 import 'package:project_tracker/model/project/project.dart';
 
-///
-/// Fetched list of projects for a specific user
-///
+/// projects lists for a user, fetched in projects repository.
 class ProjectListResult {
   List<Project> projects;
   String error;
@@ -23,7 +21,7 @@ class ProjectListResult {
       return;
     }
 
-    // debug
+    // debugging
     /*projects.add(Project("1", "Detail", "client 1", "man", "2020-10-24T11:21:25.825Z"));
     projects.add(Project("2", "Detail", "client 2", "man", "2020-10-26T11:21:25.825Z"));
     projects.add(Project("3", "Detail", "client 3", "man", "2020-12-25T11:21:25.825Z"));

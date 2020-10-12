@@ -1,8 +1,6 @@
 import 'package:project_tracker/repository/auth_repository.dart';
 
-///
-/// Fetched authentication result
-///
+/// Authentication results generated in auth repository.
 class AuthResult {
   String token;
   AuthResultStatus status;

@@ -8,12 +8,12 @@ import 'package:project_tracker/model/project/project_phase.dart';
 import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/style/fonts.dart';
 import 'package:project_tracker/style/strings.dart';
-import 'package:project_tracker/ui/add_project/add_phase_button.dart';
-import 'package:project_tracker/ui/add_project/datetime_field_builder.dart';
-import 'package:project_tracker/ui/add_project/dropdown_field_builder.dart';
+import 'package:project_tracker/ui/add_project/phase_form/add_phase_button.dart';
+import 'package:project_tracker/ui/add_project/form_widgets/datetime_field_builder.dart';
+import 'package:project_tracker/ui/add_project/form_widgets/dropdown_field_builder.dart';
 import 'package:project_tracker/ui/add_project/floating_action_button.dart';
-import 'package:project_tracker/ui/add_project/form_body_widget.dart';
-import 'package:project_tracker/ui/add_project/text_field_builder.dart';
+import 'package:project_tracker/ui/add_project/form_widgets/form_body_widget.dart';
+import 'package:project_tracker/ui/add_project/form_widgets/text_field_builder.dart';
 import 'package:project_tracker/ui/add_project/transparent_appbar.dart';
 import 'package:project_tracker/ui/loading/loadingPage.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_tracker/model/project/project.dart';
 import 'package:project_tracker/style/colors.dart';
-import 'package:project_tracker/ui/project/project_card.dart';
+import 'package:project_tracker/ui/project/project_widgets/project_card.dart';
 
 /// builder for list of projects in projects page
 class ProjectList {

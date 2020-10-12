@@ -6,9 +6,7 @@ import 'package:project_tracker/model/auth/auth_result.dart';
 import 'package:project_tracker/repository/auth_repository.dart';
 import 'package:project_tracker/ui/project/main_page.dart';
 
-///
-/// Auth Events for Auth BLoC
-///
+/// Auth BLoC events
 abstract class AuthEvent {}
 
 class AuthEventAddUsername extends AuthEvent {
@@ -30,9 +28,7 @@ class AuthEventError extends AuthEvent {}
 
 class AuthEventSendLogin extends AuthEvent {}
 
-///
-/// Auth States for Auth BLoC
-///
+/// Auth BLoC States
 abstract class AuthState {}
 
 class AuthStateStart extends AuthState {
@@ -54,9 +50,7 @@ class AuthStateEmptyInput extends AuthState {
 
 class AuthStateLoggedIn extends AuthState {}
 
-///
-/// Auth BLoC as Controller between UI & Logic
-///
+/// BLoC pattern for login process in auth_page
 class AuthBLoC extends Bloc<AuthEvent, AuthState> {
   final AuthModel authModel = AuthModel();
   final AuthRepository authRepository = AuthRepository();

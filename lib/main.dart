@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:project_tracker/blocs/auth_bloc.dart';
 import 'package:project_tracker/style/strings.dart';
-import 'package:project_tracker/ui/add_project/add_project_page.dart';
-import 'package:project_tracker/ui/auth/auth_page.dart';
-import 'package:project_tracker/ui/detail/project_details_page.dart';
 import 'package:project_tracker/ui/loading/loadingPage.dart';
-import 'package:project_tracker/ui/project/main_page.dart';
 
 void main() {
   runApp(MyApp());

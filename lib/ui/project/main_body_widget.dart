@@ -5,8 +5,8 @@ import 'package:project_tracker/blocs/main_bloc.dart';
 import 'package:project_tracker/model/project/project.dart';
 import 'package:project_tracker/style/colors.dart';
 import 'package:project_tracker/ui/project/error_body.dart';
-import 'package:project_tracker/ui/project/profile_widget.dart';
-import 'package:project_tracker/ui/project/project_list.dart';
+import 'package:project_tracker/ui/project/profile_widget/profile_widget.dart';
+import 'package:project_tracker/ui/project/project_widgets/project_list.dart';
 
 /// main body of projects page
 class MainBody {
