@@ -1,64 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
-
+import 'package:project_tracker/style/strings.dart';
 
 /// Form BLoC for adding new project in add_project page.
 class AddProjectFormBloc extends FormBloc<String, String> {
-  final text1 = TextFieldBloc();
-  final text2 = TextFieldBloc();
-  final boolean1 = BooleanFieldBloc();
-  final boolean2 = BooleanFieldBloc();
-  final select1 = SelectFieldBloc(
+  final projectName = TextFieldBloc();
+  final desc = TextFieldBloc();
+  final manager = SelectFieldBloc(
     items: ['First Person', 'Second Person'],
   );
-  final select2 = SelectFieldBloc(
-    items: ['Option 1', 'Option 2'],
-  );
-  final multiSelect1 = MultiSelectFieldBloc<String, dynamic>(
-    items: [
-      'Option 1',
-      'Option 2',
-    ],
-  );
-  final date1 = InputFieldBloc<DateTime, Object>();
-  final dateAndTime1 = InputFieldBloc<DateTime, Object>();
-  final time1 = InputFieldBloc<TimeOfDay, Object>();
+  final deadline = InputFieldBloc<DateTime, Object>();
 
   AddProjectFormBloc() {
     addFieldBlocs(fieldBlocs: [
-      text1,
-      text2,
-      boolean1,
-      boolean2,
-      select1,
-      select2,
-      multiSelect1,
-      date1,
-      dateAndTime1,
-      time1,
+      projectName,
+      desc,
+      manager,
+      deadline,
     ]);
   }
 
   void addErrors() {
-    text1.addFieldError('Awesome Error!');
-    text2.addFieldError('Awsomw');
-    boolean1.addFieldError('Awesome Error!');
-    boolean2.addFieldError('Awesome Error!');
-    select1.addFieldError('Awesome Error!');
-    select2.addFieldError('Awesome Error!');
-    multiSelect1.addFieldError('Awesome Error!');
-    date1.addFieldError('Awesome Error!');
-    dateAndTime1.addFieldError('Awesome Error!');
-    time1.addFieldError('Awesome Error!');
+    projectName.addFieldError('Awesome Error!');
+    desc.addFieldError('Awsomw');
+    manager.addFieldError('Awesome Error!');
+    deadline.addFieldError('Awesome Error!');
   }
 
   @override
   void onSubmitting() async {
     try {
-      await Future<void>.delayed(Duration(milliseconds: 500));
-      emitSuccess(canSubmitAgain: true);
+      if (_validate()) {
+        await Future<void>.delayed(Duration(milliseconds: 500));
+        emitSuccess(canSubmitAgain: true);
+      } else {
+       emitFailure();
+      }
     } catch (e) {
       emitFailure();
     }
+  }
+
+  bool _validate() {
+    bool result = true;
+    if (projectName.value.isEmpty) {
+      projectName.addFieldError(Strings.fieldEmpty);
+      result = false;
+    }
+    if (desc.value.isEmpty) {
+      desc.addFieldError(Strings.fieldEmpty);
+      result = false;
+    }
+    if (manager.value == null) {
+      manager.addFieldError(Strings.fieldEmpty);
+      result = false;
+    }
+    if (deadline.value == null) {
+      deadline.addFieldError(Strings.fieldEmpty);
+      result = false;
+    }
+    return result;
   }
 }

@@ -59,16 +59,16 @@ class AddProjectFormState extends State<AddProjectPage> {
                             Column(
                               children: <Widget>[
                                 TextFieldBuilder.build(Strings.projectName,
-                                    Icon(Icons.title), formBloc.text1),
+                                    Icon(Icons.title), formBloc.projectName),
                                 TextFieldBuilder.build(Strings.projectDesc,
-                                    Icon(Icons.description), formBloc.text2),
+                                    Icon(Icons.description), formBloc.desc),
                                 DropDownFieldBuilder.build(
-                                    formBloc.select1,
+                                    formBloc.manager,
                                     Strings.projectManager,
                                     'choose',
                                     Icon(Icons.portrait)),
                                 DateTimeFieldBuilder.build(
-                                    formBloc.date1,
+                                    formBloc.deadline,
                                     Strings.phaseDeadlineFormat,
                                     Strings.projectDeadline,
                                     'Date',
@@ -169,7 +169,7 @@ class LoadingDialog extends StatelessWidget {
             height: 80,
             padding: EdgeInsets.all(12.0),
             child: CircularProgressIndicator(
-              backgroundColor: Colors.black,
+              backgroundColor: Colors.white70,
             ),
           ),
         ),

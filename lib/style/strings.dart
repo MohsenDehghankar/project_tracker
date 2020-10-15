@@ -49,4 +49,6 @@ class Strings {
   static const String projectSuccess = "Project Created Successfully";
   static const String requirement = "Requirement";
   static const String goBack = "Go to projects";
+  static const String fieldEmpty = "This field should not be empty.";
+  static const String invalidPrio = "Priority is invalid";
 }

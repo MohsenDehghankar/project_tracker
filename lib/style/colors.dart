@@ -35,7 +35,7 @@ class ConstColors {
   static const Color chipBackColor = Color(0xffDBAD6A);
 
   // detail page colors
-  static const Color cardBackground = Color(0xeeFAF8F0);
+  static const Color cardBackground = Colors.white;
   static const Color cardShadow = Color(0xd059666B);
   static const Color cardTopBar = Color(0xcc957B55);
   static const Color cardBar = Color(0xff4F4840);

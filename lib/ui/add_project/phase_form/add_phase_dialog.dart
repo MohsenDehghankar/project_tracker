@@ -39,7 +39,10 @@ class PhaseFormState extends State<PhaseForm> {
           backgroundColor: ConstColors.chipBackColor,
           avatar: CircleAvatar(
             backgroundColor: Colors.black,
-            child: Icon(Icons.close, color: Colors.white,),
+            child: Icon(
+              Icons.close,
+              color: Colors.white,
+            ),
           ),
           label: Text(rq.title),
           onPressed: () {
@@ -62,17 +65,17 @@ class PhaseFormState extends State<PhaseForm> {
       BuildContext context, AddPhaseFormBloc formBloc, List<Requirement> reqs) {
     return [
       TextFieldBuilder.build(
-          Strings.phaseName, Icon(Icons.title), formBloc.text1),
+          Strings.phaseName, Icon(Icons.title), formBloc.phaseName),
       TextFieldBuilder.build(
-          Strings.phaseDetail, Icon(Icons.title), formBloc.text2),
-      DateTimeFieldBuilder.build(formBloc.date1, Strings.phaseDeadlineFormat,
+          Strings.phaseDetail, Icon(Icons.title), formBloc.desc),
+      DateTimeFieldBuilder.build(formBloc.deadline, Strings.phaseDeadlineFormat,
           Strings.deadline, '', Icon(Icons.calendar_today)),
       getReqs(reqs),
       AddRequirementButton.build(() {
         showDialog(
             context: context,
             builder: (context) {
-              return RequirementDialogBuilder.build(context);
+              return RequirementDialogBuilder().build(context);
             }).then((value) {
           try {
             setState(() {
@@ -134,12 +137,14 @@ class PhaseFormState extends State<PhaseForm> {
                       onPressed: () {
                         var formBloc =
                             BlocProvider.of<AddPhaseFormBloc>(context);
-                        Navigator.of(context).pop([
-                          formBloc.text1.value,
-                          formBloc.text2.value,
-                          formBloc.date1.value,
-                          requirements
-                        ]);
+                        if (formBloc.validate()) {
+                          Navigator.of(context).pop([
+                            formBloc.phaseName.value,
+                            formBloc.desc.value,
+                            formBloc.deadline.value,
+                            requirements
+                          ]);
+                        }
                       },
                       child: Text("Add", style: TextStyle(color: Colors.black)),
                     );
@@ -152,22 +157,39 @@ class PhaseFormState extends State<PhaseForm> {
 
 /// Phase form BLoC
 class AddPhaseFormBloc extends FormBloc<String, String> {
-  final text1 = TextFieldBloc();
-  final text2 = TextFieldBloc();
-  final date1 = InputFieldBloc<DateTime, Object>();
+  final phaseName = TextFieldBloc();
+  final desc = TextFieldBloc();
+  final deadline = InputFieldBloc<DateTime, Object>();
 
   AddPhaseFormBloc() {
     addFieldBlocs(fieldBlocs: [
-      text1,
-      text2,
-      date1,
+      phaseName,
+      desc,
+      deadline,
     ]);
   }
 
+  bool validate() {
+    bool result = true;
+    if (phaseName.value.isEmpty) {
+      phaseName.addFieldError(Strings.fieldEmpty);
+      result = false;
+    }
+    if (desc.value.isEmpty) {
+      desc.addFieldError(Strings.fieldEmpty);
+      result = false;
+    }
+    if (deadline.value == null) {
+      deadline.addFieldError(Strings.fieldEmpty);
+      result = false;
+    }
+    return result;
+  }
+
   void addErrors() {
-    text1.addFieldError('Error!');
-    text2.addFieldError('Error');
-    date1.addFieldError('Error!');
+    phaseName.addFieldError('Error!');
+    desc.addFieldError('Error');
+    deadline.addFieldError('Error!');
   }
 
   @override

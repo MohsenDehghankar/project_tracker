@@ -20,9 +20,6 @@ class FormBodyBuilder {
             },
             onFailure: (context, state) {
               LoadingDialog.hide(context);
-
-              Scaffold.of(context)
-                  .showSnackBar(SnackBar(content: Text(state.failureResponse)));
             },
             child: Padding(
                 padding: EdgeInsets.only(top: AppBar().preferredSize.height),
