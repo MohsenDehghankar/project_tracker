@@ -32,11 +32,13 @@ class Project {
     this.phases = List<Phase>();
     if (detail) {
       for (var phs in phases) {
-        this.phases.add(Phase.fromJson(phs));
+        Phase phase = Phase.fromJson(phs);
+        this.phases.add(phase);
       }
     } else {
       for (var phs in phases) {
-        this.phases.add(Phase.buildBrief(phs));
+        Phase phase = Phase.buildBrief(phs);
+        this.phases.add(phase);
       }
     }
     getNearestDate();
@@ -96,16 +98,16 @@ class Project {
   }
 
   // get deadline list of phases as String
-  List<String> getPhaseDeadlineList(){
+  List<String> getPhaseDeadlineList() {
     List<String> result = List<String>();
-    for (var phs in phases){
+    for (var phs in phases) {
       result.add(phs.deadline);
     }
     return result;
   }
 
   // project dynamic key values
-  Map<String, String> getKeyValues(){
+  Map<String, String> getKeyValues() {
     // todo
     Map<String, String> result = Map();
     result['name'] = name;
@@ -119,7 +121,7 @@ class Project {
     return result;
   }
 
-  String getNearestJalali(){
+  String getNearestJalali() {
     var f = Jalali.fromDateTime(nearest).formatter;
     return '${f.yyyy}/${f.mm}/${f.dd}';
   }

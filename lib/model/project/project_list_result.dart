@@ -13,7 +13,10 @@ class ProjectListResult {
 
     try {
       for (var obj in json) {
-        projects.add(Project.fromJson(obj, false));
+        Project project = Project.fromJson(obj, false);
+        if (DateTime.parse(project.deadline).isAfter(DateTime.now())) {
+          projects.add(project);
+        }
       }
     } on Exception {
       this.error = "Error in creating projects from Json";
